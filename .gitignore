@@ -1,0 +1,11 @@
+# System & IDE files
+.agents/
+.antigravitycli/
+.claude/
+.gemini/
+.idea/
+.vscode/
+*.log
+
+# Dynamic application files
+counter.txt

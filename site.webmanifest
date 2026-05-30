@@ -1,0 +1,17 @@
+{
+  "name": "Füreinander Freiburg",
+  "short_name": "Füreinander",
+  "description": "Selbsthilfegruppe für zweifelnde und ausgestiegene Zeugen Jehovas in Freiburg. Offener Austausch, gegenseitige Unterstützung – von Menschen mit eigener Erfahrung.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FEFAE0",
+  "theme_color": "#a9e2cc",
+  "icons": [
+    {
+      "src": "grafik/F%C3%BCreinander%20Freiburg.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

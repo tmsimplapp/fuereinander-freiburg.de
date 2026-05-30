@@ -1,0 +1,744 @@
+html { scroll-behavior: smooth; }
+
+body {
+  background: linear-gradient(to bottom, #ffffff 0%, #f0faf6 100%);
+  background-attachment: fixed;
+  font-family: 'Source Serif 4', Georgia, serif;
+}
+
+/* Scroll-Offset für Fixed Navbar (Anker-Links) */
+[id] {
+  scroll-margin-top: 72px;
+}
+
+/* Grain-Textur über Hero */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* Scroll-Reveal Animationen */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.25s; }
+.reveal-delay-3 { transition-delay: 0.4s; }
+.reveal-delay-4 { transition-delay: 0.55s; }
+
+/* Erweiterte Reveal-Varianten */
+.reveal-slide-left {
+  opacity: 0;
+  transform: translateX(-48px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal-slide-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-slide-right {
+  opacity: 0;
+  transform: translateX(48px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal-slide-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Hero-Text-Animation beim Laden */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-anim-1 { animation: fadeUp 0.8s ease 0.1s both; }
+.hero-anim-2 { animation: fadeUp 0.8s ease 0.3s both; }
+.hero-anim-3 { animation: fadeUp 0.8s ease 0.5s both; }
+.hero-anim-4 { animation: fadeUp 0.8s ease 0.7s both; }
+
+/* Parallax-Effekt für Hero-Bild */
+.hero-full-img {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .rule-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero-anim-1, .hero-anim-2, .hero-anim-3, .hero-anim-4 {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Dekorative Trennlinie */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.ornament::before,
+.ornament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #E2C2A2, transparent);
+}
+
+/* Button-Hover */
+.btn-primary {
+  background-color: #a9e2cc;
+  color: #1a2820;
+  border: 1.5px solid #a9e2cc;
+  transition: background-color 0.25s, border-color 0.25s, transform 0.2s, box-shadow 0.25s;
+}
+.btn-primary:hover {
+  background-color: #8ed4b8;
+  border-color: #8ed4b8;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(169, 226, 204, 0.35);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Karten */
+.card-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(226, 194, 162, 0.25);
+}
+
+/* Regel-Karten */
+.rule-card {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.rule-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Dekorativer Hintergrundkreis im Hero */
+.hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+/* ─── Hero "Links-unten verankert" ─── */
+
+.hero-full {
+  position: relative;
+  min-height: 100dvh; /* Dynamic viewport height für mobile Browser */
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+/* Pusteblume: vollflächig, links-unten verankert */
+.hero-full-img {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: max(3rem, calc(50% - 640px));
+  width: clamp(560px, 55vw, 900px);
+  height: auto;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Text: oben-rechts positioniert, mit max-width-Container */
+.hero-full-content {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh; /* Dynamic viewport height für mobile Browser */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  text-align: right;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 3rem 4rem 3rem;
+}
+
+.hero-full-title {
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  max-width: 480px;
+  margin-left: auto;
+}
+
+.hero-full-sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  max-width: 420px;
+  margin-left: auto;
+}
+
+.hero-full-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+@media (min-width: 480px) {
+  .hero-full-cta {
+    flex-direction: row;
+    gap: 1.5rem;
+    align-items: center;
+  }
+}
+
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.5;
+  z-index: 2;
+}
+
+/* Tablet + Mobil: Bild hinter Text, alles zentriert */
+@media (max-width: 900px) {
+  .hero-full-content {
+    align-items: center;
+    text-align: center;
+    padding: 3rem 2rem 5rem;
+  }
+
+  .hero-full-img {
+    width: min(85vw, 500px);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.2;
+    z-index: 0;
+  }
+
+  .hero-full-title {
+    margin-left: 0;
+    max-width: 100%;
+  }
+
+  .hero-full-sub {
+    margin-left: 0;
+    max-width: 100%;
+  }
+
+  .hero-full-cta {
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+/* Mobil */
+@media (max-width: 640px) {
+  .hero-full-content {
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .hero-scroll-indicator {
+    display: none;
+  }
+}
+
+/* Nav-Links: aktiver Zustand auf Touch */
+.nav-link:active { color: #3d3225; }
+
+/* Header schrumpft beim Scrollen */
+nav {
+  transition: padding 0.3s ease, background-color 0.3s ease;
+}
+
+nav.scrolled {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+  background: rgba(254, 250, 224, 0.95) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+nav.scrolled img {
+  height: 1.75rem !important; /* h-7 statt h-8 */
+}
+
+/* Logo: Klicks durchreichen an umgebenden Link */
+nav img {
+  pointer-events: none;
+}
+
+/* Mobile: Logo zentrieren */
+@media (max-width: 767px) {
+  nav > div.flex.items-center.justify-between {
+    justify-content: center !important;
+  }
+}
+
+/* Screen Reader Only - visuell versteckt, aber für Screen Reader verfügbar */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ═══════════════════════════════════════
+   FLOATING ACTION BUTTON (FAB) - Mobile Only
+════════════════════════════════════════ */
+.mobile-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+
+  /* Größe & Form */
+  width: 56px;
+  height: 56px;
+  border-radius: 18px; /* Etwas runder für weicheren Look */
+
+  /* Styling - Premium Floating Look */
+  background: linear-gradient(135deg, #a9e2cc 0%, #8ed4b8 100%);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+
+  /* Mehrschichtiger Schatten für starken Floating-Effekt */
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.3),     /* Innerer Glanz oben */
+    0 0 0 1px rgba(169, 226, 204, 0.3),           /* Subtiler äußerer Ring */
+    0 8px 16px rgba(169, 226, 204, 0.5),          /* Farbiger Mint-Schatten */
+    0 16px 32px rgba(0, 0, 0, 0.2),               /* Tiefer dunkler Schatten */
+    0 24px 48px rgba(0, 0, 0, 0.15);              /* Ambient Shadow */
+
+  border: none;
+
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  /* Interaktion */
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease,
+              background-color 0.2s ease;
+}
+
+.mobile-fab:hover {
+  background: linear-gradient(135deg, #8ed4b8 0%, #7ac4a8 100%);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.4),
+    0 0 0 1px rgba(169, 226, 204, 0.4),
+    0 12px 24px rgba(169, 226, 204, 0.6),
+    0 20px 40px rgba(0, 0, 0, 0.25),
+    0 32px 64px rgba(0, 0, 0, 0.18);
+}
+
+.mobile-fab:active {
+  transform: translateY(-1px) scale(0.96);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.2),
+    0 0 0 1px rgba(169, 226, 204, 0.2),
+    0 4px 12px rgba(169, 226, 204, 0.4),
+    0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-fab:focus-visible {
+  outline: 3px solid #a9e2cc;
+  outline-offset: 3px;
+}
+
+/* FAB ausblenden wenn Menü geöffnet ist */
+.mobile-fab.hidden-fab {
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+}
+
+/* FAB Animation: Hamburger → X */
+.mobile-fab.active span:nth-child(1) {
+  transform: translateY(5.5px) rotate(45deg);
+}
+
+.mobile-fab.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-fab.active span:nth-child(3) {
+  transform: translateY(-5.5px) rotate(-45deg);
+}
+
+/* ═══════════════════════════════════════
+   MOBILE MENU OVERLAY - Bottom Sheet
+════════════════════════════════════════ */
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-menu-overlay:not(.hidden) {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-menu-sheet {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(254, 250, 224, 0.98);
+  backdrop-filter: blur(12px);
+  border-radius: 24px 24px 0 0;
+  padding: 24px 24px 32px;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  max-height: 80vh;
+  overflow-y: auto;
+
+  /* Touch-Optimierung für Swipe-Gesten */
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-menu-overlay:not(.hidden) .mobile-menu-sheet {
+  transform: translateY(0);
+}
+
+/* Bottom Sheet: Handle (visueller Indikator) */
+.mobile-menu-sheet::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 4px;
+  background: #E2C2A2;
+  border-radius: 2px;
+}
+
+/* Footer: Glasmorphism-Effekt */
+.footer-glass {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(226, 194, 162, 0.3);
+  box-shadow: 0 -4px 20px rgba(169, 226, 204, 0.1);
+}
+
+/* Hero: Transparenter Hintergrund (nutzt Body-Gradient) */
+.hero-full {
+  background: transparent;
+}
+
+/* Mobile Touch Feedback für Links */
+a:active:not(.btn-primary):not(.mobile-nav-link) {
+  opacity: 0.7;
+}
+
+/* Mobile Navigation Links (Button-Style) */
+.mobile-nav-link:active {
+  transform: scale(0.97);
+  opacity: 0.9;
+}
+
+/* Touch Action Optimization - verhindert 300ms Tap-Delay */
+#nav-toggle,
+.mobile-nav-link,
+.btn-primary {
+  touch-action: manipulation;
+}
+
+/* Focus States für Tastatur-Navigation */
+#nav-toggle:focus-visible {
+  outline: 2px solid #a9e2cc;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+.mobile-nav-link:focus-visible,
+.btn-primary:focus-visible {
+  outline: 2px solid #a9e2cc;
+  outline-offset: 2px;
+}
+
+/* Aktive Seite Indikator */
+.mobile-nav-link[aria-current="page"] {
+  position: relative;
+  background: #a9e2cc !important;
+  border-color: #a9e2cc !important;
+  color: #1a2820 !important;
+  font-weight: 600;
+}
+
+.mobile-nav-link[aria-current="page"]::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  width: 4px;
+  height: 16px;
+  background: #5fa88a;
+  border-radius: 2px;
+}
+
+/* Hamburger-Button Animation */
+#nav-toggle span {
+  transform-origin: center;
+}
+
+/* ═══════════════════════════════════════
+   STICKY PHONE BAR - Immer sichtbar unten
+════════════════════════════════════════ */
+.sticky-phone-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 45;
+
+  /* Glasmorphism-Effekt */
+  background: rgba(169, 226, 204, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  /* Schatten für Floating-Effekt */
+  box-shadow: 0 -4px 16px rgba(169, 226, 204, 0.3),
+              0 -2px 8px rgba(0, 0, 0, 0.1);
+
+  /* Safe Area für iPhone (Notch/Home Indicator) */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Animation */
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1),
+              opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* Bar erscheint nach Scroll */
+.sticky-phone-bar.visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Inhalt der Bar */
+.sticky-phone-bar-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* Telefonnummer (linksbündig auf Mobile, zentriiert auf Desktop) */
+.sticky-phone-number {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a2820;
+  letter-spacing: 0.02em;
+}
+
+/* Call-Button (rechtsbündig) */
+.sticky-phone-button {
+  flex-shrink: 0;
+  padding: 12px 24px;
+  border-radius: 999px;
+  background: #1a2820;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+
+.sticky-phone-button:hover {
+  background: #2d3f35;
+  transform: translateY(-2px);
+}
+
+.sticky-phone-button:active {
+  transform: translateY(0);
+}
+
+/* Desktop: Zentriertes Layout mit separatem Button */
+@media (min-width: 768px) {
+  .sticky-phone-bar-content {
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .sticky-phone-number {
+    font-size: 20px;
+  }
+
+  .sticky-phone-button {
+    padding: 14px 32px;
+    font-size: 18px;
+  }
+}
+
+/* Mobile: Gesamte Bar wird zum sekundären Button */
+@media (max-width: 767px) {
+  .sticky-phone-bar-content {
+    padding: 12px 16px;
+    gap: 0;
+  }
+
+  /* Gesamte Bar ist ein Link-Button mit Button-Style */
+  .sticky-phone-bar-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 14px 20px;
+    text-decoration: none;
+    color: #1a2820;
+    touch-action: manipulation;
+
+    /* Sekundärer Button-Style */
+    background: rgba(169, 226, 204, 0.3);
+    border: 2px solid #1a2820;
+    border-radius: 999px;
+
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+
+    /* Platz für FAB rechts lassen */
+    margin-right: 72px; /* FAB: 56px + 16px Abstand */
+  }
+
+  .sticky-phone-bar-link:active {
+    background: rgba(142, 212, 184, 0.5);
+    border-color: #2d3f35;
+    transform: scale(0.98);
+  }
+
+  .sticky-phone-number {
+    font-size: 17px;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  /* Desktop-Button auf Mobile verstecken */
+  .sticky-phone-button {
+    display: none;
+  }
+
+  /* Icon rechts wird auf Mobile nicht gebraucht */
+  .sticky-phone-icon-right {
+    display: none;
+  }
+}
+
+/* Mobile klein: Noch kompakter */
+@media (max-width: 479px) {
+  .sticky-phone-bar-content {
+    padding: 10px 12px;
+  }
+
+  .sticky-phone-bar-link {
+    padding: 12px 16px;
+    margin-right: 68px; /* Etwas weniger Abstand auf kleinen Screens */
+  }
+
+  .sticky-phone-number {
+    font-size: 16px;
+    gap: 8px;
+  }
+}
+
+/* Reduced Motion: Deaktiviere alle Animationen */
+@media (prefers-reduced-motion: reduce) {
+  #nav-toggle-desktop span,
+  #nav-toggle-fab span,
+  .mobile-nav-link,
+  .btn-primary,
+  .card-hover,
+  .reveal,
+  .mobile-fab,
+  .mobile-menu-overlay,
+  .mobile-menu-sheet,
+  .sticky-phone-bar {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  /* Bottom Sheet erscheint sofort ohne Animation */
+  .mobile-menu-overlay:not(.hidden) .mobile-menu-sheet {
+    transform: translateY(0);
+  }
+
+  /* Sticky Bar erscheint sofort */
+  .sticky-phone-bar.visible {
+    transform: translateY(0);
+  }
+}

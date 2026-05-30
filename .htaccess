@@ -1,0 +1,29 @@
+# Apache-Konfiguration für saubere URLs
+# Projekt: Füreinander Freiburg Landingpage
+
+# Aktiviere Rewrite-Engine
+RewriteEngine On
+RewriteBase /
+
+# 1. Leite /index auf / um (Startseite soll immer nur / zeigen)
+RewriteCond %{THE_REQUEST} ^GET\ /index(\.html)?\ HTTP
+RewriteRule ^index(\.html)?$ / [R=301,L]
+
+# 2. Entferne .html-Endungen aus der URL (301 Permanent Redirect)
+RewriteCond %{THE_REQUEST} ^GET\ (.*)\.html\ HTTP
+RewriteRule (.*)\.html$ /$1 [R=301,L]
+
+# 3. Füge .html intern hinzu, wenn Datei existiert
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L,QSA]
+
+# 4. DirectoryIndex für Startseite
+DirectoryIndex index.html
+
+# Sicherheit: Verhindere Zugriff auf .htaccess selbst
+<Files .htaccess>
+Order allow,deny
+Deny from all
+</Files>
