@@ -147,7 +147,7 @@
         "name": "Kostet die Teilnahme an der Selbsthilfegruppe Füreinander Freiburg etwas?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Nein. Die Teilnahme ist kostenlos und unverbindlich."
+          "text": "Nein. Die Teilnahme ist kostenlos."
         }
       },
       {
@@ -155,7 +155,7 @@
         "name": "Wie kann ich mich bei der Gruppe Füreinander Freiburg anmelden?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Eine formelle Anmeldung ist nicht nötig. Schreib uns einfach eine E-Mail an kontakt@fuereinander-freiburg.de – wir antworten und informieren dich über das nächste Treffen."
+          "text": "Die Teilnahme über eine unserer Kontaktmöglichkeiten anmelden. Schreib uns einfach eine E-Mail an kontakt@fuereinander-freiburg.de – wir antworten und informieren dich."
         }
       },
       {
@@ -234,6 +234,7 @@
       <div class="hidden md:flex items-center gap-6">
         <a href="index.html" class="nav-link font-body text-sm transition-colors" style="color:#5c4e3a;" onmouseover="this.style.color='#3d3225'" onmouseout="this.style.color='#5c4e3a'">Startseite</a>
         <a href="partner.html" class="nav-link font-body text-sm transition-colors" style="color:#5c4e3a;" onmouseover="this.style.color='#3d3225'" onmouseout="this.style.color='#5c4e3a'">Partner</a>
+        <a href="termine.html" class="nav-link font-body text-sm transition-colors" style="color:#5c4e3a;" onmouseover="this.style.color='#3d3225'" onmouseout="this.style.color='#5c4e3a'">Termine</a>
         <a href="rechtliches.html" class="nav-link font-body text-sm transition-colors" style="color:#5c4e3a;" onmouseover="this.style.color='#3d3225'" onmouseout="this.style.color='#5c4e3a'">Rechtliches</a>
         <a href="#kontakt" class="btn-primary font-body text-sm font-semibold px-5 py-2.5 rounded-full">Kontakt</a>
       </div>
@@ -257,6 +258,7 @@
         <!-- Navigation -->
         <a href="index.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center" aria-current="page" style="min-height: 44px; display: flex; align-items: center; justify-content: center; background:#fff4d6; border: 1px solid #E2C2A2; color:#5c4e3a;">Startseite</a>
         <a href="partner.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center" style="min-height: 44px; display: flex; align-items: center; justify-content: center; background:#fff4d6; border: 1px solid #E2C2A2; color:#5c4e3a;">Partner</a>
+        <a href="termine.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center" style="min-height: 44px; display: flex; align-items: center; justify-content: center; background:#fff4d6; border: 1px solid #E2C2A2; color:#5c4e3a;">Termine</a>
         <a href="rechtliches.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center" style="min-height: 44px; display: flex; align-items: center; justify-content: center; background:#fff4d6; border: 1px solid #E2C2A2; color:#5c4e3a;">Rechtliches</a>
 
         <!-- Separator -->
@@ -372,13 +374,22 @@
            style="min-height: 44px; display: inline-flex; align-items: center;">
           Kontakt aufnehmen
         </a>
-        <a href="#ueber-uns"
-           class="font-body text-base font-medium underline underline-offset-4 transition-colors"
-           style="color:#5c4e3a; min-height: 44px; display: inline-flex; align-items: center;"
-           onmouseover="this.style.color='#3d3225'"
-           onmouseout="this.style.color='#5c4e3a'">
-          Mehr erfahren
-        </a>
+        <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center">
+          <a href="termine.html"
+             class="font-body text-base font-medium underline underline-offset-4 transition-colors"
+             style="color:#5fa88a; min-height: 44px; display: inline-flex; align-items: center;"
+             onmouseover="this.style.color='#4a8a6e'"
+             onmouseout="this.style.color='#5fa88a'">
+            Nächste Termine
+          </a>
+          <a href="#ueber-uns"
+             class="font-body text-base font-medium transition-colors"
+             style="color:#8a7a60; min-height: 44px; display: inline-flex; align-items: center;"
+             onmouseover="this.style.color='#3d3225'"
+             onmouseout="this.style.color='#8a7a60'">
+            Mehr erfahren
+          </a>
+        </div>
       </div>
 
     </div>
@@ -643,7 +654,7 @@
             </button>
           </dt>
           <dd class="faq-answer hidden px-7 py-5" style="background:#FEFAE0;">
-            <p class="font-body text-base leading-relaxed" style="color:#5c4e3a;">Nein. Die Teilnahme ist kostenlos und unverbindlich. Eine formelle Anmeldung ist nicht nötig.</p>
+            <p class="font-body text-base leading-relaxed" style="color:#5c4e3a;">Nein. Die Teilnahme ist kostenlos. Die Teilnahme jedoch bitte über eine unserer Kontaktmöglichkeiten anmelden.</p>
           </dd>
         </div>
 
@@ -659,7 +670,7 @@
             </button>
           </dt>
           <dd class="faq-answer hidden px-7 py-5" style="background:#FEFAE0;">
-            <p class="font-body text-base leading-relaxed" style="color:#5c4e3a;">Eine formelle Anmeldung ist nicht nötig. Schreib uns einfach eine E-Mail an <a href="mailto:kontakt@fuereinander-freiburg.de" style="color:#5fa88a; text-decoration:underline;">kontakt@fuereinander-freiburg.de</a> – wir antworten und informieren dich über das nächste Treffen.</p>
+            <p class="font-body text-base leading-relaxed" style="color:#5c4e3a;">Die Teilnahme über eine unserer Kontaktmöglichkeiten anmelden. Schreib uns einfach eine E-Mail an <a href="mailto:kontakt@fuereinander-freiburg.de" style="color:#5fa88a; text-decoration:underline;">kontakt@fuereinander-freiburg.de</a> – wir antworten und informieren dich über die nächsten Schritte.</p>
           </dd>
         </div>
 
@@ -885,7 +896,7 @@
       </div>
 
       <!-- Nächstes Treffen -->
-      <div class="reveal reveal-delay-2 card-hover rounded-2xl p-6 text-center max-w-5xl mx-auto"
+      <div class="reveal reveal-delay-2 card-hover rounded-2xl p-6 text-center max-w-5xl mx-auto flex flex-col items-center"
            style="background:#ffda69; border: 1px solid #E2C2A2;">
         <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-5"
              style="background:#a9e2cc;">
@@ -894,14 +905,18 @@
           </svg>
         </div>
         <h3 class="font-display text-lg font-semibold mb-3" style="color:#3d3225;">Nächstes Treffen</h3>
-        <p class="font-body text-base" style="color:#5c4e3a;">
-          Das Datum des nächsten Treffens wird noch bekannt gegeben.
+        <p class="font-body text-base font-medium mb-1" style="color:#5c4e3a;">
+          Samstag, 27. Juni 2026<br>
+          <span class="text-sm">14:00 – 16:00 Uhr</span>
         </p>
-        <p class="font-body text-sm mt-2" style="color:#8a7a60;">
+        <p class="font-body text-sm mt-2 mb-5" style="color:#8a7a60;">
           <span itemscope itemtype="https://schema.org/Place">
-            <span itemprop="addressLocality">Freiburg im Breisgau</span>
+            <span itemprop="addressLocality">Freiburg im Breisgau</span> (genauer Ort nach Anmeldung)
           </span>
         </p>
+        <a href="termine.html" class="btn-primary font-body text-sm font-semibold px-6 py-3 rounded-full" style="min-height:44px; display:inline-flex; align-items:center;">
+          Alle Termine ansehen
+        </a>
       </div>
     </div>
   </section>
@@ -921,6 +936,16 @@
                onmouseover="this.style.color='#3d3225'"
                onmouseout="this.style.color='#5c3d1e'">
               Rechtliches
+            </a>
+          </li>
+          <li><span class="font-body text-xs" style="color:#5c3d1e;">·</span></li>
+          <li>
+            <a href="termine.html"
+               class="font-body text-xs transition-colors"
+               style="color:#5c3d1e; min-height: 32px; display: inline-flex; align-items: center;"
+               onmouseover="this.style.color='#3d3225'"
+               onmouseout="this.style.color='#5c3d1e'">
+              Termine
             </a>
           </li>
           <li><span class="font-body text-xs" style="color:#5c3d1e;">·</span></li>

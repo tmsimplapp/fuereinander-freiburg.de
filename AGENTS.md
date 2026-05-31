@@ -8,7 +8,7 @@ Gilt zusätzlich: `C:\Users\tmass\OneDrive\Megamind\AGENTS.md` (Token-Effizienz,
 
 Landingpage für die Selbsthilfegruppe **Füreinander Freiburg** – eine Selbsthilfegruppe für zweifelnde und ausgestiegene Zeugen Jehovas.
 
-**Einzelseite ohne weitere verknüpfte Unterseiten** (außer einer separaten Seite „Rechtliche Hinweise").
+**Startseite mit verknüpften Unterseiten** (Termine, Partner, Rechtliche Hinweise).
 
 ## Projektinformationen
 
@@ -44,7 +44,7 @@ Weiterführende Projektdokumentation und Entscheidungen befinden sich hier:
 
 ## Technischer Stack
 
-- **HTML-Dateien**: `index.html`, `partner.html`, `rechtliches.html`
+- **HTML-Dateien**: `index.html`, `termine.html`, `partner.html`, `rechtliches.html`
 - **CSS**: Tailwind CSS via CDN + eigene Klassen in `styles.css`
 - Kein Build-Prozess, kein JavaScript-Framework, keine externen Abhängigkeiten
 - Die Seite wird als statische Datei ausgeliefert
@@ -84,6 +84,7 @@ Die Gruppe hat folgende Regeln, die auf der Website widergespiegelt werden solle
 - Kein Kritisieren der Wachtturm-Gesellschaft
 - Neutraler, persönlicher Austausch
 - Die Gruppe ist kein Ersatz für psychologische Therapie
+- Teilnahme nur mit vorheriger Anmeldung über die Kontaktmöglichkeiten
 
 ## Quellentext der Gruppe (1:1 verwenden)
 
@@ -98,4 +99,5 @@ Die Gruppe hat folgende Regeln, die auf der Website widergespiegelt werden solle
 ## Offene Aufgaben
 
 - [ ] Platzhalter in der Seite „Rechtliche Hinweise" befüllen (Name, Ort, E-Mail)
-- [ ] Ort und Zeit der Treffen eintragen (aktuell noch Platzhalter im Kontaktabschnitt)
+- [x] Ort und Zeit der Treffen auf der Terminseite eintragen
+- [ ] Zukünftige Idee: Ein kleines Anmeldeformular integrieren
