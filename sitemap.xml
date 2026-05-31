@@ -18,4 +18,10 @@
     <priority>0.3</priority>
     <changefreq>yearly</changefreq>
   </url>
+  <url>
+    <loc>https://fuereinander-freiburg.de/termine.html</loc>
+    <lastmod>2026-05-31</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
 </urlset>

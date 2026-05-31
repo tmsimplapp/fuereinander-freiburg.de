@@ -895,6 +895,77 @@
 
       </div>
 
+      <!-- Kontaktformular -->
+      <div class="reveal reveal-delay-2 card-hover rounded-2xl p-6 md:p-8 mb-6 max-w-5xl mx-auto"
+           style="background:#FEFAE0; border: 1px solid #E2C2A2;">
+        
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center"
+               style="background:#a9e2cc;">
+            <svg class="w-5 h-5" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <h3 class="font-display text-xl font-semibold" style="color:#3d3225;">Schreib uns eine Nachricht</h3>
+        </div>
+
+        <form id="contact-form" action="mailer.php" method="POST" class="space-y-5">
+          <!-- Honeypot -->
+          <div style="display:none;" aria-hidden="true">
+            <label for="website">Website</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <!-- Name -->
+          <div>
+            <label for="name" class="block font-body text-sm font-semibold mb-2" style="color:#3d3225;">Name / Pseudonym <span style="color:#e05252;">*</span></label>
+            <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-xl font-body text-base" style="background:#fff; border: 1px solid #E2C2A2; color:#3d3225;">
+          </div>
+
+          <!-- Kontaktwunsch -->
+          <div>
+            <label for="contact-method" class="block font-body text-sm font-semibold mb-2" style="color:#3d3225;">Wie dürfen wir dir antworten? <span style="color:#e05252;">*</span></label>
+            <select id="contact-method" name="contact_method" required class="w-full px-4 py-3 rounded-xl font-body text-base" style="background:#fff; border: 1px solid #E2C2A2; color:#3d3225;">
+              <option value="" disabled selected>Bitte wählen...</option>
+              <option value="email">E-Mail</option>
+              <option value="whatsapp">WhatsApp</option>
+              <option value="telegram">Telegram</option>
+              <option value="signal">Signal</option>
+              <option value="sms">SMS</option>
+              <option value="anruf">Anruf</option>
+            </select>
+          </div>
+
+          <!-- Dynamisches Kontaktfeld -->
+          <div id="dynamic-contact-field" style="display: none;">
+            <label id="dynamic-label" for="contact-value" class="block font-body text-sm font-semibold mb-2" style="color:#3d3225;">Deine E-Mail / Nummer <span style="color:#e05252;">*</span></label>
+            <input type="text" id="contact-value" name="contact_value" class="w-full px-4 py-3 rounded-xl font-body text-base" style="background:#fff; border: 1px solid #E2C2A2; color:#3d3225;">
+          </div>
+
+          <!-- Nachricht -->
+          <div>
+            <label for="message" class="block font-body text-sm font-semibold mb-2" style="color:#3d3225;">Nachricht <span style="color:#e05252;">*</span></label>
+            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 rounded-xl font-body text-base resize-none" style="background:#fff; border: 1px solid #E2C2A2; color:#3d3225;"></textarea>
+          </div>
+
+          <!-- Datenschutz -->
+          <div class="flex items-start gap-3">
+            <input type="checkbox" id="privacy" name="privacy" required class="mt-1 w-5 h-5 rounded" style="accent-color:#5fa88a;">
+            <label for="privacy" class="font-body text-sm leading-relaxed" style="color:#5c4e3a;">
+              Ich willige ein, dass meine Angaben zur Kontaktaufnahme gespeichert werden. Weitere Informationen findest du in den <a href="rechtliches.html" class="underline" style="color:#5fa88a;">rechtlichen Hinweisen</a>. <span style="color:#e05252;">*</span>
+            </label>
+          </div>
+
+          <!-- Submit & Feedback -->
+          <div>
+            <button type="submit" id="submit-btn" class="btn-primary w-full font-body font-semibold text-base px-8 py-4 rounded-full transition-all" style="min-height: 44px; display: inline-flex; align-items: center; justify-content: center;">
+              Nachricht senden
+            </button>
+          </div>
+          <div id="form-feedback" class="hidden rounded-xl p-4 font-body text-sm" style="border: 1px solid;"></div>
+        </form>
+      </div>
+
       <!-- Nächstes Treffen -->
       <div class="reveal reveal-delay-2 card-hover rounded-2xl p-6 text-center max-w-5xl mx-auto flex flex-col items-center"
            style="background:#ffda69; border: 1px solid #E2C2A2;">
@@ -1158,6 +1229,75 @@
         }
       });
     }, { threshold: 0.1 });
+
+    // ═══════════════════════════════════════
+    // KONTAKTFORMULAR-LOGIK
+    // ═══════════════════════════════════════
+    const contactForm = document.getElementById('contact-form');
+    const contactMethod = document.getElementById('contact-method');
+    const dynamicField = document.getElementById('dynamic-contact-field');
+    const dynamicLabel = document.getElementById('dynamic-label');
+    const contactValue = document.getElementById('contact-value');
+    const formFeedback = document.getElementById('form-feedback');
+    const submitBtn = document.getElementById('submit-btn');
+
+    if (contactForm) {
+      contactMethod.addEventListener('change', function() {
+        const method = this.value;
+        dynamicField.style.display = 'block';
+        contactValue.required = true;
+        
+        if (method === 'email') {
+          dynamicLabel.innerHTML = 'Deine E-Mail-Adresse <span style="color:#e05252;">*</span>';
+          contactValue.type = 'email';
+          contactValue.placeholder = 'name@beispiel.de';
+        } else {
+          dynamicLabel.innerHTML = 'Deine Telefonnummer <span style="color:#e05252;">*</span>';
+          contactValue.type = 'tel';
+          contactValue.placeholder = '+49 123 4567890';
+        }
+      });
+
+      contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // UI Update
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Wird gesendet...';
+        formFeedback.classList.add('hidden');
+        
+        try {
+          const formData = new FormData(contactForm);
+          const response = await fetch('mailer.php', {
+            method: 'POST',
+            body: formData
+          });
+          
+          const result = await response.json();
+          
+          formFeedback.classList.remove('hidden');
+          if (result.status === 'success') {
+            formFeedback.style.backgroundColor = '#d4f1e6';
+            formFeedback.style.borderColor = '#a9e2cc';
+            formFeedback.style.color = '#3d3225';
+            formFeedback.innerHTML = `<strong>Vielen Dank!</strong> Deine Nachricht wurde gesendet.<br><br>Folgende Daten wurden übermittelt: Name, <strong>${contactMethod.options[contactMethod.selectedIndex].text}</strong>, Nachricht.<br>Diese Daten werden ausschließlich zur gewünschten Kontaktaufnahme gespeichert.`;
+            contactForm.reset();
+            dynamicField.style.display = 'none';
+          } else {
+            throw new Error(result.message || 'Ein Fehler ist aufgetreten.');
+          }
+        } catch (error) {
+          formFeedback.classList.remove('hidden');
+          formFeedback.style.backgroundColor = '#ffe5e5';
+          formFeedback.style.borderColor = '#ffb3b3';
+          formFeedback.style.color = '#cc0000';
+          formFeedback.textContent = error.message;
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Nachricht senden';
+        }
+      });
+    }
     document.querySelectorAll('.rule-card').forEach(el => ruleObserver.observe(el));
 
     document.querySelectorAll('.faq-btn').forEach(btn => {
