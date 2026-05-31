@@ -71,7 +71,8 @@ Tailwind-Bezeichnungen: `sage`, `lightgreen`, `cream`, `peach`, `tan`
 
 ## Projektregeln
 
-- **SEO**: Meta-Tags, Schema.org (`SupportGroup`), semantisches HTML, Core Web Vitals optimieren
+- **Textgenerierung**: Für das Generieren von Texten in diesem Projekt MUSS der Skill `/humanizer` verwendet werden.
+- **SEO**: Der Skill `/ai-seo` MUSS für SEO-Aufgaben verwendet werden. Meta-Tags, Schema.org (`SupportGroup`), semantisches HTML, Core Web Vitals optimieren
 - **Mobile-First**: Responsive Design – funktioniert auf Handy, Tablet und Desktop
 - **KI-Auffindbarkeit**: Strukturierte Daten, klare Informationsarchitektur, Machine-readable Content
 - **Sprache**: Alle Inhalte ausschließlich auf Deutsch
