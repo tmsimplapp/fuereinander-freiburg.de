@@ -31,6 +31,8 @@
   <link rel="alternate" hreflang="x-default" href="https://fuereinander-freiburg.de/" />
   <link rel="icon" href="grafik/F%C3%BCreinander%20Freiburg.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="grafik/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link rel="manifest" href="site.webmanifest" />
   <meta name="theme-color" content="#a9e2cc" />
 
@@ -279,7 +281,7 @@
   <!-- Screen Reader Live Region für Menü-Status -->
   <div aria-live="polite" class="sr-only" id="menu-status"></div>
 
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-cream/80 backdrop-blur-md border-b border-tan/20">
+  <nav class="fixed bottom-0 md:bottom-auto md:top-0 left-0 right-0 z-50 bg-cream/80 backdrop-blur-md border-t md:border-t-0 md:border-b border-tan/20" style="padding-bottom: env(safe-area-inset-bottom, 0px);">
     <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
       <!-- Logo -->
       <a href="index.html" aria-label="Füreinander Freiburg – Startseite" class="flex items-center">
@@ -292,7 +294,7 @@
         <a href="partner.html" class="nav-link font-body text-sm transition-colors" style="color:#5c4e3a;" onmouseover="this.style.color='#3d3225'" onmouseout="this.style.color='#5c4e3a'">Partner</a>
         <a href="termine.html" class="nav-link font-body text-sm transition-colors" style="color:#5c4e3a;" onmouseover="this.style.color='#3d3225'" onmouseout="this.style.color='#5c4e3a'">Termine</a>
         <a href="rechtliches.html" class="nav-link font-body text-sm transition-colors" style="color:#5c4e3a;" onmouseover="this.style.color='#3d3225'" onmouseout="this.style.color='#5c4e3a'">Rechtliches</a>
-        <a href="#kontakt" class="btn-primary font-body text-sm font-semibold px-5 py-2.5 rounded-full">Kontakt</a>
+        <a href="#kontakt" class="btn-primary font-body text-sm font-semibold px-5 py-2.5 rounded-full active:scale-95">Kontakt</a>
       </div>
     </div>
   </nav>
@@ -316,6 +318,7 @@
         <a href="partner.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center" style="min-height: 44px; display: flex; align-items: center; justify-content: center; background:#fff4d6; border: 1px solid #E2C2A2; color:#5c4e3a;">Partner</a>
         <a href="termine.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center" style="min-height: 44px; display: flex; align-items: center; justify-content: center; background:#fff4d6; border: 1px solid #E2C2A2; color:#5c4e3a;">Termine</a>
         <a href="rechtliches.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center" style="min-height: 44px; display: flex; align-items: center; justify-content: center; background:#fff4d6; border: 1px solid #E2C2A2; color:#5c4e3a;">Rechtliches</a>
+        <a href="#kontaktformular" class="font-body text-base font-bold py-3 px-6 rounded-full transition-all text-center mt-2 shadow-sm" style="min-height: 44px; display: flex; align-items: center; justify-content: center; background:#a9e2cc; border: 1px solid #8ed4b8; color:#1a2820;">Kontaktformular</a>
 
         <!-- Separator -->
         <div class="my-2" style="height:1px; background:#E2C2A2;"></div>
@@ -426,7 +429,7 @@
 
       <div class="hero-anim-4 hero-full-cta">
         <a href="#kontakt"
-           class="btn-primary font-body font-semibold text-base px-8 py-4 rounded-full"
+           class="btn-primary font-body font-semibold text-base px-8 py-4 rounded-full active:scale-95"
            style="min-height: 44px; display: inline-flex; align-items: center;">
           Kontakt aufnehmen
         </a>
@@ -972,7 +975,7 @@
       </div>
 
       <!-- Kontaktformular -->
-      <div class="reveal reveal-delay-2 card-hover rounded-2xl p-6 md:p-8 mb-6 max-w-5xl mx-auto"
+      <div id="kontaktformular" class="reveal reveal-delay-2 card-hover rounded-2xl p-6 md:p-8 mb-6 max-w-5xl mx-auto"
            style="background:#FEFAE0; border: 1px solid #E2C2A2;">
         
         <div class="flex items-center gap-3 mb-6">

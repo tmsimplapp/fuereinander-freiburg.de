@@ -4,6 +4,9 @@ body {
   background: linear-gradient(to bottom, #ffffff 0%, #f0faf6 100%);
   background-attachment: fixed;
   font-family: 'Source Serif 4', Georgia, serif;
+  overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* Scroll-Offset für Fixed Navbar (Anker-Links) */
