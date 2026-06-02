@@ -1,0 +1,46 @@
+=== TELEGRAM BOT CONFIGURATION FOR FÜREINANDER FREIBURG ===
+
+Dieses Dokument enthält die Texte und Einstellungen für den BotFather, um den Bot professionell einzurichten.
+
+
+1. ÜBER (ABOUT)
+----------------------------------------------------------------
+(Wird im Profil des Bots angezeigt. Max. 120 Zeichen.)
+
+Dieser Bot informiert die Gruppenleitung von „Füreinander Freiburg“ sofort über neue Anfragen aus dem Kontaktformular.
+
+
+2. BESCHREIBUNG (DESCRIPTION)
+----------------------------------------------------------------
+(Wird angezeigt, wenn jemand den Chat mit dem Bot das erste Mal öffnet. Max. 512 Zeichen.)
+
+Willkommen beim offiziellen Benachrichtigungs-Bot von „Füreinander Freiburg“ – der Selbsthilfegruppe für zweifelnde und ausgestiegene Zeugen Jehovas.
+
+Dieser Bot dient der administrativen Benachrichtigung: Sobald jemand das Kontaktformular auf unserer Website ausfüllt, leitet dieser Bot die Anfrage mit Name, Kontaktweg und Nachricht direkt hierher an die Gruppenleitung weiter. So können wir schnellstmöglich reagieren und Unterstützung anbieten.
+
+
+3. PROFILBILD (BOTPIC)
+----------------------------------------------------------------
+Empfehlung: Das offizielle Logo von „Füreinander Freiburg“ (Pusteblume) verwenden.
+Relativer Pfad: grafik/Füreinander Freiburg.svg (in ein quadratisches PNG oder JPG mit 512x512 Pixel exportieren und im BotFather hochladen).
+
+
+4. BEFEHLE (COMMANDS)
+----------------------------------------------------------------
+(Kann im BotFather unter "Edit Bot" -> "Edit Commands" eingetragen werden.)
+
+start - Startet den Bot und aktiviert den Empfang von Benachrichtigungen.
+
+
+5. DATENSCHUTZERKLÄRUNG (PRIVACY POLICY)
+----------------------------------------------------------------
+(Link oder Text für die Bot-Datenschutzerklärung)
+
+Dieser Bot verarbeitet und überträgt personenbezogene Daten (Name, Kontaktweg, Nachricht), die Nutzer freiwillig in das Kontaktformular auf fuereinander-freiburg.de eingeben. Die Daten werden ausschließlich verschlüsselt über die offizielle Telegram-API an den Chat der Gruppenleitung weitergeleitet. Es findet keine dauerhafte Speicherung der Formulardaten auf Telegram-Servern durch den Bot statt und es werden keine Daten an Dritte weitergegeben.
+
+
+6. BESCHREIBUNGSBILD (DESCRIPTION PICTURE)
+----------------------------------------------------------------
+(Bild, das im Chat-Fenster vor dem Starten des Bots angezeigt wird.)
+
+Empfehlung: Ein beruhigendes Bild der Pusteblume (z.B. aus der Hero-Section) mit einem dezenten Schriftzug „füreinander Freiburg – Selbsthilfegruppe“.

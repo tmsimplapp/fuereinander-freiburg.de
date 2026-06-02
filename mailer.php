@@ -1,6 +1,37 @@
 <?php
 header('Content-Type: application/json');
 
+// --- Telegram-Konfiguration ---
+// Ersetze diese Platzhalter mit deinen echten Daten
+define('TELEGRAM_BOT_TOKEN', '8835333763:AAEh7i7da-CjZf37JFl0GswCTCfEltezbP4');
+define('TELEGRAM_CHAT_ID', '-5176222824');
+
+// Hilfsfunktion für Telegram-Benachrichtigung
+function send_telegram_notification($name, $method, $value, $message) {
+    $text = "🔔 <b>Neue Kontaktanfrage!</b>\n\n"
+          . "👤 <b>Name:</b> " . htmlspecialchars($name) . "\n"
+          . "📞 <b>Kontaktweg:</b> " . htmlspecialchars($method) . "\n"
+          . "✉️ <b>Kontakt:</b> " . htmlspecialchars($value) . "\n\n"
+          . "💬 <b>Nachricht:</b>\n" . htmlspecialchars($message);
+
+    $url = "https://api.telegram.org/bot" . TELEGRAM_BOT_TOKEN . "/sendMessage";
+    $post_fields = [
+        'chat_id' => TELEGRAM_CHAT_ID,
+        'text' => $text,
+        'parse_mode' => 'HTML'
+    ];
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post_fields));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $result = curl_exec($ch);
+    curl_close($ch);
+    return $result;
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // 1. Honeypot check (Bot-Schutz)
     if (!empty($_POST['website'])) {
@@ -93,6 +124,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $mail_success = mail($to, $subject, $email_content, $email_headers, "-fkontakt@fuereinander-freiburg.de");
+
+    // Telegram Benachrichtigung senden (falls konfiguriert)
+    if ($mail_success && TELEGRAM_BOT_TOKEN !== 'YOUR_TELEGRAM_BOT_TOKEN_HERE' && TELEGRAM_CHAT_ID !== 'YOUR_TELEGRAM_CHAT_ID_HERE') {
+        send_telegram_notification($name, $contact_method, $contact_value, $message);
+    }
 
     // 5. Auto-Responder an den Absender (HTML)
     if ($mail_success && $contact_method === 'email') {
