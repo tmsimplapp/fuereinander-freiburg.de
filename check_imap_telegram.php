@@ -55,10 +55,33 @@ if ($emails) {
 
         echo "- Verarbeite neue Mail von: $fromname ($subject)... ";
 
+        // Body abrufen (versuche Part 1, oft plain text)
+        $body = imap_fetchbody($inbox, $email_number, 1);
+        
+        // Decoding basierend auf Struktur (einfacher Ansatz)
+        $struct = imap_fetchstructure($inbox, $email_number);
+        $encoding = isset($struct->parts[0]->encoding) ? $struct->parts[0]->encoding : $struct->encoding;
+        
+        if ($encoding == 3) $body = base64_decode($body);
+        elseif ($encoding == 4) $body = quoted_printable_decode($body);
+        
+        $body = strip_tags(trim($body));
+        
+        // Zitate und Verlauf abschneiden (Am ... schrieb, On ... wrote, Original Message, etc.)
+        $body = preg_replace('/(\nAm\s+.*\s+schrieb.*|\nOn\s+.*\s+wrote.*|\n-{5}Original Message-{5}.*|\n>.*)/is', '', $body);
+        
+        // Text auf maximal 300 Zeichen begrenzen
+        if (mb_strlen($body) > 300) {
+            $body = mb_substr($body, 0, 300) . "... [gekürzt]";
+        }
+        
+        if (empty($body)) $body = "<i>Kein Textinhalt lesbar (eventuell nur HTML/Anhang).</i>";
+
         $text = "📩 <b>Neue E-Mail im Postfach!</b>\n\n"
               . "👤 <b>Von:</b> " . htmlspecialchars($fromname . " (" . $fromaddr . ")") . "\n"
               . "📌 <b>Betreff:</b> " . htmlspecialchars($subject) . "\n\n"
-              . "<i>Bitte ins Webmail/all-inkl einloggen, um zu antworten.</i>";
+              . "💬 <b>Nachricht:</b>\n" . htmlspecialchars($body) . "\n\n"
+              . "<i>Bitte ins Webmail/all-inkl einloggen, um zu lesen und zu antworten.</i>";
 
         $url = "https://api.telegram.org/bot" . TELEGRAM_BOT_TOKEN . "/sendMessage";
         $post_fields = [
