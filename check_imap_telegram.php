@@ -81,7 +81,7 @@ if ($emails) {
               . "👤 <b>Von:</b> " . htmlspecialchars($fromname . " (" . $fromaddr . ")") . "\n"
               . "📌 <b>Betreff:</b> " . htmlspecialchars($subject) . "\n\n"
               . "💬 <b>Nachricht:</b>\n" . htmlspecialchars($body) . "\n\n"
-              . "<i>Bitte ins Webmail/all-inkl einloggen, um zu lesen und zu antworten.</i>";
+              . "<i>Email bitte in Outlook öffnen, lesen und beantworten.</i>";
 
         $url = "https://api.telegram.org/bot" . TELEGRAM_BOT_TOKEN . "/sendMessage";
         $post_fields = [

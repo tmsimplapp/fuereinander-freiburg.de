@@ -1,0 +1,64 @@
+/* View Transitions API - Sanfte Seitenwechsel */
+
+/* Navigation bleibt statisch */
+nav {
+  view-transition-name: static-nav;
+}
+
+/* Footer bleibt statisch */
+footer {
+  view-transition-name: static-footer;
+}
+
+/* Hauptinhalt animiert */
+main {
+  view-transition-name: main-content;
+}
+
+/* Standard-Übergang für Nutzer ohne Motion-Präferenz */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(main-content) {
+    animation: fade-out 0.25s ease-out;
+  }
+
+  ::view-transition-new(main-content) {
+    animation: fade-in 0.25s ease-in 0.05s;
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+/* Keine Animation für reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(main-content),
+  ::view-transition-new(main-content) {
+    animation: none;
+  }
+}
+
+/* Smooth height-transition */
+::view-transition-old(main-content),
+::view-transition-new(main-content) {
+  overflow: clip;
+  height: 100%;
+}
+
+::view-transition-group(main-content) {
+  animation-duration: 0.3s;
+}

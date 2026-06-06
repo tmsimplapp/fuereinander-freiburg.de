@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OG-Image Generator – Füreinander Freiburg</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Georgia', serif;
+      background: #1a1a1a;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    #canvas-container {
+      position: relative;
+    }
+    #og-canvas {
+      border: 2px solid #444;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .controls {
+      background: #2a2a2a;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 1200px;
+      width: 100%;
+    }
+    .controls h2 {
+      color: #fff;
+      margin-bottom: 15px;
+    }
+    .controls p {
+      color: #aaa;
+      margin-bottom: 20px;
+    }
+    button {
+      background: #a9e2cc;
+      color: #1a2820;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    button:hover {
+      background: #8ed4b8;
+      transform: translateY(-2px);
+    }
+    .info {
+      color: #ffda69;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <h2>OG-Image Generator</h2>
+    <p>Klicke auf "Download", um das OG-Image als <code>og-image.png</code> herunterzuladen und in <code>/grafik/</code> zu speichern.</p>
+    <button onclick="downloadImage()">📥 og-image.png herunterladen</button>
+    <p class="info">Maße: 1200×630 px · Format: PNG · Größe: ~50 KB</p>
+  </div>
+
+  <div id="canvas-container">
+    <canvas id="og-canvas" width="1200" height="630"></canvas>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('og-canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Farben
+    const CREAM = '#FEFAE0';
+    const DARK_BROWN = '#3d3225';
+    const MINT = '#a9e2cc';
+    const WARM_YELLOW = '#ffda69';
+
+    function drawOGImage() {
+      // Hintergrund
+      ctx.fillStyle = CREAM;
+      ctx.fillRect(0, 0, 1200, 630);
+
+      // Akzent-Linie oben
+      ctx.fillStyle = MINT;
+      ctx.fillRect(0, 0, 1200, 8);
+
+      // Titel (Playfair Display Ersatz)
+      ctx.fillStyle = DARK_BROWN;
+      ctx.font = 'bold 64px Georgia, serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('Füreinander Freiburg', 600, 200);
+
+      // Untertitel
+      ctx.font = '32px Georgia, serif';
+      ctx.fillText('Selbsthilfegruppe für zweifelnde und', 600, 300);
+      ctx.fillText('ausgestiegene Zeugen Jehovas', 600, 345);
+
+      // Ort
+      ctx.font = 'italic 28px Georgia, serif';
+      ctx.fillStyle = '#8a7a60';
+      ctx.fillText('Freiburg im Breisgau', 600, 440);
+
+      // Dekoelement (Symbol)
+      ctx.fillStyle = WARM_YELLOW;
+      ctx.beginPath();
+      ctx.arc(600, 520, 40, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = MINT;
+      ctx.beginPath();
+      ctx.arc(560, 520, 20, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(640, 520, 20, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function downloadImage() {
+      canvas.toBlob(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'og-image.png';
+        a.click();
+        URL.revokeObjectURL(url);
+
+        alert('✅ og-image.png wurde heruntergeladen.\n\nSpeichere die Datei in:\ngrafik/og-image.png');
+      }, 'image/png');
+    }
+
+    // Render on load
+    drawOGImage();
+  </script>
+</body>
+</html>

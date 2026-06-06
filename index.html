@@ -267,9 +267,10 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=optional" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="transitions.css" />
   <link rel="alternate" type="text/plain" href="https://fuereinander-freiburg.de/llms.txt" title="LLMs context" />
 </head>
 
@@ -290,11 +291,11 @@
 
       <!-- Desktop-Navigation -->
       <div class="hidden md:flex items-center gap-6">
-        <a href="index.html" class="nav-link font-body text-sm transition-colors" style="color:#5c4e3a;" onmouseover="this.style.color='#3d3225'" onmouseout="this.style.color='#5c4e3a'">Startseite</a>
-        <a href="partner.html" class="nav-link font-body text-sm transition-colors" style="color:#5c4e3a;" onmouseover="this.style.color='#3d3225'" onmouseout="this.style.color='#5c4e3a'">Partner</a>
-        <a href="termine.html" class="nav-link font-body text-sm transition-colors" style="color:#5c4e3a;" onmouseover="this.style.color='#3d3225'" onmouseout="this.style.color='#5c4e3a'">Termine</a>
-        <a href="rechtliches.html" class="nav-link font-body text-sm transition-colors" style="color:#5c4e3a;" onmouseover="this.style.color='#3d3225'" onmouseout="this.style.color='#5c4e3a'">Rechtliches</a>
-        <a href="#kontakt" class="btn-primary font-body text-sm font-semibold px-5 py-2.5 rounded-full active:scale-95">Kontakt</a>
+        <a href="index.html" class="nav-link font-body text-sm">Startseite</a>
+        <a href="partner.html" class="nav-link font-body text-sm">Partner</a>
+        <a href="termine.html" class="nav-link font-body text-sm">Termine</a>
+        <a href="rechtliches.html" class="nav-link font-body text-sm">Rechtliches</a>
+        <a href="#kontakt" class="btn-primary glowing-border font-body text-sm font-semibold px-5 py-2.5 rounded-full active:scale-95">Kontakt</a>
       </div>
     </div>
   </nav>
@@ -303,7 +304,8 @@
   <button id="nav-toggle-fab"
           class="md:hidden mobile-fab"
           aria-label="Menü öffnen"
-          aria-expanded="false">
+          aria-expanded="false"
+          aria-controls="mobile-menu">
     <span class="block w-6 h-0.5 transition-all" style="background-color:#1a2820;"></span>
     <span class="block w-6 h-0.5 transition-all" style="background-color:#1a2820;"></span>
     <span class="block w-6 h-0.5 transition-all" style="background-color:#1a2820;"></span>
@@ -406,7 +408,11 @@
     <img src="grafik/hero_grafik.png"
          alt=""
          aria-hidden="true"
-         class="hero-full-img">
+         class="hero-full-img"
+         loading="eager"
+         fetchpriority="high"
+         width="900"
+         height="491">
 
     <!-- Text: oben-rechts -->
     <div class="hero-full-content">
@@ -429,23 +435,19 @@
 
       <div class="hero-anim-4 hero-full-cta">
         <a href="#kontakt"
-           class="btn-primary font-body font-semibold text-base px-8 py-4 rounded-full active:scale-95"
+           class="btn-primary glowing-border font-body font-semibold text-base px-8 py-4 rounded-full active:scale-95"
            style="min-height: 44px; display: inline-flex; align-items: center;">
           Kontakt aufnehmen
         </a>
         <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center">
           <a href="termine.html"
-             class="font-body text-base font-medium underline underline-offset-4 transition-colors"
-             style="color:#5fa88a; min-height: 44px; display: inline-flex; align-items: center;"
-             onmouseover="this.style.color='#4a8a6e'"
-             onmouseout="this.style.color='#5fa88a'">
+             class="font-body text-base font-medium underline underline-offset-4"
+             style="min-height: 44px; display: inline-flex; align-items: center;">
             Nächste Termine
           </a>
           <a href="#ueber-uns"
-             class="font-body text-base font-medium transition-colors"
-             style="color:#8a7a60; min-height: 44px; display: inline-flex; align-items: center;"
-             onmouseover="this.style.color='#3d3225'"
-             onmouseout="this.style.color='#8a7a60'">
+             class="font-body text-base font-medium"
+             style="min-height: 44px; display: inline-flex; align-items: center;">
             Mehr erfahren
           </a>
         </div>
@@ -466,7 +468,7 @@
           Füreinander Freiburg ist eine Selbsthilfegruppe für Menschen, die an der Gemeinschaft der Zeugen Jehovas zweifeln oder aus ihr ausgestiegen sind. Die Initiatoren waren selbst Teil der Zeugen Jehovas und kennen die Herausforderungen aus eigener Erfahrung.
         </p>
         <p class="font-body text-lg leading-relaxed" style="color:#5c4e3a;">
-          Die Gruppe ist ein Ort für Austausch und Unterstützung, ohne Verurteilung, ohne Druck, ohne theologische Diskussionen. Die Gruppe ist im Verzeichnis der <a href="https://www.selbsthilfegruppen-freiburg.de/aktuelles/selbsthilfegruppe-fuer-zweifelnde-und-ausgestiegene-zeugen-jehovas" target="_blank" rel="noopener noreferrer" class="underline transition-colors" style="color:#5fa88a;" onmouseover="this.style.color='#4a8a6e'" onmouseout="this.style.color='#5fa88a'">Selbsthilfekontaktstelle Freiburg</a> gelistet.
+          Die Gruppe ist ein Ort für Austausch und Unterstützung, ohne Verurteilung, ohne Druck, ohne theologische Diskussionen. Die Gruppe ist im Verzeichnis der <a href="https://www.selbsthilfegruppen-freiburg.de/aktuelles/selbsthilfegruppe-fuer-zweifelnde-und-ausgestiegene-zeugen-jehovas" target="_blank" rel="noopener noreferrer" class="underline transition-colors" style="color:#5fa88a;">Selbsthilfekontaktstelle Freiburg</a> gelistet.
         </p>
       </div>
     </div>
@@ -493,7 +495,7 @@
       <div class="grid md:grid-cols-2 gap-6">
 
         <!-- Karte 1 -->
-        <article class="reveal reveal-delay-1 card-hover rounded-2xl p-8"
+        <article class="reveal reveal-delay-1 card-hover glowing-border rounded-2xl p-8"
                  style="background-color:#ffda69; border: 1px solid #E2C2A2;">
           <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6"
                style="background:#a9e2cc;">
@@ -506,12 +508,12 @@
             Zweifel an der Gemeinschaft oder der Entschluss, sie zu verlassen, verändern das Leben. Viele verlieren ihr vertrautes Umfeld, Freunde oder Familie. Gefühle von Einsamkeit, Angst oder Orientierungslosigkeit kommen häufig vor. Auch der Aufbau neuer Freundschaften kann schwerfallen. Muster aus der Zeit in der Gemeinschaft wirken oft noch lange nach.
           </p>
           <p class="font-body text-sm leading-relaxed" style="color:#8a7a60;">
-            Bei akuten psychischen Belastungen stehen professionelle Hilfsangebote zur Verfügung: <a href="https://www.telefonseelsorge.de/" target="_blank" rel="noopener noreferrer" class="underline transition-colors" style="color:#5fa88a;" onmouseover="this.style.color='#4a8a6e'" onmouseout="this.style.color='#5fa88a'">Telefonseelsorge</a> (24/7 kostenlos, Tel. 0800 / 111 0 111), <a href="https://www.nakos.de/" target="_blank" rel="noopener noreferrer" class="underline transition-colors" style="color:#5fa88a;" onmouseover="this.style.color='#4a8a6e'" onmouseout="this.style.color='#5fa88a'">NAKOS</a> (bundesweite Selbsthilfegruppen-Datenbank).
+            Bei akuten psychischen Belastungen stehen professionelle Hilfsangebote zur Verfügung: <a href="https://www.telefonseelsorge.de/" target="_blank" rel="noopener noreferrer" class="underline transition-colors" style="color:#5fa88a;">Telefonseelsorge</a> (24/7 kostenlos, Tel. 0800 / 111 0 111), <a href="https://www.nakos.de/" target="_blank" rel="noopener noreferrer" class="underline transition-colors" style="color:#5fa88a;">NAKOS</a> (bundesweite Selbsthilfegruppen-Datenbank).
           </p>
         </article>
 
         <!-- Karte 2 -->
-        <article class="reveal reveal-delay-2 card-hover rounded-2xl p-8"
+        <article class="reveal reveal-delay-2 card-hover glowing-border rounded-2xl p-8"
                  style="background-color:#d4f1e6; border: 1px solid #a9e2cc;">
           <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6"
                style="background:#ffda69;">
@@ -526,7 +528,7 @@
         </article>
 
         <!-- Karte 3 -->
-        <article class="reveal reveal-delay-3 card-hover rounded-2xl p-8"
+        <article class="reveal reveal-delay-3 card-hover glowing-border rounded-2xl p-8"
                  style="background-color:#ffda69; border: 1px solid #E2C2A2;">
           <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6"
                style="background:#a9e2cc;">
@@ -541,7 +543,7 @@
         </article>
 
         <!-- Karte 4 -->
-        <article class="reveal reveal-delay-4 card-hover rounded-2xl p-8"
+        <article class="reveal reveal-delay-4 card-hover glowing-border rounded-2xl p-8"
                  style="background-color:#d4f1e6; border: 1px solid #a9e2cc;">
           <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6"
                style="background:#ffda69;">
@@ -839,16 +841,16 @@
             <a href="mailto:kontakt@fuereinander-freiburg.de"
                class="font-body text-base font-medium block mb-3 transition-colors"
                style="color:#5fa88a; word-break: break-all;"
-               onmouseover="this.style.color='#4a8a6e'"
-               onmouseout="this.style.color='#5fa88a'">
+              
+              >
               kontakt@fuereinander-freiburg.de
             </a>
 
             <button onclick="navigator.clipboard.writeText('kontakt@fuereinander-freiburg.de')"
                     class="font-body text-xs px-4 py-2 rounded-full transition-all flex items-center gap-2"
                     style="background:#ffda69; color:#3d3225; border: 1px solid #E2C2A2; min-height:36px;"
-                    onmouseover="this.style.background='#ffd055'; this.style.transform='translateY(-1px)'"
-                    onmouseout="this.style.background='#ffda69'; this.style.transform='translateY(0)'"
+                   
+                   
                     aria-label="E-Mail-Adresse kopieren">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
@@ -873,16 +875,16 @@
             <a href="tel:+4915567465016"
                class="font-body text-base font-medium block mb-3 transition-colors"
                style="color:#5fa88a;"
-               onmouseover="this.style.color='#4a8a6e'"
-               onmouseout="this.style.color='#5fa88a'">
+              
+              >
               01556 / 7465016
             </a>
 
             <button onclick="navigator.clipboard.writeText('+4915567465016')"
                     class="font-body text-xs px-4 py-2 rounded-full transition-all flex items-center gap-2"
                     style="background:#ffda69; color:#3d3225; border: 1px solid #E2C2A2; min-height:36px;"
-                    onmouseover="this.style.background='#ffd055'; this.style.transform='translateY(-1px)'"
-                    onmouseout="this.style.background='#ffda69'; this.style.transform='translateY(0)'"
+                   
+                   
                     aria-label="Telefonnummer kopieren">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
@@ -915,8 +917,8 @@
                class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-xl transition-all"
                style="background:#E2C2A2; border:1px solid #d4b391; color:#3d3225; min-height:80px;"
                aria-label="WhatsApp Chat öffnen"
-               onmouseover="this.style.background='#f0d8c0'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(226, 194, 162, 0.3)'"
-               onmouseout="this.style.background='#E2C2A2'; this.style.transform='translateY(0)'; this.style.boxShadow=''">
+              
+              >
               <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
               </svg>
@@ -929,8 +931,8 @@
                class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-xl transition-all"
                style="background:#E2C2A2; border:1px solid #d4b391; color:#3d3225; min-height:80px;"
                aria-label="Telegram Chat öffnen"
-               onmouseover="this.style.background='#f0d8c0'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(226, 194, 162, 0.3)'"
-               onmouseout="this.style.background='#E2C2A2'; this.style.transform='translateY(0)'; this.style.boxShadow=''">
+              
+              >
               <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
               </svg>
@@ -943,8 +945,8 @@
                class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-xl transition-all"
                style="background:#E2C2A2; border:1px solid #d4b391; color:#3d3225; min-height:80px;"
                aria-label="Signal Chat öffnen"
-               onmouseover="this.style.background='#f0d8c0'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(226, 194, 162, 0.3)'"
-               onmouseout="this.style.background='#E2C2A2'; this.style.transform='translateY(0)'; this.style.boxShadow=''">
+              
+              >
               <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
@@ -956,8 +958,8 @@
                class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-xl transition-all"
                style="background:#E2C2A2; border:1px solid #d4b391; color:#3d3225; min-height:80px;"
                aria-label="SMS schreiben"
-               onmouseover="this.style.background='#f0d8c0'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(226, 194, 162, 0.3)'"
-               onmouseout="this.style.background='#E2C2A2'; this.style.transform='translateY(0)'; this.style.boxShadow=''">
+              
+              >
               <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
               </svg>
@@ -1083,8 +1085,8 @@
             <a href="rechtliches.html"
                class="font-body text-xs transition-colors"
                style="color:#5c3d1e; min-height: 32px; display: inline-flex; align-items: center;"
-               onmouseover="this.style.color='#3d3225'"
-               onmouseout="this.style.color='#5c3d1e'">
+              
+              >
               Rechtliches
             </a>
           </li>
@@ -1093,8 +1095,8 @@
             <a href="termine.html"
                class="font-body text-xs transition-colors"
                style="color:#5c3d1e; min-height: 32px; display: inline-flex; align-items: center;"
-               onmouseover="this.style.color='#3d3225'"
-               onmouseout="this.style.color='#5c3d1e'">
+              
+              >
               Termine
             </a>
           </li>
@@ -1103,8 +1105,8 @@
             <a href="partner.html"
                class="font-body text-xs transition-colors"
                style="color:#5c3d1e; min-height: 32px; display: inline-flex; align-items: center;"
-               onmouseover="this.style.color='#3d3225'"
-               onmouseout="this.style.color='#5c3d1e'">
+              
+              >
               Partner
             </a>
           </li>
@@ -1122,7 +1124,11 @@
   <!-- ═══════════════════════════════════════
        JAVASCRIPT
   ════════════════════════════════════════ -->
+  <script src="update-schema-dates.js"></script>
+  <script src="faq-details.js" defer></script>
+  <script src="main.js" defer></script>
   <script>
+    // Wird durch main.js ersetzt - Legacy-Code entfernt
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const navToggleFab = document.getElementById('nav-toggle-fab');
@@ -1479,6 +1485,8 @@
       updateStickyBar();
     })();
   </script>
+
+  <script src="transitions.js"></script>
 
 </body>
 </html>

@@ -116,6 +116,7 @@ body {
 
 /* Button-Hover */
 .btn-primary {
+  position: relative;
   background-color: #a9e2cc;
   color: #1a2820;
   border: 1.5px solid #a9e2cc;
@@ -134,6 +135,7 @@ body {
 
 /* Karten */
 .card-hover {
+  position: relative;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .card-hover:hover {
@@ -288,8 +290,17 @@ body {
   }
 }
 
-/* Nav-Links: aktiver Zustand auf Touch */
-.nav-link:active { color: #3d3225; }
+/* Nav-Links: Hover & Active */
+.nav-link {
+  color: #5c4e3a;
+  transition: color 0.2s ease;
+}
+.nav-link:hover {
+  color: #3d3225;
+}
+.nav-link:active {
+  color: #3d3225;
+}
 
 /* Header schrumpft beim Scrollen */
 nav {
@@ -374,6 +385,29 @@ nav img {
   transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
               box-shadow 0.25s ease,
               background-color 0.2s ease;
+}
+
+/* Glowing Border auf FAB - subtiler */
+.mobile-fab::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  padding: 3px;
+  background: conic-gradient(
+    from var(--gradient-angle),
+    #a9e2cc 0%,
+    #ffda69 25%,
+    #E2C2A2 50%,
+    #a9e2cc 75%,
+    #ffda69 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rotation 3s linear infinite;
+  pointer-events: none;
+  opacity: 0.7;
 }
 
 .mobile-fab:hover {
@@ -492,8 +526,112 @@ nav img {
 }
 
 /* Mobile Touch Feedback für Links */
-a:active:not(.btn-primary):not(.mobile-nav-link) {
+a:not(.btn-primary):not(.mobile-nav-link):active {
   opacity: 0.7;
+}
+
+/* Footer-Links: Hover */
+footer a {
+  color: #5c3d1e;
+  transition: color 0.2s ease;
+}
+footer a:hover {
+  color: #3d3225;
+}
+
+/* Hero CTA Links */
+.hero-full-cta a[href^="#"],
+.hero-full-cta a[href*="termine"] {
+  transition: color 0.2s ease;
+}
+.hero-full-cta a[href*="termine"] {
+  color: #5fa88a;
+}
+.hero-full-cta a[href*="termine"]:hover {
+  color: #4a8a6e;
+}
+.hero-full-cta a[href^="#ueber"] {
+  color: #8a7a60;
+}
+.hero-full-cta a[href^="#ueber"]:hover {
+  color: #3d3225;
+}
+
+/* Content-Links (externe Ressourcen) */
+article a[target="_blank"],
+section a[target="_blank"] {
+  color: #5fa88a;
+  transition: color 0.2s ease;
+}
+article a[target="_blank"]:hover,
+section a[target="_blank"]:hover {
+  color: #4a8a6e;
+}
+
+/* Kontakt-Sektion: E-Mail & Telefon-Links */
+#kontakt a[href^="mailto"],
+#kontakt a[href^="tel"] {
+  color: #5fa88a;
+  transition: color 0.2s ease;
+}
+#kontakt a[href^="mailto"]:hover,
+#kontakt a[href^="tel"]:hover {
+  color: #4a8a6e;
+}
+
+/* Kopieren-Buttons im Kontaktbereich */
+#kontakt button[onclick*="clipboard"] {
+  background: #ffda69;
+  color: #3d3225;
+  border: 1px solid #E2C2A2;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+#kontakt button[onclick*="clipboard"]:hover {
+  background: #ffd055;
+  transform: translateY(-1px);
+}
+#kontakt button[onclick*="clipboard"]:active {
+  background: #ffda69;
+  transform: translateY(0);
+}
+
+/* Messenger-Buttons */
+.mobile-menu-sheet a[href^="https://wa.me"],
+.mobile-menu-sheet a[href^="https://t.me"],
+.mobile-menu-sheet a[href^="https://signal"],
+.mobile-menu-sheet a[href^="sms:"],
+#kontakt a[href^="https://wa.me"],
+#kontakt a[href^="https://t.me"],
+#kontakt a[href^="https://signal"],
+#kontakt a[href^="sms:"] {
+  background: #E2C2A2;
+  border: 1px solid #d4b391;
+  color: #3d3225;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.mobile-menu-sheet a[href^="https://wa.me"]:hover,
+.mobile-menu-sheet a[href^="https://t.me"]:hover,
+.mobile-menu-sheet a[href^="https://signal"]:hover,
+.mobile-menu-sheet a[href^="sms:"]:hover,
+#kontakt a[href^="https://wa.me"]:hover,
+#kontakt a[href^="https://t.me"]:hover,
+#kontakt a[href^="https://signal"]:hover,
+#kontakt a[href^="sms:"]:hover {
+  background: #f0d8c0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(226, 194, 162, 0.3);
+}
+.mobile-menu-sheet a[href^="https://wa.me"]:active,
+.mobile-menu-sheet a[href^="https://t.me"]:active,
+.mobile-menu-sheet a[href^="https://signal"]:active,
+.mobile-menu-sheet a[href^="sms:"]:active,
+#kontakt a[href^="https://wa.me"]:active,
+#kontakt a[href^="https://t.me"]:active,
+#kontakt a[href^="https://signal"]:active,
+#kontakt a[href^="sms:"]:active {
+  background: #E2C2A2;
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 /* Mobile Navigation Links (Button-Style) */
@@ -502,11 +640,65 @@ a:active:not(.btn-primary):not(.mobile-nav-link) {
   opacity: 0.9;
 }
 
+/* ═══════════════════════════════════════
+   GLOWING BORDER ANIMATION
+════════════════════════════════════════ */
+@property --gradient-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.glowing-border {
+  position: relative;
+  border-radius: inherit;
+}
+
+.glowing-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--gradient-angle),
+    #a9e2cc 0%,
+    #ffda69 25%,
+    #E2C2A2 50%,
+    #a9e2cc 75%,
+    #ffda69 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rotation 3s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotation {
+  to { --gradient-angle: 360deg; }
+}
+
 /* Touch Action Optimization - verhindert 300ms Tap-Delay */
 #nav-toggle,
 .mobile-nav-link,
 .btn-primary {
   touch-action: manipulation;
+}
+
+/* FAQ als <details> - Native Accessibility */
+details summary {
+  cursor: pointer;
+  user-select: none;
+}
+details summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .details-icon {
+  transform: rotate(180deg);
+}
+details summary:hover {
+  background: #ffd055 !important;
 }
 
 /* Focus States für Tastatur-Navigation */
