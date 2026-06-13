@@ -1,4 +1,6 @@
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   background: linear-gradient(to bottom, #ffffff 0%, #f0faf6 100%);
@@ -7,6 +9,15 @@ body {
   overscroll-behavior: none;
   -webkit-user-select: none;
   user-select: none;
+  overflow-x: hidden;
+}
+
+/* Mobil: Blocksatz mit zentrierter letzter Zeile */
+@media (max-width: 767px) {
+  .justify-last-center {
+    text-align: justify;
+    text-align-last: center;
+  }
 }
 
 /* Scroll-Offset für Fixed Navbar (Anker-Links) */
@@ -940,4 +951,23 @@ details summary:hover {
   .sticky-phone-bar.visible {
     transform: translateY(0);
   }
+}
+
+/* Symptom-Karten Animation & Hover (für ausstieg-folgen.html) */
+.symptom-card {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+              background-color 0.25s ease, 
+              box-shadow 0.25s ease, 
+              border-color 0.25s ease;
+}
+.symptom-card:hover {
+  transform: scale(1.02);
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 4px 12px rgba(26, 40, 32, 0.04);
+}
+.symptom-card-mint:hover {
+  border-color: rgba(169, 226, 204, 0.6) !important;
+}
+.symptom-card-tan:hover {
+  border-color: rgba(226, 194, 162, 0.6) !important;
 }

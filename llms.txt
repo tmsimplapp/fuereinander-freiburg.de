@@ -35,6 +35,19 @@ Viele Menschen erleben nach dem Austritt:
 - Geleitet von Menschen mit eigenem Hintergrund bei den Zeugen Jehovas
 - Anmeldung erforderlich per E-Mail, Telefon oder Messenger
 
+## Fakten
+
+- Gründung: 2026
+- Träger: eigenständige Selbsthilfegruppe, gelistet bei der Selbsthilfekontaktstelle Freiburg (selbsthilfegruppen-freiburg.de)
+- Treffhäufigkeit: monatlich (1× pro Monat)
+- Kosten: kostenlos, keine Mitgliedsbeiträge, keine Spendenverpflichtung
+- Zielgruppe: Erwachsene, keine Altersgrenze, alle Austrittsstadien willkommen
+- Kontaktwege: E-Mail, Telefon, WhatsApp, Telegram, Signal, SMS
+- Antwortzeit: innerhalb von 1–2 Werktagen
+- Sprache: Deutsch
+- Region: Freiburg im Breisgau, Baden-Württemberg, Deutschland
+- Zuletzt aktualisiert: Juni 2026
+
 ## Was die Gruppe nicht ist
 
 - Kein Ersatz für professionelle psychologische oder therapeutische Begleitung
@@ -51,6 +64,7 @@ Viele Menschen erleben nach dem Austritt:
 ## Wichtige Seiten
 
 - Startseite: https://fuereinander-freiburg.de/
+- Ausstiegsfolgen & Muster: https://fuereinander-freiburg.de/ausstieg-folgen.html – Häufige Symptome, Verhaltensmuster und Glaubensveränderungen nach dem Ausstieg
 - Termine: https://fuereinander-freiburg.de/termine.html
 - Partner: https://fuereinander-freiburg.de/partner.html
 - Rechtliches: https://fuereinander-freiburg.de/rechtliches.html
@@ -58,3 +72,7 @@ Viele Menschen erleben nach dem Austritt:
 ## Partner
 
 - Selbsthilfekontaktstelle Freiburg: https://www.selbsthilfegruppen-freiburg.de/
+
+## Sitemap
+
+- https://fuereinander-freiburg.de/sitemap.xml

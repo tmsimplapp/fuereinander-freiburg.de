@@ -39,6 +39,8 @@
     const menuStatus = document.getElementById('menu-status');
 
     if (!fabButton || !mobileMenu) return;
+    if (fabButton.dataset.initialized === 'true') return;
+    fabButton.dataset.initialized = 'true';
 
     function toggleMenu() {
       const isHidden = mobileMenu.classList.contains('hidden');
@@ -136,15 +138,17 @@
   // ═══════════════════════════════════════
 
   function initScrollEffects() {
-    const navbar = document.querySelector('nav');
-    const heroImg = document.querySelector('.hero-full-img');
-    const stickyBar = document.getElementById('sticky-phone-bar');
+    if (window.scrollEffectsInitialized) return;
+    window.scrollEffectsInitialized = true;
 
     let ticking = false;
     const isMobile = () => window.innerWidth <= 900;
 
     function updateScrollEffects() {
       const scrollY = window.scrollY;
+      const navbar = document.querySelector('nav');
+      const heroImg = document.querySelector('.hero-full-img');
+      const stickyBar = document.getElementById('sticky-phone-bar');
 
       // Header schrumpft
       if (navbar) {

@@ -6,6 +6,30 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  // Funktion zum Ersetzen der Seitenelemente
+  function replacePageElements(doc) {
+    const selectors = [
+      'nav',
+      '#nav-toggle-fab',
+      '#mobile-menu',
+      'main',
+      'footer',
+      '#sticky-phone-bar'
+    ];
+
+    selectors.forEach(selector => {
+      const newEl = doc.querySelector(selector);
+      const oldEl = document.querySelector(selector);
+      if (newEl && oldEl) {
+        oldEl.replaceWith(newEl);
+      } else if (newEl && !oldEl) {
+        document.body.appendChild(newEl);
+      } else if (!newEl && oldEl) {
+        oldEl.remove();
+      }
+    });
+  }
+
   // Alle internen Links abfangen
   document.addEventListener('click', (e) => {
     const link = e.target.closest('a');
@@ -16,13 +40,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Prüfe ob Link zur gleichen Domain/Protokoll gehört
+    let url;
     try {
-      const url = new URL(link.href);
+      url = new URL(link.href);
       // Erlaube nur same-origin ODER relative Pfade bei file://
       if (url.origin !== location.origin && location.protocol !== 'file:') {
         return;
       }
     } catch {
+      return;
+    }
+
+    // Wenn es nur ein Hash-Link auf derselben Seite ist, keine Transition ausführen (Standardverhalten erlaubt)
+    if (decodeURIComponent(url.pathname) === decodeURIComponent(location.pathname) && url.search === location.search && url.hash) {
       return;
     }
 
@@ -39,18 +69,24 @@ document.addEventListener('DOMContentLoaded', () => {
       // Ersetze Titel
       document.title = doc.title;
 
-      // Ersetze main-Content
-      const newMain = doc.querySelector('main');
-      const oldMain = document.querySelector('main');
-      if (newMain && oldMain) {
-        oldMain.replaceWith(newMain);
-      }
+      // Ersetze Seitenelemente
+      replacePageElements(doc);
 
       // Update URL
       history.pushState(null, '', link.href);
 
-      // Scroll nach oben
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      // Scroll nach oben oder zum Hash
+      if (url.hash) {
+        const targetEl = document.getElementById(url.hash.substring(1));
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'auto' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+      } else {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+      window.dispatchEvent(new Event('scroll'));
 
       // Event-Listener neu binden (mobile menu etc.)
       reinitializeScripts();
@@ -67,35 +103,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
       document.title = doc.title;
 
-      const newMain = doc.querySelector('main');
-      const oldMain = document.querySelector('main');
-      if (newMain && oldMain) {
-        oldMain.replaceWith(newMain);
-      }
+      // Ersetze Seitenelemente
+      replacePageElements(doc);
 
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      const popUrl = new URL(location.href);
+      if (popUrl.hash) {
+        const targetEl = document.getElementById(popUrl.hash.substring(1));
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'auto' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+      } else {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+      window.dispatchEvent(new Event('scroll'));
       reinitializeScripts();
     });
   });
 
   // Funktion für Script-Reinitialisierung nach Transition
   function reinitializeScripts() {
-    // Mobile Menu Toggle
-    const fabButton = document.getElementById('nav-toggle-fab');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    if (fabButton && mobileMenu) {
-      fabButton.addEventListener('click', () => {
-        const isHidden = mobileMenu.classList.contains('hidden');
-        mobileMenu.classList.toggle('hidden', !isHidden);
-        fabButton.setAttribute('aria-expanded', isHidden);
-      });
-    }
-
-    // Sticky Bar (falls vorhanden)
-    const stickyBar = document.querySelector('.sticky-phone-bar');
-    if (stickyBar && typeof window.updateStickyBar === 'function') {
-      window.updateStickyBar();
+    if (typeof window.reinitializeScripts === 'function') {
+      window.reinitializeScripts();
     }
   }
 });
