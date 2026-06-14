@@ -7,27 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Funktion zum Ersetzen der Seitenelemente
+  // Kompletter Body-Tausch: robust gegen unterschiedliche Anzahl von <nav>
+  // und seitenspezifisch fehlende Elemente (z. B. #sticky-phone-bar).
   function replacePageElements(doc) {
-    const selectors = [
-      'nav',
-      '#nav-toggle-fab',
-      '#mobile-menu',
-      'main',
-      'footer',
-      '#sticky-phone-bar'
-    ];
-
-    selectors.forEach(selector => {
-      const newEl = doc.querySelector(selector);
-      const oldEl = document.querySelector(selector);
-      if (newEl && oldEl) {
-        oldEl.replaceWith(newEl);
-      } else if (newEl && !oldEl) {
-        document.body.appendChild(newEl);
-      } else if (!newEl && oldEl) {
-        oldEl.remove();
-      }
-    });
+    document.body.replaceChildren(...doc.body.childNodes);
   }
 
   // Alle internen Links abfangen
@@ -126,6 +109,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function reinitializeScripts() {
     if (typeof window.reinitializeScripts === 'function') {
       window.reinitializeScripts();
+    }
+    if (typeof window.convertFAQ === 'function') {
+      window.convertFAQ();
     }
   }
 });

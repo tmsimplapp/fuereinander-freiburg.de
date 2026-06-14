@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OG-Image Generator – Füreinander Freiburg</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -81,46 +84,53 @@
     const MINT = '#a9e2cc';
     const WARM_YELLOW = '#ffda69';
 
+    const pusteblume = new Image();
+    pusteblume.src = 'hero_grafik.png';
+
     function drawOGImage() {
       // Hintergrund
       ctx.fillStyle = CREAM;
       ctx.fillRect(0, 0, 1200, 630);
 
+      // Pusteblume rechts, dezent (wie im Hero)
+      if (pusteblume.complete && pusteblume.naturalWidth) {
+        const imgW = 620;
+        const imgH = imgW * (pusteblume.naturalHeight / pusteblume.naturalWidth);
+        ctx.globalAlpha = 0.9;
+        ctx.drawImage(pusteblume, 620, 315 - imgH / 2, imgW, imgH);
+        ctx.globalAlpha = 1;
+      }
+
       // Akzent-Linie oben
       ctx.fillStyle = MINT;
       ctx.fillRect(0, 0, 1200, 8);
 
-      // Titel (Playfair Display Ersatz)
-      ctx.fillStyle = DARK_BROWN;
-      ctx.font = 'bold 64px Georgia, serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('Füreinander Freiburg', 600, 200);
-
-      // Untertitel
-      ctx.font = '32px Georgia, serif';
-      ctx.fillText('Selbsthilfegruppe für zweifelnde und', 600, 300);
-      ctx.fillText('ausgestiegene Zeugen Jehovas', 600, 345);
-
-      // Ort
-      ctx.font = 'italic 28px Georgia, serif';
+      // Kicker (Ort)
       ctx.fillStyle = '#8a7a60';
-      ctx.fillText('Freiburg im Breisgau', 600, 440);
+      ctx.font = 'italic 26px "Source Serif 4", Georgia, serif';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+      ctx.fillText('Freiburg im Breisgau', 80, 200);
 
-      // Dekoelement (Symbol)
-      ctx.fillStyle = WARM_YELLOW;
-      ctx.beginPath();
-      ctx.arc(600, 520, 40, 0, Math.PI * 2);
-      ctx.fill();
+      // Titel
+      ctx.fillStyle = DARK_BROWN;
+      ctx.font = '700 76px "Playfair Display", Georgia, serif';
+      ctx.fillText('Füreinander Freiburg', 80, 290);
 
+      // Untertitel (zweizeilig)
+      ctx.fillStyle = '#5c4e3a';
+      ctx.font = '30px "Source Serif 4", Georgia, serif';
+      ctx.fillText('Selbsthilfegruppe für zweifelnde und', 80, 360);
+      ctx.fillText('ausgestiegene Zeugen Jehovas', 80, 402);
+
+      // Akzent-Unterstrich
       ctx.fillStyle = MINT;
-      ctx.beginPath();
-      ctx.arc(560, 520, 20, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.fillRect(80, 440, 120, 6);
 
-      ctx.beginPath();
-      ctx.arc(640, 520, 20, 0, Math.PI * 2);
-      ctx.fill();
+      // Domain unten
+      ctx.fillStyle = '#6f6047';
+      ctx.font = '600 24px "Source Serif 4", Georgia, serif';
+      ctx.fillText('fuereinander-freiburg.de', 80, 560);
     }
 
     function downloadImage() {
@@ -136,8 +146,17 @@
       }, 'image/png');
     }
 
-    // Render on load
-    drawOGImage();
+    // Render erst wenn Fonts UND Pusteblume geladen sind
+    function renderWhenReady() {
+      Promise.all([
+        document.fonts.ready,
+        pusteblume.complete ? Promise.resolve() : new Promise(res => {
+          pusteblume.onload = res;
+          pusteblume.onerror = res; // ohne Bild trotzdem rendern
+        })
+      ]).then(drawOGImage);
+    }
+    renderWhenReady();
   </script>
 </body>
 </html>

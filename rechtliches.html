@@ -51,33 +51,14 @@
   }
   </script>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            mint: '#a9e2cc',
-            lightyellow: '#fff4d6',
-            cream: '#FEFAE0',
-            warmyellow: '#ffda69',
-            tan: '#E2C2A2',
-          },
-          fontFamily: {
-            display: ['"Playfair Display"', 'Georgia', 'serif'],
-            body: ['"Source Serif 4"', 'Georgia', 'serif'],
-          },
-        }
-      }
-    }
-  </script>
+  <link rel="stylesheet" href="tailwind.css?v=1" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="transitions.css" />
+  <link rel="stylesheet" href="styles.css?v=1" />
+  <link rel="stylesheet" href="transitions.css?v=1" />
 </head>
 
 <body class="antialiased">
@@ -192,21 +173,21 @@
     <div class="max-w-3xl mx-auto px-6">
 
       <!-- Breadcrumbs -->
-      <nav aria-label="Breadcrumb" class="mb-6 text-center hero-anim-1">
+      <nav aria-label="Breadcrumb" class="mb-6 text-center md:hidden">
         <a href="index.html" class="font-body text-xs transition-colors" style="color:#5c4e3a;" onmouseover="this.style.color='#3d3225'" onmouseout="this.style.color='#5c4e3a'">Startseite</a>
-        <span class="font-body text-xs mx-2" style="color:#8a7a60;">/</span>
+        <span class="font-body text-xs mx-2" style="color:#6f6047;">/</span>
         <span class="font-body text-xs font-semibold" style="color:#3d3225;">Rechtliches</span>
       </nav>
 
       <!-- Seitenüberschrift -->
-      <div class="mb-12 text-center hero-anim-2">
+      <div class="mb-12 text-center">
         <p class="font-body text-sm uppercase tracking-widest mb-3" style="color:#b8a88a;">Rechtliche Hinweise</p>
         <h1 class="font-display text-4xl md:text-5xl font-bold mb-4" style="color:#3d3225;">Rechtliches</h1>
         <div style="width:3rem;height:2px;background-color:#a9e2cc;margin:0 auto;"></div>
       </div>
 
       <!-- Impressum Platzhalter -->
-      <section class="mb-8 hero-anim-3" aria-labelledby="impressum-heading">
+      <section class="mb-8" aria-labelledby="impressum-heading">
         <h2 id="impressum-heading" class="font-display text-2xl font-semibold mb-6" style="color:#3d3225;">Impressum</h2>
         <div class="rounded-2xl p-6 sm:p-8 card-hover" style="background:#ffda69; border:1px solid #E2C2A2;">
           <p class="font-body text-base leading-relaxed mb-4" style="color:#5c4e3a;">
@@ -225,7 +206,7 @@
       </section>
 
       <!-- Datenschutz Kontaktaufnahme -->
-      <section class="mb-8 hero-anim-3" aria-labelledby="privacy-contact-heading">
+      <section class="mb-8" aria-labelledby="privacy-contact-heading">
         <h2 id="privacy-contact-heading" class="font-display text-2xl font-semibold mb-6" style="color:#3d3225;">Datenschutz bei der Kontaktaufnahme (Formular, E-Mail, Telefon & Messenger)</h2>
         <div class="rounded-2xl p-6 sm:p-8 card-hover" style="background:#d4f1e6; border:1px solid #a9e2cc;">
           <p class="font-body text-base leading-relaxed mb-4" style="color:#5c4e3a;">
@@ -246,7 +227,7 @@
       </section>
 
       <!-- Cookies -->
-      <section class="mb-8 hero-anim-3" aria-labelledby="cookies-heading">
+      <section class="mb-8" aria-labelledby="cookies-heading">
         <h2 id="cookies-heading" class="font-display text-2xl font-semibold mb-6" style="color:#3d3225;">Cookies</h2>
         <div class="rounded-2xl p-6 sm:p-8 card-hover" style="background:#ffda69; border:1px solid #E2C2A2;">
           <p class="font-body text-base leading-relaxed" style="color:#5c4e3a;">
@@ -256,7 +237,7 @@
       </section>
 
       <!-- Besucherzähler -->
-      <section class="mb-8 hero-anim-3" aria-labelledby="counter-heading">
+      <section class="mb-8" aria-labelledby="counter-heading">
         <h2 id="counter-heading" class="font-display text-2xl font-semibold mb-6" style="color:#3d3225;">Besucherzähler</h2>
         <div class="rounded-2xl p-6 sm:p-8 card-hover" style="background:#d4f1e6; border:1px solid #a9e2cc;">
           <p class="font-body text-base leading-relaxed" style="color:#5c4e3a;">
@@ -266,7 +247,7 @@
       </section>
 
       <!-- Haftungsausschluss für externe Links -->
-      <section class="mb-8 hero-anim-3" aria-labelledby="links-heading">
+      <section class="mb-8" aria-labelledby="links-heading">
         <h2 id="links-heading" class="font-display text-2xl font-semibold mb-6" style="color:#3d3225;">Haftung für externe Links</h2>
         <div class="rounded-2xl p-6 sm:p-8 card-hover" style="background:#d4f1e6; border:1px solid #a9e2cc;">
           <p class="font-body text-base leading-relaxed mb-4" style="color:#5c4e3a;">
@@ -282,7 +263,7 @@
       </section>
 
       <!-- Urheberrecht -->
-      <section class="mb-8 hero-anim-3" aria-labelledby="copyright-heading">
+      <section class="mb-8" aria-labelledby="copyright-heading">
         <h2 id="copyright-heading" class="font-display text-2xl font-semibold mb-6" style="color:#3d3225;">Urheberrecht</h2>
         <div class="rounded-2xl p-6 sm:p-8 card-hover" style="background:#ffda69; border:1px solid #E2C2A2;">
           <p class="font-body text-base leading-relaxed mb-4" style="color:#5c4e3a;">
@@ -389,7 +370,6 @@
 
 
 
-  <script src="transitions.js" defer></script>
 
 </body>
 </html>

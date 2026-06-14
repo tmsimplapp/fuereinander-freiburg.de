@@ -30,7 +30,7 @@
           <summary class="w-full flex items-center justify-between gap-4 px-7 py-5 cursor-pointer list-none"
                    style="background:#ffda69;">
             <span class="font-display text-base font-semibold" style="color:#3d3225;">${faq.question}</span>
-            <svg class="details-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#8a7a60" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <svg class="details-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
             </svg>
           </summary>
@@ -58,4 +58,7 @@
   } else {
     convertFAQ();
   }
+
+  // Export für transitions.js (Re-Init nach View-Transition)
+  window.convertFAQ = convertFAQ;
 })();

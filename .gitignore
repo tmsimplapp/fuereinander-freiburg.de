@@ -1,3 +1,6 @@
+# Dependencies
+node_modules/
+
 # System & IDE files
 .agents/
 .antigravitycli/
@@ -9,3 +12,6 @@
 
 # Dynamic application files
 counter.txt
+
+# Secrets
+telegram-config.php

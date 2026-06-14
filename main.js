@@ -13,9 +13,7 @@
     initMobileMenu();
     initScrollEffects();
     initRevealAnimations();
-    initFAQButtons();
     initContactForm();
-    initPageCounter();
   }
 
   // ═══════════════════════════════════════
@@ -137,10 +135,9 @@
   // SCROLL-EFFEKTE (vereinheitlicht)
   // ═══════════════════════════════════════
 
-  function initScrollEffects() {
-    if (window.scrollEffectsInitialized) return;
-    window.scrollEffectsInitialized = true;
+  let scrollListenerBound = false;
 
+  function initScrollEffects() {
     let ticking = false;
     const isMobile = () => window.innerWidth <= 900;
 
@@ -180,9 +177,13 @@
       }
     }
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    // Listener nur einmal binden; updateScrollEffects greift nach jedem Body-Tausch auf aktuelle Elemente zu
+    if (!scrollListenerBound) {
+      window.addEventListener('scroll', onScroll, { passive: true });
+      scrollListenerBound = true;
+    }
 
-    // Initialer Check
+    // Initialer Check (auch nach View-Transition, bezieht sich auf neue Elemente)
     updateScrollEffects();
   }
 
@@ -236,29 +237,6 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.rule-card').forEach(el => ruleObserver.observe(el));
-  }
-
-  // ═══════════════════════════════════════
-  // FAQ-BUTTONS (Legacy-Support, wird durch faq-details.js ersetzt)
-  // ═══════════════════════════════════════
-
-  function initFAQButtons() {
-    // Prüfe ob FAQ bereits als <details> konvertiert wurde
-    if (document.querySelector('#faq details')) {
-      return; // faq-details.js hat bereits konvertiert
-    }
-
-    // Legacy-Support für alte FAQ-Buttons
-    document.querySelectorAll('.faq-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const answer = btn.closest('div').querySelector('.faq-answer');
-        const icon = btn.querySelector('.faq-icon');
-        const open = !answer.classList.contains('hidden');
-        answer.classList.toggle('hidden', open);
-        icon.style.transform = open ? '' : 'rotate(180deg)';
-        btn.setAttribute('aria-expanded', String(!open));
-      });
-    });
   }
 
   // ═══════════════════════════════════════
@@ -372,6 +350,9 @@
   } else {
     init();
   }
+
+  // Seitenzähler nur einmal pro echtem Seitenaufruf, NICHT bei View-Transitions
+  initPageCounter();
 
   // Export für transitions.js
   window.reinitializeScripts = init;

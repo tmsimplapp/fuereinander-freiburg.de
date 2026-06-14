@@ -2,9 +2,8 @@
 header('Content-Type: application/json');
 
 // --- Telegram-Konfiguration ---
-// Ersetze diese Platzhalter mit deinen echten Daten
-define('TELEGRAM_BOT_TOKEN', '8835333763:AAEh7i7da-CjZf37JFl0GswCTCfEltezbP4');
-define('TELEGRAM_CHAT_ID', '-5176222824');
+// Zugangsdaten liegen in nicht-versionierter telegram-config.php (siehe .gitignore)
+require __DIR__ . '/telegram-config.php';
 
 // Hilfsfunktion für Telegram-Benachrichtigung
 function send_telegram_notification($name, $method, $value, $message) {
@@ -26,7 +25,7 @@ function send_telegram_notification($name, $method, $value, $message) {
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post_fields));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
     $result = curl_exec($ch);
     curl_close($ch);
     return $result;
@@ -77,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             .data-box p { margin: 0 0 12px 0; font-size: 14px; color: #3d3225; opacity: 0.8; }
             .quote-box { background-color: #fff4d6; padding: 24px 32px; border-radius: 16px; border-left: 4px solid #ffda69; margin-top: 24px; font-style: italic; }
             .divider { height: 1px; background-color: #E2C2A2; margin: 40px 0; opacity: 0.5; }
-            .footer { font-size: 13px; color: #8a7a60; text-align: center; margin-top: 24px; }
+            .footer { font-size: 13px; color: #6f6047; text-align: center; margin-top: 24px; }
             .footer a { color: #5fa88a; text-decoration: none; }
         </style>
     ";
@@ -126,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mail_success = mail($to, $subject, $email_content, $email_headers, "-fkontakt@fuereinander-freiburg.de");
 
     // Telegram Benachrichtigung senden (falls konfiguriert)
-    if ($mail_success && TELEGRAM_BOT_TOKEN !== 'YOUR_TELEGRAM_BOT_TOKEN_HERE' && TELEGRAM_CHAT_ID !== 'YOUR_TELEGRAM_CHAT_ID_HERE') {
+    if ($mail_success && TELEGRAM_BOT_TOKEN !== 'HIER_NEUEN_TOKEN_EINTRAGEN' && TELEGRAM_CHAT_ID !== 'HIER_CHAT_ID_EINTRAGEN') {
         send_telegram_notification($name, $contact_method, $contact_value, $message);
     }
 

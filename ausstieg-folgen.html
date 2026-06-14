@@ -14,33 +14,14 @@
   <link rel="manifest" href="site.webmanifest" />
   <meta name="theme-color" content="#a9e2cc" />
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            mint: '#a9e2cc',
-            lightyellow: '#fff4d6',
-            cream: '#FEFAE0',
-            warmyellow: '#ffda69',
-            tan: '#E2C2A2',
-          },
-          fontFamily: {
-            display: ['"Playfair Display"', 'Georgia', 'serif'],
-            body: ['"Source Serif 4"', 'Georgia', 'serif'],
-          },
-        }
-      }
-    }
-  </script>
+  <link rel="stylesheet" href="tailwind.css?v=1" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="transitions.css" />
+  <link rel="stylesheet" href="styles.css?v=1" />
+  <link rel="stylesheet" href="transitions.css?v=1" />
   <style>
     @media (max-width: 767px) {
       .justify-last-center {
@@ -244,8 +225,8 @@
     <div class="max-w-4xl mx-auto px-6">
 
       <!-- Breadcrumbs -->
-      <nav aria-label="Breadcrumb" class="mb-6 text-center hero-anim-1">
-        <ol class="inline-flex items-center gap-2 text-xs" style="color:#8a7a60;">
+      <nav aria-label="Breadcrumb" class="mb-6 text-center md:hidden">
+        <ol class="inline-flex items-center gap-2 text-xs" style="color:#6f6047;">
           <li>
             <a href="index.html" class="font-body hover:text-[#3d3225] hover:underline transition-colors py-1 px-2">Startseite</a>
           </li>
@@ -257,7 +238,7 @@
       </nav>
 
       <!-- Seitenüberschrift -->
-      <div class="mb-12 text-center hero-anim-1">
+      <div class="mb-12 text-center">
         <p class="font-body text-sm uppercase tracking-widest mb-3" style="color:#b8a88a;">Psychische Folgen</p>
         <h1 class="font-display text-4xl md:text-5xl font-bold mb-4" style="color:#3d3225;">Ausstieg aus Hochkontrollgruppen</h1>
         <div style="width:3rem;height:2px;background-color:#a9e2cc;margin:0 auto;"></div>
@@ -265,7 +246,7 @@
       </div>
 
       <!-- Einleitungstext -->
-      <section class="mb-8 text-center max-w-4xl mx-auto hero-anim-2">
+      <section class="mb-8 text-center max-w-4xl mx-auto">
         <p class="font-body text-sm md:text-base leading-relaxed justify-last-center md:text-center hyphens-auto md:hyphens-none" style="color:#5c4e3a;">
           Ein Ausstieg aus religiösen <a href="https://de.wikipedia.org/wiki/Hochkontrollgruppe" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">Hochkontrollgruppen</a> oder <a href="https://de.wikipedia.org/wiki/Spiritueller_Missbrauch" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">geistlich missbräuchlichen</a> Gemeinschaften prägt Menschen oft lange.
           Hochkontrollgruppen – darunter fallen auch die Zeugen Jehovas – sind religiöse Organisationen, die das Leben ihrer Mitglieder weitreichend kontrollieren: soziale Kontakte, Informationszugang, Entscheidungen im Alltag.
@@ -276,7 +257,7 @@
       </section>
 
       <!-- Anchor-Sprungmenü -->
-      <nav aria-label="Inhaltsverzeichnis" class="flex flex-wrap justify-center gap-3 mb-12 hero-anim-2">
+      <nav aria-label="Inhaltsverzeichnis" class="flex flex-wrap justify-center gap-3 mb-12">
         <a href="#symptome-heading" class="font-body text-xs font-semibold px-4 py-2.5 rounded-full bg-white/60 border border-mint/30 hover:bg-[#a9e2cc] hover:border-[#a9e2cc] hover:text-[#1a2820] shadow-sm hover:shadow active:scale-95 transition-all duration-300 glowing-border">
           Häufige Symptome
         </a>
@@ -289,7 +270,7 @@
       </nav>
 
       <!-- Symptom-Kategorien Grid -->
-      <div class="grid gap-8 mb-12 hero-anim-3">
+      <div class="grid gap-8 mb-12">
         
         <!-- Kategorie 1: Häufige Symptome -->
         <section class="rounded-2xl p-6 sm:p-8 card-hover" style="background:#f0faf6; border:1px solid #a9e2cc;" aria-labelledby="symptome-heading">
@@ -412,7 +393,7 @@
       </div>
 
       <!-- Wichtiger Hinweis -->
-      <section class="rounded-2xl p-6 sm:p-8 mb-12 hero-anim-4 bg-white/60 border border-tan/20" aria-labelledby="hinweis-heading">
+      <section class="rounded-2xl p-6 sm:p-8 mb-12 bg-white/60 border border-tan/20" aria-labelledby="hinweis-heading">
         <div class="flex flex-col gap-4">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style="background:#ffda69;">
@@ -432,7 +413,7 @@
       </section>
 
       <!-- Buchempfehlungen -->
-      <section class="rounded-2xl p-6 sm:p-8 mb-12 hero-anim-4 bg-white/40 border border-tan/20" aria-labelledby="literatur-heading">
+      <section class="rounded-2xl p-6 sm:p-8 mb-12 bg-white/40 border border-tan/20" aria-labelledby="literatur-heading">
         <div class="flex items-center gap-3 mb-6">
           <span class="p-2 rounded-lg bg-mint/30">
             <svg class="w-6 h-6 text-[#1a2820]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
@@ -445,52 +426,52 @@
           <div class="flex flex-row sm:flex-col items-center sm:text-center rounded-xl p-3 sm:p-4 bg-white/60 border border-tan/20 shadow-sm hover:shadow-md transition-all duration-300 hover:translate-y-[-2px] gap-4 sm:gap-0">
             <div class="w-20 sm:w-full aspect-[3/4] sm:mb-4 rounded-lg bg-cream border border-tan/30 hidden sm:flex flex-col justify-between p-2 sm:p-3 relative overflow-hidden shadow-inner select-none flex-shrink-0">
               <div class="absolute left-0 top-0 bottom-0 w-1.5 sm:w-2.5 bg-tan/25 border-r border-tan/10"></div>
-              <span class="text-[8px] sm:text-[9px] uppercase tracking-widest text-[#8a7a60] font-body block self-end font-semibold">Klassiker</span>
+              <span class="text-[8px] sm:text-[9px] uppercase tracking-widest text-[#6f6047] font-body block self-end font-semibold">Klassiker</span>
               <p class="font-display text-[10px] sm:text-xs font-bold leading-tight text-[#3d3225] px-1 sm:px-2 my-auto">Die zerstörende Kraft...</p>
               <span class="text-[8px] sm:text-[10px] text-[#5c4e3a] font-body block truncate">Johnson / VanVonderen</span>
             </div>
             <div class="flex-grow text-left sm:text-center">
               <h4 class="font-display text-sm sm:text-base font-semibold mb-1" style="color:#3d3225;">Die zerstörende Kraft des geistlichen Missbrauchs</h4>
-              <p class="font-body text-xs" style="color:#8a7a60;">David Johnson / Jeff VanVonderen</p>
+              <p class="font-body text-xs" style="color:#6f6047;">David Johnson / Jeff VanVonderen</p>
             </div>
           </div>
           <!-- Buch 2 -->
           <div class="flex flex-row sm:flex-col items-center sm:text-center rounded-xl p-3 sm:p-4 bg-white/60 border border-tan/20 shadow-sm hover:shadow-md transition-all duration-300 hover:translate-y-[-2px] gap-4 sm:gap-0">
             <div class="w-20 sm:w-full aspect-[3/4] sm:mb-4 rounded-lg bg-cream border border-tan/30 hidden sm:flex flex-col justify-between p-2 sm:p-3 relative overflow-hidden shadow-inner select-none flex-shrink-0">
               <div class="absolute left-0 top-0 bottom-0 w-1.5 sm:w-2.5 bg-tan/25 border-r border-tan/10"></div>
-              <span class="text-[8px] sm:text-[9px] uppercase tracking-widest text-[#8a7a60] font-body block self-end font-semibold">Praxis</span>
+              <span class="text-[8px] sm:text-[9px] uppercase tracking-widest text-[#6f6047] font-body block self-end font-semibold">Praxis</span>
               <p class="font-display text-[10px] sm:text-xs font-bold leading-tight text-[#3d3225] px-1 sm:px-2 my-auto">Geistlicher Missbrauch</p>
               <span class="text-[8px] sm:text-[10px] text-[#5c4e3a] font-body block truncate">Inge Tempelmann</span>
             </div>
             <div class="flex-grow text-left sm:text-center">
               <h4 class="font-display text-sm sm:text-base font-semibold mb-1" style="color:#3d3225;">Geistlicher Missbrauch: Auswege aus frommer Gewalt</h4>
-              <p class="font-body text-xs" style="color:#8a7a60;">Inge Tempelmann</p>
+              <p class="font-body text-xs" style="color:#6f6047;">Inge Tempelmann</p>
             </div>
           </div>
           <!-- Buch 3 -->
           <div class="flex flex-row sm:flex-col items-center sm:text-center rounded-xl p-3 sm:p-4 bg-white/60 border border-tan/20 shadow-sm hover:shadow-md transition-all duration-300 hover:translate-y-[-2px] gap-4 sm:gap-0">
             <div class="w-20 sm:w-full aspect-[3/4] sm:mb-4 rounded-lg bg-cream border border-tan/30 hidden sm:flex flex-col justify-between p-2 sm:p-3 relative overflow-hidden shadow-inner select-none flex-shrink-0">
               <div class="absolute left-0 top-0 bottom-0 w-1.5 sm:w-2.5 bg-tan/25 border-r border-tan/10"></div>
-              <span class="text-[8px] sm:text-[9px] uppercase tracking-widest text-[#8a7a60] font-body block self-end font-semibold">Kontext</span>
+              <span class="text-[8px] sm:text-[9px] uppercase tracking-widest text-[#6f6047] font-body block self-end font-semibold">Kontext</span>
               <p class="font-display text-[10px] sm:text-xs font-bold leading-tight text-[#3d3225] px-1 sm:px-2 my-auto">Spiritueller Missbrauch</p>
               <span class="text-[8px] sm:text-[10px] text-[#5c4e3a] font-body block truncate">Doris Wagner</span>
             </div>
             <div class="flex-grow text-left sm:text-center">
               <h4 class="font-display text-sm sm:text-base font-semibold mb-1" style="color:#3d3225;">Spiritueller Missbrauch in der katholischen Kirche</h4>
-              <p class="font-body text-xs" style="color:#8a7a60;">Doris Wagner u. a.</p>
+              <p class="font-body text-xs" style="color:#6f6047;">Doris Wagner u. a.</p>
             </div>
           </div>
           <!-- Buch 4 -->
           <div class="flex flex-row sm:flex-col items-center sm:text-center rounded-xl p-3 sm:p-4 bg-white/60 border border-tan/20 shadow-sm hover:shadow-md transition-all duration-300 hover:translate-y-[-2px] gap-4 sm:gap-0">
             <div class="w-20 sm:w-full aspect-[3/4] sm:mb-4 rounded-lg bg-cream border border-tan/30 hidden sm:flex flex-col justify-between p-2 sm:p-3 relative overflow-hidden shadow-inner select-none flex-shrink-0">
               <div class="absolute left-0 top-0 bottom-0 w-1.5 sm:w-2.5 bg-tan/25 border-r border-tan/10"></div>
-              <span class="text-[8px] sm:text-[9px] uppercase tracking-widest text-[#8a7a60] font-body block self-end font-semibold">Analyse</span>
+              <span class="text-[8px] sm:text-[9px] uppercase tracking-widest text-[#6f6047] font-body block self-end font-semibold">Analyse</span>
               <p class="font-display text-[10px] sm:text-xs font-bold leading-tight text-[#3d3225] px-1 sm:px-2 my-auto">Selbstverlust &amp; Entfremdung</p>
               <span class="text-[8px] sm:text-[10px] text-[#5c4e3a] font-body block truncate">Barbara Haslbeck</span>
             </div>
             <div class="flex-grow text-left sm:text-center">
               <h4 class="font-display text-sm sm:text-base font-semibold mb-1" style="color:#3d3225;">Selbstverlust und Gottentfremdung</h4>
-              <p class="font-body text-xs" style="color:#8a7a60;">Barbara Haslbeck / Ute Leimgruber u. a.</p>
+              <p class="font-body text-xs" style="color:#6f6047;">Barbara Haslbeck / Ute Leimgruber u. a.</p>
             </div>
           </div>
         </div>
@@ -546,7 +527,6 @@
   </footer>
 
   <script src="main.js" defer></script>
-  <script src="transitions.js" defer></script>
 
 
 </body>

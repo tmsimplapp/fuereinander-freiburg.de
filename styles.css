@@ -1,3 +1,29 @@
+/* ═══════════════════════════════════════
+   DESIGN TOKENS – zentrale Farbquelle
+   Spiegeln die projektweit genutzten Hex-Werte.
+   Neue/geänderte Farben über diese Variablen statt Inline-Hex.
+════════════════════════════════════════ */
+:root {
+  --mint: #a9e2cc;
+  --mint-dark: #8ed4b8;
+  --mint-darker: #7ac4a8;
+  --mint-soft: #d4f1e6;
+  --accent: #5fa88a;
+  --accent-dark: #4a8a6e;
+  --warmyellow: #ffda69;
+  --warmyellow-dark: #ffd055;
+  --cream: #FEFAE0;
+  --lightyellow: #fff4d6;
+  --tan: #E2C2A2;
+  --tan-dark: #d4b391;
+  --text-strong: #3d3225;
+  --text-body: #5c4e3a;
+  --text-muted: #6f6047;
+  --text-dark: #1a2820;
+  --footer-link: #5c3d1e;
+  --error: #e05252;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -7,8 +33,6 @@ body {
   background-attachment: fixed;
   font-family: 'Source Serif 4', Georgia, serif;
   overscroll-behavior: none;
-  -webkit-user-select: none;
-  user-select: none;
   overflow-x: hidden;
 }
 
@@ -94,7 +118,8 @@ body {
 /* Parallax-Effekt für Hero-Bild */
 .hero-full-img {
   will-change: transform;
-  transition: transform 0.1s linear;
+  /* Compositing-Ebene erzwingen, ohne das positionierende transform zu überschreiben */
+  backface-visibility: hidden;
 }
 
 /* Reduced motion */
@@ -425,6 +450,16 @@ nav img {
   opacity: 0.7;
 }
 
+/* Nur mobil: FAB + Menü-Overlay ab Desktop ausblenden.
+   styles.css lädt nach tailwind.css, daher würde .mobile-fab{display:flex}
+   das Utility md:hidden überschreiben – hier explizit gegensteuern. */
+@media (min-width: 768px) {
+  .mobile-fab,
+  .mobile-menu-overlay {
+    display: none;
+  }
+}
+
 .mobile-fab:hover {
   background: linear-gradient(135deg, #8ed4b8 0%, #7ac4a8 100%);
   transform: translateY(-4px) scale(1.02);
@@ -566,20 +601,20 @@ footer a:hover {
   color: #4a8a6e;
 }
 .hero-full-cta a[href^="#ueber"] {
-  color: #8a7a60;
+  color: #6f6047;
 }
 .hero-full-cta a[href^="#ueber"]:hover {
   color: #3d3225;
 }
 
 /* Content-Links (externe Ressourcen) */
-article a[target="_blank"],
-section a[target="_blank"] {
+article a[target="_blank"]:not(.btn-primary),
+section a[target="_blank"]:not(.btn-primary) {
   color: #5fa88a;
   transition: color 0.2s ease;
 }
-article a[target="_blank"]:hover,
-section a[target="_blank"]:hover {
+article a[target="_blank"]:not(.btn-primary):hover,
+section a[target="_blank"]:not(.btn-primary):hover {
   color: #4a8a6e;
 }
 
@@ -666,7 +701,6 @@ section a[target="_blank"]:hover {
 
 .glowing-border {
   position: relative;
-  border-radius: inherit;
 }
 
 .glowing-border::before {
@@ -695,7 +729,6 @@ section a[target="_blank"]:hover {
 }
 
 /* Touch Action Optimization - verhindert 300ms Tap-Delay */
-#nav-toggle,
 .mobile-nav-link,
 .btn-primary {
   touch-action: manipulation;
@@ -714,13 +747,6 @@ details[open] .details-icon {
 }
 details summary:hover {
   background: #ffd055 !important;
-}
-
-/* Focus States für Tastatur-Navigation */
-#nav-toggle:focus-visible {
-  outline: 2px solid #a9e2cc;
-  outline-offset: 2px;
-  border-radius: 8px;
 }
 
 .mobile-nav-link:focus-visible,
@@ -746,11 +772,6 @@ details summary:hover {
   height: 16px;
   background: #5fa88a;
   border-radius: 2px;
-}
-
-/* Hamburger-Button Animation */
-#nav-toggle span {
-  transform-origin: center;
 }
 
 /* ═══════════════════════════════════════
@@ -801,7 +822,7 @@ details summary:hover {
   gap: 16px;
 }
 
-/* Telefonnummer (linksbündig auf Mobile, zentriiert auf Desktop) */
+/* Telefonnummer (linksbündig auf Mobile, zentriert auf Desktop) */
 .sticky-phone-number {
   display: flex;
   align-items: center;
@@ -928,7 +949,6 @@ details summary:hover {
 
 /* Reduced Motion: Deaktiviere alle Animationen */
 @media (prefers-reduced-motion: reduce) {
-  #nav-toggle-desktop span,
   #nav-toggle-fab span,
   .mobile-nav-link,
   .btn-primary,
