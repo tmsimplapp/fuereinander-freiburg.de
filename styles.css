@@ -568,6 +568,13 @@ nav img {
   -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid rgba(226, 194, 162, 0.3);
   box-shadow: 0 -4px 20px rgba(169, 226, 204, 0.1);
+  padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: 768px) {
+  .footer-glass {
+    padding-bottom: 5rem;
+  }
 }
 
 /* Hero: Transparenter Hintergrund (nutzt Body-Gradient) */
