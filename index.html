@@ -31,6 +31,7 @@
   <link rel="alternate" hreflang="x-default" href="https://fuereinander-freiburg.de/" />
   <link rel="icon" href="grafik/F%C3%BCreinander%20Freiburg.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="grafik/apple-touch-icon.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link rel="manifest" href="site.webmanifest?v=2" />
@@ -407,10 +408,10 @@
   <!-- ═══════════════════════════════════════
        HERO SECTION
   ════════════════════════════════════════ -->
-  <section class="hero-full grain" style="padding-top: 72px;">
+  <section class="hero-full grain md:pt-[72px]">
 
-    <!-- Pusteblume: vollflächig, links-unten verankert -->
-    <img src="grafik/hero_grafik.png"
+    <!-- Hero-Grafik: vollflächig, links-unten verankert -->
+    <img src="grafik/hero_grafik_neu.svg"
          alt=""
          aria-hidden="true"
          class="hero-full-img"
@@ -1037,7 +1038,7 @@
       </div>
 
       <!-- Rückruf vereinbaren -->
-      <div id="rueckruf" class="reveal reveal-delay-2 card-hover rounded-2xl p-6 md:p-8 mb-6 max-w-5xl mx-auto"
+      <div id="rueckruf" hidden class="reveal reveal-delay-2 card-hover rounded-2xl p-6 md:p-8 mb-6 max-w-5xl mx-auto"
            style="background:#FEFAE0; border: 1px solid #E2C2A2;">
 
         <div class="flex items-center gap-3 mb-6">
@@ -1166,7 +1167,7 @@
   ════════════════════════════════════════ -->
   <script src="faq-details.js" defer></script>
   <script src="main.js" defer></script>
-  <script src="rueckruf.js" defer></script>
+  <!-- <script src="rueckruf.js" defer></script> -->
 
 
   <!-- ═══════════════════════════════════════
@@ -1206,5 +1207,28 @@
 
 
 
+  <!-- Scroll Reveal Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const observerOptions = {
+        root: null,
+        rootMargin: "0px 0px -50px 0px",
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".reveal, .reveal-slide-left, .reveal-slide-right, .reveal-scale, .rule-card").forEach(el => {
+        observer.observe(el);
+      });
+    });
+  </script>
 </body>
 </html>

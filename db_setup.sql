@@ -20,23 +20,30 @@ CREATE TABLE IF NOT EXISTS `rueckruf_buchungen` (
   UNIQUE KEY `uq_token` (`cancel_token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Slot-Konfiguration: Monate, Wochentag, Uhrzeiten – pflegbar ohne FTP
--- Neuen Monat hinzufügen: INSERT INTO slot_konfiguration (monat, wochentag, uhrzeiten, slot_laenge_min) VALUES ('2026-08', 3, '["18:00","19:00"]', 60);
--- Monat deaktivieren: UPDATE slot_konfiguration SET aktiv = 0 WHERE monat = '2026-07';
+-- Slot-Konfiguration: Einzeltermine – pflegbar ohne FTP
+-- Neuen Termin: INSERT INTO slot_konfiguration (termin_datum, uhrzeiten) VALUES ('2026-09-03', '["18:00","19:00"]');
+-- Termin deaktivieren: UPDATE slot_konfiguration SET aktiv = 0 WHERE termin_datum = '2026-08-05';
 CREATE TABLE IF NOT EXISTS `slot_konfiguration` (
   `id`              INT UNSIGNED  NOT NULL AUTO_INCREMENT,
-  `monat`           CHAR(7)       NOT NULL COMMENT 'Format: YYYY-MM',
-  `wochentag`       TINYINT       NOT NULL COMMENT '1=Mo … 7=So',
+  `termin_datum`    DATE          NOT NULL COMMENT 'Konkretes Datum des Termins',
   `uhrzeiten`       JSON          NOT NULL COMMENT 'Array: ["18:00","19:00"]',
   `slot_laenge_min` SMALLINT      NOT NULL DEFAULT 60,
   `aktiv`           TINYINT(1)    NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uq_monat` (`monat`)
+  UNIQUE KEY `uq_termin` (`termin_datum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Initialer Eintrag: Juli 2026, Mittwoch, 18+19 Uhr
-INSERT IGNORE INTO `slot_konfiguration` (monat, wochentag, uhrzeiten, slot_laenge_min)
-VALUES ('2026-07', 3, '["18:00","19:00"]', 60);
+-- Juli 2026: alle Mittwoche
+INSERT IGNORE INTO `slot_konfiguration` (termin_datum, uhrzeiten) VALUES
+  ('2026-07-01', '["18:00","19:00"]'),
+  ('2026-07-08', '["18:00","19:00"]'),
+  ('2026-07-15', '["18:00","19:00"]'),
+  ('2026-07-22', '["18:00","19:00"]'),
+  ('2026-07-29', '["18:00","19:00"]');
+
+-- August 2026: nur erster Mittwoch (05.08.)
+INSERT IGNORE INTO `slot_konfiguration` (termin_datum, uhrzeiten) VALUES
+  ('2026-08-05', '["18:00","19:00"]');
 
 -- Rate-Limiting: max. 3 Buchungsversuche pro IP pro 10 Minuten
 CREATE TABLE IF NOT EXISTS `buchung_rate_limit` (

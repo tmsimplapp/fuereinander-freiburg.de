@@ -9,6 +9,7 @@
   <link rel="canonical" href="https://fuereinander-freiburg.de/termine.html" />
   <link rel="icon" href="grafik/F%C3%BCreinander%20Freiburg.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="grafik/apple-touch-icon.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link rel="manifest" href="site.webmanifest" />
@@ -192,7 +193,7 @@
   </div>
 
   <!-- HAUPTINHALT -->
-  <main class="pt-24 pb-20 min-h-screen">
+  <main class="pt-8 md:pt-24 pb-20 min-h-screen">
     <div class="max-w-3xl mx-auto px-6">
 
       <!-- Breadcrumbs -->
@@ -330,5 +331,28 @@
     </div>
   </aside>
 
+  <!-- Scroll Reveal Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const observerOptions = {
+        root: null,
+        rootMargin: "0px 0px -50px 0px",
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".reveal, .reveal-slide-left, .reveal-slide-right, .reveal-scale, .rule-card").forEach(el => {
+        observer.observe(el);
+      });
+    });
+  </script>
 </body>
 </html>

@@ -17,6 +17,7 @@ function db(): PDO {
 function email_style(): string {
     return "
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:wght@400;600&display=swap');
         body { font-family: 'Source Serif 4', Georgia, serif; background-color: #FEFAE0; color: #5c4e3a; margin: 0; padding: 40px 20px; line-height: 1.7; }
         .wrapper { max-width: 600px; margin: 0 auto; }
         .header { text-align: center; margin-bottom: 30px; }
@@ -60,22 +61,20 @@ function datum_lesbar(string $datum): string {
     return $wochentage[$dow] . ', ' . (int)date('j', $ts) . '. ' . $monate[$mon] . ' ' . date('Y', $ts);
 }
 
-// Buchbare Monate + Uhrzeiten aus DB laden
+// Buchbare Einzeltermine aus DB laden
+// Gibt zurück: ['termine' => [['datum'=>'2026-07-02','uhrzeiten'=>['18:00','19:00'],'laenge_min'=>60], ...]]
 function slot_config_laden(): array {
     $rows = db()->query(
-        "SELECT monat, wochentag, uhrzeiten, slot_laenge_min FROM slot_konfiguration WHERE aktiv = 1 ORDER BY monat"
+        "SELECT termin_datum, uhrzeiten, slot_laenge_min FROM slot_konfiguration WHERE aktiv = 1 ORDER BY termin_datum"
     )->fetchAll(PDO::FETCH_ASSOC);
 
-    $monate     = [];
-    $uhrzeiten  = [];
-    $wochentag  = SLOT_WOCHENTAG;
-    $laenge_min = SLOT_LAENGE_MIN;
-
+    $termine = [];
     foreach ($rows as $row) {
-        $monate[]  = $row['monat'];
-        $uhrzeiten = array_unique(array_merge($uhrzeiten, json_decode($row['uhrzeiten'], true)));
-        $wochentag  = (int)$row['wochentag'];
-        $laenge_min = (int)$row['slot_laenge_min'];
+        $termine[] = [
+            'datum'      => $row['termin_datum'],
+            'uhrzeiten'  => json_decode($row['uhrzeiten'], true),
+            'laenge_min' => (int)$row['slot_laenge_min'],
+        ];
     }
-    return ['monate' => $monate, 'uhrzeiten' => $uhrzeiten, 'wochentag' => $wochentag, 'laenge_min' => $laenge_min];
+    return ['termine' => $termine, 'laenge_min' => empty($termine) ? SLOT_LAENGE_MIN : $termine[0]['laenge_min']];
 }

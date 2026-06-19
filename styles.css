@@ -33,7 +33,7 @@ body {
   background-attachment: fixed;
   font-family: 'Source Serif 4', Georgia, serif;
   overscroll-behavior: none;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Mobil: Blocksatz mit zentrierter letzter Zeile */
@@ -221,7 +221,7 @@ body {
   position: relative;
   min-height: 100dvh; /* Dynamic viewport height für mobile Browser */
   background-color: #ffffff;
-  overflow: hidden;
+  overflow: clip;
 }
 
 /* Pusteblume: vollflächig, links-unten verankert */
@@ -230,7 +230,7 @@ body {
   top: 50%;
   transform: translateY(-50%);
   left: max(3rem, calc(50% - 640px));
-  width: clamp(560px, 55vw, 900px);
+  width: clamp(420px, 41.25vw, 675px);
   height: auto;
   mix-blend-mode: multiply;
   pointer-events: none;
@@ -309,9 +309,10 @@ body {
   }
 
   .hero-full-img {
-    width: min(85vw, 500px);
+    width: min(63.75vw, 375px);
     top: 35%;
     left: 50%;
+    opacity: 0.15;
     transform: translate(-50%, -50%);
     opacity: 0.2;
     z-index: 0;
@@ -339,7 +340,7 @@ body {
 @media (max-width: 640px) {
   .hero-full-content {
     justify-content: flex-start;
-    padding: 5rem 1.5rem 4rem;
+    padding: 2rem 1.5rem 4rem;
   }
 
   .hero-scroll-indicator {

@@ -8,15 +8,9 @@ function slots_laden(): array {
     $config = slot_config_laden();
     $slots  = [];
 
-    foreach ($config['monate'] as $monat) {
-        [$jahr, $mon] = explode('-', $monat);
-        $tage_im_monat = cal_days_in_month(CAL_GREGORIAN, (int)$mon, (int)$jahr);
-        for ($tag = 1; $tag <= $tage_im_monat; $tag++) {
-            $datum = sprintf('%04d-%02d-%02d', $jahr, $mon, $tag);
-            if ((int)date('N', strtotime($datum)) !== $config['wochentag']) continue;
-            foreach ($config['uhrzeiten'] as $uhrzeit) {
-                $slots[] = ['datum' => $datum, 'uhrzeit' => $uhrzeit, 'belegt' => false];
-            }
+    foreach ($config['termine'] as $termin) {
+        foreach ($termin['uhrzeiten'] as $uhrzeit) {
+            $slots[] = ['datum' => $termin['datum'], 'uhrzeit' => $uhrzeit, 'belegt' => false];
         }
     }
 
@@ -26,7 +20,7 @@ function slots_laden(): array {
     $params = [];
     foreach ($slots as $s) { $params[] = $s['datum']; $params[] = $s['uhrzeit']; }
     $stmt = db()->prepare(
-        "SELECT slot_datum, slot_uhrzeit FROM rueckruf_buchungen
+        "SELECT slot_datum, TIME_FORMAT(slot_uhrzeit, '%H:%i') AS slot_uhrzeit FROM rueckruf_buchungen
          WHERE (slot_datum, slot_uhrzeit) IN ($placeholders) AND storniert IS NOT NULL"
     );
     $stmt->execute($params);
@@ -85,11 +79,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'buchen') {
     }
     db()->prepare("INSERT INTO buchung_rate_limit (ip_hash) VALUES (?)")->execute([$ip_hash]);
 
-    // Slot-Whitelist-Prüfung gegen DB-Konfiguration
+    // Slot-Whitelist-Prüfung gegen DB-Einzeltermine
     $config  = slot_config_laden();
-    $erlaubt = in_array(date('Y-m', strtotime($datum)), $config['monate'], true)
-            && (int)date('N', strtotime($datum)) === $config['wochentag']
-            && in_array($uhrzeit, $config['uhrzeiten'], true);
+    $erlaubt = false;
+    foreach ($config['termine'] as $termin) {
+        if ($termin['datum'] === $datum && in_array($uhrzeit, $termin['uhrzeiten'], true)) {
+            $erlaubt = true;
+            break;
+        }
+    }
 
     if (!$erlaubt) {
         http_response_code(409);
