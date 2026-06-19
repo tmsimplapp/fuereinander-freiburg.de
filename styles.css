@@ -169,6 +169,23 @@ body {
   box-shadow: none;
 }
 
+.btn-secondary {
+  position: relative;
+  background-color: transparent;
+  color: #5fa88a;
+  border: 1.5px solid #5fa88a;
+  transition: background-color 0.25s, border-color 0.25s, transform 0.2s, color 0.25s;
+}
+.btn-secondary:hover {
+  background-color: #d4f1e6;
+  border-color: #5fa88a;
+  color: #4a8a6e;
+  transform: translateY(-1px);
+}
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
 /* Karten */
 .card-hover {
   position: relative;
