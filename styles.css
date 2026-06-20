@@ -33,7 +33,7 @@ body {
   background-attachment: fixed;
   font-family: 'Source Serif 4', Georgia, serif;
   overscroll-behavior: none;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 /* Mobil: Blocksatz mit zentrierter letzter Zeile */
@@ -230,7 +230,7 @@ body {
   top: 50%;
   transform: translateY(-50%);
   left: max(3rem, calc(50% - 640px));
-  width: clamp(420px, 41.25vw, 675px);
+  width: clamp(280px, 41.25vw, 675px);
   height: auto;
   mix-blend-mode: multiply;
   pointer-events: none;
