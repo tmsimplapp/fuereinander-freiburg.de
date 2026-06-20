@@ -360,6 +360,18 @@ body {
   color: #3d3225;
 }
 
+.footer-link {
+  color: #5c3d1e;
+  transition: color 0.2s ease;
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+}
+.footer-link:hover,
+.footer-link:active {
+  color: #3d3225;
+}
+
 /* Header schrumpft beim Scrollen */
 nav {
   transition: padding 0.3s ease, background-color 0.3s ease;

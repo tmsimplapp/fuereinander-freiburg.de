@@ -311,9 +311,9 @@
           aria-label="Menü öffnen"
           aria-expanded="false"
           aria-controls="mobile-menu">
-    <span class="block w-6 h-0.5 transition-all" style="background-color:#1a2820;"></span>
-    <span class="block w-6 h-0.5 transition-all" style="background-color:#1a2820;"></span>
-    <span class="block w-6 h-0.5 transition-all" style="background-color:#1a2820;"></span>
+    <span class="block w-6 h-0.5 transition-all bg-dark"></span>
+    <span class="block w-6 h-0.5 transition-all bg-dark"></span>
+    <span class="block w-6 h-0.5 transition-all bg-dark"></span>
   </button>
 
   <!-- Mobile Menü (ausgeklappt) – Bottom Sheet -->
@@ -321,20 +321,19 @@
     <div class="mobile-menu-sheet">
       <div class="flex flex-col gap-2 items-stretch">
         <!-- Navigation -->
-        <a href="index.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center" aria-current="page" style="min-height: 44px; display: flex; align-items: center; justify-content: center; background:#fff4d6; border: 1px solid #E2C2A2; color:#5c4e3a;">Startseite</a>
-        <a href="ausstieg-folgen.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center" style="min-height: 44px; display: flex; align-items: center; justify-content: center; background:#fff4d6; border: 1px solid #E2C2A2; color:#5c4e3a;">Ausstiegsfolgen</a>
-        <a href="partner.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center" style="min-height: 44px; display: flex; align-items: center; justify-content: center; background:#fff4d6; border: 1px solid #E2C2A2; color:#5c4e3a;">Partner</a>
-        <a href="termine.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center" style="min-height: 44px; display: flex; align-items: center; justify-content: center; background:#fff4d6; border: 1px solid #E2C2A2; color:#5c4e3a;">Termine</a>
-        <a href="rechtliches.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center" style="min-height: 44px; display: flex; align-items: center; justify-content: center; background:#fff4d6; border: 1px solid #E2C2A2; color:#5c4e3a;">Rechtliches</a>
-        <a href="#kontaktformular" class="font-body text-base font-bold py-3 px-6 rounded-full transition-all text-center mt-2 shadow-sm" style="min-height: 44px; display: flex; align-items: center; justify-content: center; background:#a9e2cc; border: 1px solid #8ed4b8; color:#1a2820;">Kontaktformular</a>
+        <a href="index.html" aria-current="page" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Startseite</a>
+        <a href="ausstieg-folgen.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Ausstiegsfolgen</a>
+        <a href="partner.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Partner</a>
+        <a href="termine.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Termine</a>
+        <a href="rechtliches.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Rechtliches</a>
+        <a href="#kontaktformular" class="font-body text-base font-bold py-3 px-6 rounded-full transition-all text-center mt-2 shadow-sm bg-mint border border-mint-dark" style="min-height: 44px; display: flex; align-items: center; justify-content: center;  color:#1a2820">Kontaktformular</a>
 
         <!-- Separator -->
-        <div class="my-2" style="height:1px; background:#E2C2A2;"></div>
+        <div class="my-2 bg-tan" style="height:1px"></div>
 
         <!-- Telefon-Button (Primär) -->
         <a href="tel:+4915567465016"
-           class="font-body text-base font-semibold py-3 px-6 rounded-full transition-all text-center flex items-center justify-center gap-3"
-           style="min-height: 48px; background:#a9e2cc; border: 1px solid #8ed4b8; color:#1a2820;"
+           class="font-body text-base font-semibold py-3 px-6 rounded-full transition-all text-center flex items-center justify-center gap-3 bg-mint border border-mint-dark" style="min-height: 48px;  color:#1a2820"
            aria-label="Anrufen: 01556 7465016">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -349,51 +348,47 @@
           <!-- WhatsApp -->
           <a href="https://wa.me/4915567465016"
              target="_blank" rel="noopener noreferrer"
-             class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-2xl transition-all"
-             style="min-height:88px; background:#fff4d6; border:1px solid #E2C2A2;">
-            <svg class="w-8 h-8" fill="#25D366" viewBox="0 0 24 24" aria-hidden="true">
+             class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-2xl transition-all bg-lightyellow border border-tan" style="min-height:88px">
+            <svg class="w-8 h-8" fill="#3d3225" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
             </svg>
-            <span class="font-body text-sm font-medium text-center" style="color:#3d3225;">WhatsApp</span>
+            <span class="font-body text-sm font-medium text-center text-text-strong">WhatsApp</span>
           </a>
 
           <!-- Anrufen (alternative) -->
           <a href="tel:+4915567465016"
-             class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-2xl transition-all"
-             style="min-height:88px; background:#fff4d6; border:1px solid #E2C2A2;"
+             class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-2xl transition-all bg-tan border border-tan" style="min-height:88px"
              aria-label="Anrufen: 01556 7465016">
             <svg class="w-8 h-8" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round"
                     d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
             </svg>
-            <span class="font-body text-sm font-medium text-center" style="color:#3d3225;">Anrufen</span>
+            <span class="font-body text-sm font-medium text-center text-text-strong">Anrufen</span>
           </a>
 
           <!-- Telegram -->
           <a href="https://t.me/+4915567465016"
              target="_blank" rel="noopener noreferrer"
-             class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-2xl transition-all"
-             style="min-height:88px; background:#fff4d6; border:1px solid #E2C2A2;">
-            <svg class="w-8 h-8" fill="#0088cc" viewBox="0 0 24 24" aria-hidden="true">
+             class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-2xl transition-all bg-lightyellow border border-tan" style="min-height:88px">
+            <svg class="w-8 h-8" fill="#3d3225" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
             </svg>
-            <span class="font-body text-sm font-medium text-center" style="color:#3d3225;">Telegram</span>
+            <span class="font-body text-sm font-medium text-center text-text-strong">Telegram</span>
           </a>
 
           <!-- E-Mail -->
           <a href="mailto:kontakt@fuereinander-freiburg.de"
-             class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-2xl transition-all"
-             style="min-height:88px; background:#fff4d6; border:1px solid #E2C2A2;">
+             class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-2xl transition-all bg-tan border border-tan" style="min-height:88px">
             <svg class="w-8 h-8" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
             </svg>
-            <span class="font-body text-sm font-medium text-center" style="color:#3d3225;">E-Mail</span>
+            <span class="font-body text-sm font-medium text-center text-text-strong">E-Mail</span>
           </a>
 
         </div>
 
         <!-- Datenschutz-Hinweis (Mobile) -->
-        <p class="font-body text-sm text-center mt-4 flex items-center justify-center gap-2" style="color:#6f6047;">
+        <p class="font-body text-sm text-center mt-4 flex items-center justify-center gap-2 text-text-muted">
           <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
           </svg>
@@ -423,19 +418,17 @@
     <!-- Text: oben-rechts -->
     <div class="hero-full-content">
 
-      <p class="hero-anim-1 font-body text-sm font-semibold tracking-widest uppercase mb-6"
-         style="color:#6f6047; letter-spacing: 0.2em;">
+      <p class="hero-anim-1 font-body text-sm font-semibold tracking-widest uppercase mb-6 text-text-muted" style="letter-spacing: 0.2em">
         Freiburg und Umgebung
       </p>
 
-      <h1 class="hero-anim-2 font-display hero-full-title"
-          style="color:#3d3225;"
+      <h1 class="hero-anim-2 font-display hero-full-title text-text-strong"
           aria-label="Selbsthilfegruppe Freiburg für Zeugen Jehovas – Du bist nicht allein.">
         Du bist<br>
-        <em class="font-display italic font-normal" style="color:#5fa88a;">nicht allein.</em>
+        <em class="font-display italic font-normal text-accent">nicht allein.</em>
       </h1>
 
-      <p class="hero-anim-3 font-body hero-full-sub" style="color:#5c4e3a;">
+      <p class="hero-anim-3 font-body hero-full-sub text-text-body">
         Viele, die an den Zeugen Jehovas zweifeln oder aussteigen, verlieren ihr vertrautes Umfeld. Freunde, Familie, manchmal alles. Füreinander Freiburg ist eine Selbsthilfegruppe, in der Menschen mit ähnlichen Erfahrungen zusammenkommen.
       </p>
 
@@ -468,13 +461,13 @@
   ════════════════════════════════════════ -->
   <section class="py-16 md:py-20">
     <div class="max-w-5xl mx-auto px-6">
-      <div class="reveal rounded-2xl p-8 md:p-10" style="background:#d4f1e6; border: 1px solid #a9e2cc;">
-        <h2 class="font-display text-3xl md:text-4xl font-semibold mb-5" style="color:#3d3225;">Was ist Füreinander Freiburg?</h2>
-        <p class="font-body text-lg leading-relaxed mb-4" style="color:#5c4e3a;">
+      <div class="reveal rounded-2xl p-8 md:p-10 bg-mint-soft border border-mint">
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-5 text-text-strong">Was ist Füreinander Freiburg?</h2>
+        <p class="font-body text-base leading-relaxed mb-4 text-text-body">
           Füreinander Freiburg ist eine Selbsthilfegruppe für Menschen, die an der Gemeinschaft der Zeugen Jehovas zweifeln oder aus ihr ausgestiegen sind. Die Initiatoren waren selbst Teil der Zeugen Jehovas und kennen die Herausforderungen aus eigener Erfahrung.
         </p>
-        <p class="font-body text-lg leading-relaxed" style="color:#5c4e3a;">
-          Die Gruppe ist ein Ort für Austausch und Unterstützung, ohne Verurteilung, ohne Druck, ohne theologische Diskussionen. Die Gruppe ist im Verzeichnis der <a href="https://www.selbsthilfegruppen-freiburg.de/aktuelles/selbsthilfegruppe-fuer-zweifelnde-und-ausgestiegene-zeugen-jehovas" target="_blank" rel="noopener noreferrer" class="underline transition-colors" style="color:#5fa88a;">Selbsthilfekontaktstelle Freiburg</a> gelistet.
+        <p class="font-body text-base leading-relaxed text-text-body">
+          Die Gruppe ist ein Ort für Austausch und Unterstützung, ohne Verurteilung, ohne Druck, ohne theologische Diskussionen. Die Gruppe ist im Verzeichnis der <a href="https://www.selbsthilfegruppen-freiburg.de/aktuelles/selbsthilfegruppe-fuer-zweifelnde-und-ausgestiegene-zeugen-jehovas" target="_blank" rel="noopener noreferrer" class="underline transition-colors text-accent">Selbsthilfekontaktstelle Freiburg</a> gelistet.
         </p>
       </div>
     </div>
@@ -488,8 +481,8 @@
 
       <!-- Abschnittstitel -->
       <div class="reveal text-center mb-16">
-        <p class="font-body text-sm font-semibold tracking-widest uppercase mb-4" style="color:#6f6047;">Über uns</p>
-        <h2 class="font-display text-3xl md:text-4xl font-bold mb-4" style="color:#3d3225;">
+        <p class="font-body text-sm font-semibold tracking-widest uppercase mb-4 text-text-muted">Über uns</p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-4 text-text-strong">
           Ein Ort für Menschen<br />mit ähnlichen Erfahrungen
         </h2>
         <div class="ornament mt-6 max-w-xs mx-auto">
@@ -501,64 +494,56 @@
       <div class="grid md:grid-cols-2 gap-6">
 
         <!-- Karte 1 -->
-        <article class="reveal reveal-delay-1 card-hover glowing-border rounded-2xl p-8"
-                 style="background-color:#ffda69; border: 1px solid #E2C2A2;">
-          <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6"
-               style="background:#a9e2cc;">
+        <article class="reveal reveal-delay-1 card-hover glowing-border rounded-2xl p-8 bg-warmyellow border border-tan">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6 bg-mint">
             <svg class="w-5 h-5" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c-4.97 0-9 3.58-9 8 0 2.4 1.1 4.57 2.87 6.1L5 21l4.12-1.54A9.7 9.7 0 0012 20c4.97 0 9-3.58 9-8s-4.03-8-9-8z"/>
             </svg>
           </div>
-          <h3 class="font-display text-xl font-semibold mb-4" style="color:#3d3225;">Veränderung & Verlust</h3>
-          <p class="font-body text-base leading-relaxed mb-4" style="color:#5c4e3a;">
+          <h3 class="font-display text-xl font-semibold mb-4 text-text-strong">Veränderung & Verlust</h3>
+          <p class="font-body text-base leading-relaxed mb-4 text-text-body">
             Zweifel an der Gemeinschaft oder der Entschluss, sie zu verlassen, verändern das Leben. Viele verlieren ihr vertrautes Umfeld, Freunde oder Familie. Gefühle von Einsamkeit, Angst oder Orientierungslosigkeit kommen häufig vor. Auch der Aufbau neuer Freundschaften kann schwerfallen. Muster aus der Zeit in der Gemeinschaft wirken oft noch lange nach.
           </p>
-          <p class="font-body text-sm leading-relaxed" style="color:#6f6047;">
-            Bei akuten psychischen Belastungen stehen professionelle Hilfsangebote zur Verfügung: <a href="https://www.telefonseelsorge.de/" target="_blank" rel="noopener noreferrer" class="underline transition-colors" style="color:#5fa88a;">Telefonseelsorge</a> (24/7 kostenlos, Tel. 0800 / 111 0 111), <a href="https://www.nakos.de/" target="_blank" rel="noopener noreferrer" class="underline transition-colors" style="color:#5fa88a;">NAKOS</a> (bundesweite Selbsthilfegruppen-Datenbank).
+          <p class="font-body text-base leading-relaxed text-text-muted">
+            Bei akuten psychischen Belastungen stehen professionelle Hilfsangebote zur Verfügung: <a href="https://www.telefonseelsorge.de/" target="_blank" rel="noopener noreferrer" class="underline transition-colors text-accent">Telefonseelsorge</a> (24/7 kostenlos, Tel. 0800 / 111 0 111), <a href="https://www.nakos.de/" target="_blank" rel="noopener noreferrer" class="underline transition-colors text-accent">NAKOS</a> (bundesweite Selbsthilfegruppen-Datenbank).
           </p>
         </article>
 
         <!-- Karte 2 -->
-        <article class="reveal reveal-delay-2 card-hover glowing-border rounded-2xl p-8"
-                 style="background-color:#d4f1e6; border: 1px solid #a9e2cc;">
-          <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6"
-               style="background:#ffda69;">
+        <article class="reveal reveal-delay-2 card-hover glowing-border rounded-2xl p-8 bg-mint-soft border border-mint">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6 bg-warmyellow">
             <svg class="w-5 h-5" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6 5.87v-1a4 4 0 00-4-4H8a4 4 0 00-4 4v1m8 0a4 4 0 014-4h1a4 4 0 014 4v1M12 7a4 4 0 110 8 4 4 0 010-8z"/>
             </svg>
           </div>
-          <h3 class="font-display text-xl font-semibold mb-4" style="color:#3d3225;">Offener Austausch</h3>
-          <p class="font-body text-base leading-relaxed" style="color:#5c4e3a;">
+          <h3 class="font-display text-xl font-semibold mb-4 text-text-strong">Offener Austausch</h3>
+          <p class="font-body text-base leading-relaxed text-text-body">
             Wir, die Initiatoren dieser Gruppe, waren selbst Teil der Zeugen Jehovas und kennen die Herausforderungen aus eigener Erfahrung. In unserer Gruppe treffen sich Menschen mit ähnlichen Erfahrungen. Hier gibt es Raum für Austausch und gegenseitige Unterstützung, ohne Verurteilung oder Druck.
           </p>
         </article>
 
         <!-- Karte 3 -->
-        <article class="reveal reveal-delay-3 card-hover glowing-border rounded-2xl p-8"
-                 style="background-color:#ffda69; border: 1px solid #E2C2A2;">
-          <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6"
-               style="background:#a9e2cc;">
+        <article class="reveal reveal-delay-3 card-hover glowing-border rounded-2xl p-8 bg-warmyellow border border-tan">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6 bg-mint">
             <svg class="w-5 h-5" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 3l7 7 7-7M5 13l7 7 7-7"/>
             </svg>
           </div>
-          <h3 class="font-display text-xl font-semibold mb-4" style="color:#3d3225;">Einladung</h3>
-          <p class="font-body text-base leading-relaxed" style="color:#5c4e3a;">
+          <h3 class="font-display text-xl font-semibold mb-4 text-text-strong">Einladung</h3>
+          <p class="font-body text-base leading-relaxed text-text-body">
             Eingeladen sind alle, die aktuell oder früher Teil der Zeugen Jehovas sind, die zweifeln oder bereits ausgestiegen sind.
           </p>
         </article>
 
         <!-- Karte 4 -->
-        <article class="reveal reveal-delay-4 card-hover glowing-border rounded-2xl p-8"
-                 style="background-color:#d4f1e6; border: 1px solid #a9e2cc;">
-          <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6"
-               style="background:#ffda69;">
+        <article class="reveal reveal-delay-4 card-hover glowing-border rounded-2xl p-8 bg-mint-soft border border-mint">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6 bg-warmyellow">
             <svg class="w-5 h-5" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
           </div>
-          <h3 class="font-display text-xl font-semibold mb-4" style="color:#3d3225;">Du bist nicht allein</h3>
-          <p class="font-body text-base leading-relaxed" style="color:#5c4e3a;">
+          <h3 class="font-display text-xl font-semibold mb-4 text-text-strong">Du bist nicht allein</h3>
+          <p class="font-body text-base leading-relaxed text-text-body">
             Vielleicht warst du jahrelang auf dich allein gestellt mit den Folgen deines Austritts. Vielleicht merkst du, dass du alleine nicht mehr klarkommst. Oder du spürst einfach den Wunsch, dich auszutauschen, um die Belastungen aus dieser Zeit nicht mehr alleine tragen zu müssen. Genau dafür gibt es diese Gruppe.
           </p>
         </article>
@@ -574,8 +559,8 @@
     <div class="max-w-5xl mx-auto px-6">
 
       <div class="reveal text-center mb-16">
-        <p class="font-body text-sm font-semibold tracking-widest uppercase mb-4" style="color:#6f6047;">Wie wir miteinander umgehen</p>
-        <h2 class="font-display text-3xl md:text-4xl font-bold" style="color:#3d3225;">
+        <p class="font-body text-sm font-semibold tracking-widest uppercase mb-4 text-text-muted">Wie wir miteinander umgehen</p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-text-strong">
           Unsere Grundsätze
         </h2>
       </div>
@@ -583,64 +568,56 @@
       <div class="grid sm:grid-cols-2 gap-5">
 
         <!-- Regel 1 -->
-        <div class="rule-card rounded-2xl p-7 flex gap-5 items-start"
-             style="background:#FEFAE0; border: 1px solid #E2C2A2;"
+        <div class="rule-card rounded-2xl p-7 flex gap-5 items-start bg-cream border border-tan"
              data-delay="0">
-          <div class="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center mt-0.5"
-               style="background:#a9e2cc;">
-            <span class="font-display font-bold text-sm" style="color:#3d3225;" aria-hidden="true">1</span>
+          <div class="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center mt-0.5 bg-mint">
+            <span class="font-display font-bold text-sm text-text-strong" aria-hidden="true">1</span>
           </div>
           <div>
-            <h3 class="font-display text-xl font-semibold mb-2" style="color:#3d3225;">Kein theologischer Diskurs</h3>
-            <p class="font-body text-sm leading-relaxed" style="color:#5c4e3a;">
+            <h3 class="font-display text-xl font-semibold mb-2 text-text-strong">Kein theologischer Diskurs</h3>
+            <p class="font-body text-base leading-relaxed text-text-body">
               Wir diskutieren keine Glaubensfragen und beziehen keine Stellung zu theologischen Inhalten.
             </p>
           </div>
         </div>
 
         <!-- Regel 2 -->
-        <div class="rule-card rounded-2xl p-7 flex gap-5 items-start"
-             style="background:#FEFAE0; border: 1px solid #E2C2A2;"
+        <div class="rule-card rounded-2xl p-7 flex gap-5 items-start bg-cream border border-tan"
              data-delay="150">
-          <div class="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center mt-0.5"
-               style="background:#a9e2cc;">
-            <span class="font-display font-bold text-sm" style="color:#3d3225;" aria-hidden="true">2</span>
+          <div class="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center mt-0.5 bg-mint">
+            <span class="font-display font-bold text-sm text-text-strong" aria-hidden="true">2</span>
           </div>
           <div>
-            <h3 class="font-display text-xl font-semibold mb-2" style="color:#3d3225;">Persönlicher, wertfreier Austausch</h3>
-            <p class="font-body text-sm leading-relaxed" style="color:#5c4e3a;">
+            <h3 class="font-display text-xl font-semibold mb-2 text-text-strong">Persönlicher, wertfreier Austausch</h3>
+            <p class="font-body text-base leading-relaxed text-text-body">
               Im Vordergrund stehen eigene Erlebnisse, persönliche Folgen und innere Konflikte, neutral und ohne Wertung.
             </p>
           </div>
         </div>
 
         <!-- Regel 3 -->
-        <div class="rule-card rounded-2xl p-7 flex gap-5 items-start"
-             style="background:#FEFAE0; border: 1px solid #E2C2A2;"
+        <div class="rule-card rounded-2xl p-7 flex gap-5 items-start bg-cream border border-tan"
              data-delay="300">
-          <div class="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center mt-0.5"
-               style="background:#a9e2cc;">
-            <span class="font-display font-bold text-sm" style="color:#3d3225;" aria-hidden="true">3</span>
+          <div class="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center mt-0.5 bg-mint">
+            <span class="font-display font-bold text-sm text-text-strong" aria-hidden="true">3</span>
           </div>
           <div>
-            <h3 class="font-display text-xl font-semibold mb-2" style="color:#3d3225;">Respekt & Würde</h3>
-            <p class="font-body text-sm leading-relaxed" style="color:#5c4e3a;">
+            <h3 class="font-display text-xl font-semibold mb-2 text-text-strong">Respekt & Würde</h3>
+            <p class="font-body text-base leading-relaxed text-text-body">
               Wir begegnen einander mit Offenheit und Wertschätzung, ohne Verurteilung, ohne Druck.
             </p>
           </div>
         </div>
 
         <!-- Regel 4 -->
-        <div class="rule-card rounded-2xl p-7 flex gap-5 items-start"
-             style="background:#FEFAE0; border: 1px solid #E2C2A2;"
+        <div class="rule-card rounded-2xl p-7 flex gap-5 items-start bg-cream border border-tan"
              data-delay="450">
-          <div class="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center mt-0.5"
-               style="background:#a9e2cc;">
-            <span class="font-display font-bold text-sm" style="color:#3d3225;" aria-hidden="true">4</span>
+          <div class="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center mt-0.5 bg-mint">
+            <span class="font-display font-bold text-sm text-text-strong" aria-hidden="true">4</span>
           </div>
           <div>
-            <h3 class="font-display text-xl font-semibold mb-2" style="color:#3d3225;">Kein Therapieersatz</h3>
-            <p class="font-body text-sm leading-relaxed" style="color:#5c4e3a;">
+            <h3 class="font-display text-xl font-semibold mb-2 text-text-strong">Kein Therapieersatz</h3>
+            <p class="font-body text-base leading-relaxed text-text-body">
               Unsere Gruppe ist eine Ergänzung, kein Ersatz für professionelle psychologische oder therapeutische Begleitung.
             </p>
           </div>
@@ -657,8 +634,8 @@
     <div class="max-w-3xl mx-auto px-6">
 
       <div class="reveal text-center mb-12">
-        <p class="font-body text-sm font-semibold tracking-widest uppercase mb-4" style="color:#6f6047;">Häufige Fragen</p>
-        <h2 class="font-display text-3xl md:text-4xl font-bold" style="color:#3d3225;">
+        <p class="font-body text-sm font-semibold tracking-widest uppercase mb-4 text-text-muted">Häufige Fragen</p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-text-strong">
           Fragen & Antworten
         </h2>
       </div>
@@ -667,145 +644,136 @@
 
         <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
           <dt>
-            <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left"
-                    style="background:#ffda69;"
+            <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow"
                     aria-expanded="false">
-              <span class="font-display text-base font-semibold" style="color:#3d3225;">Für wen ist die Selbsthilfegruppe Füreinander Freiburg?</span>
+              <span class="font-display text-base font-semibold text-text-strong">Für wen ist die Selbsthilfegruppe Füreinander Freiburg?</span>
               <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
               </svg>
             </button>
           </dt>
-          <dd class="faq-answer hidden px-7 py-5" style="background:#FEFAE0;">
-            <p class="font-body text-base leading-relaxed" style="color:#5c4e3a;">Eingeladen sind alle, die aktuell oder früher Teil der Zeugen Jehovas sind, ob noch aktiv, zweifelnd oder bereits ausgestiegen. Die Gruppe ist für Menschen mit ersten Zweifeln genauso offen wie für solche, die schon lange ausgestiegen sind und Unterstützung beim Neuanfang suchen. Es gibt keine Voraussetzungen. Du kannst kommen, wie du bist.</p>
+          <dd class="faq-answer hidden px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Eingeladen sind alle, die aktuell oder früher Teil der Zeugen Jehovas sind, ob noch aktiv, zweifelnd oder bereits ausgestiegen. Die Gruppe ist für Menschen mit ersten Zweifeln genauso offen wie für solche, die schon lange ausgestiegen sind und Unterstützung beim Neuanfang suchen. Es gibt keine Voraussetzungen. Du kannst kommen, wie du bist.</p>
           </dd>
         </div>
 
         <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
           <dt>
-            <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left"
-                    style="background:#ffda69;"
+            <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow"
                     aria-expanded="false">
-              <span class="font-display text-base font-semibold" style="color:#3d3225;">Was macht die Selbsthilfegruppe Füreinander Freiburg?</span>
+              <span class="font-display text-base font-semibold text-text-strong">Was macht die Selbsthilfegruppe Füreinander Freiburg?</span>
               <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
               </svg>
             </button>
           </dt>
-          <dd class="faq-answer hidden px-7 py-5" style="background:#FEFAE0;">
-            <p class="font-body text-base leading-relaxed" style="color:#5c4e3a;">Die Treffen sind ein Ort für Austausch über persönliche Erfahrungen und gegenseitige Unterstützung, ohne Verurteilung oder Druck. Du kannst hier mit Menschen sprechen, die ähnliche Herausforderungen durchlebt haben. Im Vordergrund stehen persönliche Erlebnisse und innere Konflikte, nicht theologische Debatten oder Kritik an der Organisation.</p>
+          <dd class="faq-answer hidden px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Die Treffen sind ein Ort für Austausch über persönliche Erfahrungen und gegenseitige Unterstützung, ohne Verurteilung oder Druck. Du kannst hier mit Menschen sprechen, die ähnliche Herausforderungen durchlebt haben. Im Vordergrund stehen persönliche Erlebnisse und innere Konflikte, nicht theologische Debatten oder Kritik an der Organisation.</p>
           </dd>
         </div>
 
         <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
           <dt>
-            <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left"
-                    style="background:#ffda69;"
+            <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow"
                     aria-expanded="false">
-              <span class="font-display text-base font-semibold" style="color:#3d3225;">Wo trifft sich die Gruppe Füreinander Freiburg?</span>
+              <span class="font-display text-base font-semibold text-text-strong">Wo trifft sich die Gruppe Füreinander Freiburg?</span>
               <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
               </svg>
             </button>
           </dt>
-          <dd class="faq-answer hidden px-7 py-5" style="background:#FEFAE0;">
-            <p class="font-body text-base leading-relaxed" style="color:#5c4e3a;">Die Gruppe trifft sich in den Räumlichkeiten des Selbsthilfebüros in Freiburg im Breisgau. Die genaue Adresse und den aktuellen Raum teilen wir dir nach deiner Anmeldung mit. Die Treffen finden monatlich statt. Aktuelle Termine findest du auf unserer <a href="termine.html" style="color:#5fa88a; text-decoration:underline;">Termine-Seite</a> oder per Kontaktaufnahme.</p>
+          <dd class="faq-answer hidden px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Die Gruppe trifft sich in den Räumlichkeiten des Selbsthilfebüros in Freiburg im Breisgau. Die genaue Adresse und den aktuellen Raum teilen wir dir nach deiner Anmeldung mit. Die Treffen finden monatlich statt. Aktuelle Termine findest du auf unserer <a href="termine.html" class="text-accent underline">Termine-Seite</a> oder per Kontaktaufnahme.</p>
           </dd>
         </div>
 
         <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
           <dt>
-            <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left"
-                    style="background:#ffda69;"
+            <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow"
                     aria-expanded="false">
-              <span class="font-display text-base font-semibold" style="color:#3d3225;">Ist die Gruppe Füreinander Freiburg ein Ersatz für Therapie?</span>
+              <span class="font-display text-base font-semibold text-text-strong">Ist die Gruppe Füreinander Freiburg ein Ersatz für Therapie?</span>
               <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
               </svg>
             </button>
           </dt>
-          <dd class="faq-answer hidden px-7 py-5" style="background:#FEFAE0;">
-            <p class="font-body text-base leading-relaxed" style="color:#5c4e3a;">Nein, die Selbsthilfegruppe Füreinander Freiburg ist kein Ersatz für professionelle psychologische oder therapeutische Begleitung. Die Gruppe ist ein Ort für gegenseitigen Austausch und emotionale Unterstützung durch Menschen mit ähnlichen Erfahrungen. Bei psychischen Belastungen, Depressionen oder Traumata empfehlen wir zusätzlich die Begleitung durch qualifizierte Therapeuten oder Beratungsstellen. Die Gruppe ergänzt therapeutische Arbeit, ersetzt sie aber nicht.</p>
+          <dd class="faq-answer hidden px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Nein, die Selbsthilfegruppe Füreinander Freiburg ist kein Ersatz für professionelle psychologische oder therapeutische Begleitung. Die Gruppe ist ein Ort für gegenseitigen Austausch und emotionale Unterstützung durch Menschen mit ähnlichen Erfahrungen. Bei psychischen Belastungen, Depressionen oder Traumata empfehlen wir zusätzlich die Begleitung durch qualifizierte Therapeuten oder Beratungsstellen. Die Gruppe ergänzt therapeutische Arbeit, ersetzt sie aber nicht.</p>
           </dd>
         </div>
 
         <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
           <dt>
-            <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left"
-                    style="background:#ffda69;"
+            <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow"
                     aria-expanded="false">
-              <span class="font-display text-base font-semibold" style="color:#3d3225;">Kostet die Teilnahme bei Füreinander Freiburg etwas?</span>
+              <span class="font-display text-base font-semibold text-text-strong">Kostet die Teilnahme bei Füreinander Freiburg etwas?</span>
               <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
               </svg>
             </button>
           </dt>
-          <dd class="faq-answer hidden px-7 py-5" style="background:#FEFAE0;">
-            <p class="font-body text-base leading-relaxed" style="color:#5c4e3a;">Nein, die Teilnahme an der Selbsthilfegruppe Füreinander Freiburg ist komplett kostenlos. Es gibt keine Mitgliedsbeiträge, keine Spendenverpflichtungen und keine versteckten Kosten. Du solltest dich jedoch vor dem ersten Besuch über eine unserer Kontaktmöglichkeiten anmelden, damit wir dir alle wichtigen Informationen zum Treffpunkt und Ablauf zusenden können.</p>
+          <dd class="faq-answer hidden px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Nein, die Teilnahme an der Selbsthilfegruppe Füreinander Freiburg ist komplett kostenlos. Es gibt keine Mitgliedsbeiträge, keine Spendenverpflichtungen und keine versteckten Kosten. Du solltest dich jedoch vor dem ersten Besuch über eine unserer Kontaktmöglichkeiten anmelden, damit wir dir alle wichtigen Informationen zum Treffpunkt und Ablauf zusenden können.</p>
           </dd>
         </div>
 
         <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
           <dt>
-            <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left"
-                    style="background:#ffda69;"
+            <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow"
                     aria-expanded="false">
-              <span class="font-display text-base font-semibold" style="color:#3d3225;">Wie kann ich mich anmelden?</span>
+              <span class="font-display text-base font-semibold text-text-strong">Wie kann ich mich anmelden?</span>
               <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
               </svg>
             </button>
           </dt>
-          <dd class="faq-answer hidden px-7 py-5" style="background:#FEFAE0;">
-            <p class="font-body text-base leading-relaxed" style="color:#5c4e3a;">Schreib uns eine E-Mail an <a href="mailto:kontakt@fuereinander-freiburg.de" style="color:#5fa88a; text-decoration:underline;">kontakt@fuereinander-freiburg.de</a>, ruf uns an unter 01556 / 7465016 oder nutze einen unserer Messenger-Dienste (WhatsApp, Telegram, Signal). In der Regel melden wir uns noch am selben oder nächsten Werktag bei dir und schicken dir alle Infos zum Treffen.</p>
+          <dd class="faq-answer hidden px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Schreib uns eine E-Mail an <a href="mailto:kontakt@fuereinander-freiburg.de" class="text-accent underline">kontakt@fuereinander-freiburg.de</a>, ruf uns an unter 01556 / 7465016 oder nutze einen unserer Messenger-Dienste (WhatsApp, Telegram, Signal). In der Regel melden wir uns noch am selben oder nächsten Werktag bei dir und schicken dir alle Infos zum Treffen.</p>
           </dd>
         </div>
 
         <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
           <dt>
-            <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left"
-                    style="background:#ffda69;"
+            <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow"
                     aria-expanded="false">
-              <span class="font-display text-base font-semibold" style="color:#3d3225;">Muss ich etwas vorbereiten oder mitbringen?</span>
+              <span class="font-display text-base font-semibold text-text-strong">Muss ich etwas vorbereiten oder mitbringen?</span>
               <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
               </svg>
             </button>
           </dt>
-          <dd class="faq-answer hidden px-7 py-5" style="background:#FEFAE0;">
-            <p class="font-body text-base leading-relaxed" style="color:#5c4e3a;">Nein, du musst nichts vorbereiten und nichts mitbringen. Komm einfach, wie du bist: mit deinen Fragen, Gedanken oder auch nur zum Zuhören. Es gibt keinen Druck, etwas zu erzählen. Manche sprechen beim ersten Treffen viel, andere hören erst einmal nur zu. Beides ist in Ordnung.</p>
+          <dd class="faq-answer hidden px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Nein, du musst nichts vorbereiten und nichts mitbringen. Komm einfach, wie du bist: mit deinen Fragen, Gedanken oder auch nur zum Zuhören. Es gibt keinen Druck, etwas zu erzählen. Manche sprechen beim ersten Treffen viel, andere hören erst einmal nur zu. Beides ist in Ordnung.</p>
           </dd>
         </div>
 
         <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
           <dt>
-            <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left"
-                    style="background:#ffda69;"
+            <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow"
                     aria-expanded="false">
-              <span class="font-display text-base font-semibold" style="color:#3d3225;">Gibt es eine Altersgrenze?</span>
+              <span class="font-display text-base font-semibold text-text-strong">Gibt es eine Altersgrenze?</span>
               <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
               </svg>
             </button>
           </dt>
-          <dd class="faq-answer hidden px-7 py-5" style="background:#FEFAE0;">
-            <p class="font-body text-base leading-relaxed" style="color:#5c4e3a;">Nein, es gibt keine Altersgrenze. Die Selbsthilfegruppe Füreinander Freiburg steht allen Erwachsenen offen, unabhängig vom Alter. Junge Erwachsene, die erst kürzlich ausgestiegen sind, und Menschen, die schon seit Jahrzehnten draußen sind, sind gleichermaßen willkommen. Die verschiedenen Altersgruppen bringen unterschiedliche Perspektiven und Lebenserfahrungen mit.</p>
+          <dd class="faq-answer hidden px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Nein, es gibt keine Altersgrenze. Die Selbsthilfegruppe Füreinander Freiburg steht allen Erwachsenen offen, unabhängig vom Alter. Junge Erwachsene, die erst kürzlich ausgestiegen sind, und Menschen, die schon seit Jahrzehnten draußen sind, sind gleichermaßen willkommen. Die verschiedenen Altersgruppen bringen unterschiedliche Perspektiven und Lebenserfahrungen mit.</p>
           </dd>
         </div>
 
         <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
           <dt>
-            <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left"
-                    style="background:#ffda69;"
+            <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow"
                     aria-expanded="false">
-              <span class="font-display text-base font-semibold" style="color:#3d3225;">Was passiert, wenn ich nur einmal kommen möchte?</span>
+              <span class="font-display text-base font-semibold text-text-strong">Was passiert, wenn ich nur einmal kommen möchte?</span>
               <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
               </svg>
             </button>
           </dt>
-          <dd class="faq-answer hidden px-7 py-5" style="background:#FEFAE0;">
-            <p class="font-body text-base leading-relaxed" style="color:#5c4e3a;">Das ist völlig in Ordnung. Es gibt keine Verpflichtung. Du kannst einmal kommen, die Gruppe kennenlernen und dann entscheiden. Wir hoffen natürlich, dass du dabeibleibst, wenn es dir hilft.</p>
+          <dd class="faq-answer hidden px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Das ist völlig in Ordnung. Es gibt keine Verpflichtung. Du kannst einmal kommen, die Gruppe kennenlernen und dann entscheiden. Wir hoffen natürlich, dass du dabeibleibst, wenn es dir hilft.</p>
           </dd>
         </div>
 
@@ -820,8 +788,8 @@
     <div class="max-w-5xl mx-auto px-6">
 
       <div class="reveal text-center mb-16">
-        <p class="font-body text-sm font-semibold tracking-widest uppercase mb-4" style="color:#6f6047;">Wir freuen uns auf dich</p>
-        <h2 class="font-display text-3xl md:text-4xl font-bold" style="color:#3d3225;">
+        <p class="font-body text-sm font-semibold tracking-widest uppercase mb-4 text-text-muted">Wir freuen uns auf dich</p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-text-strong">
           Kontakt aufnehmen
         </h2>
       </div>
@@ -830,29 +798,25 @@
       <div class="reveal reveal-delay-1 grid md:grid-cols-2 gap-5 mb-6 max-w-5xl mx-auto">
 
         <!-- Links: E-Mail & Telefon -->
-        <div class="card-hover rounded-2xl p-8 flex flex-col gap-6"
-             style="background:#d4f1e6; border: 1px solid #a9e2cc;">
+        <div class="card-hover rounded-2xl p-8 flex flex-col gap-6 bg-mint-soft border border-mint">
 
           <div>
             <div class="flex items-center gap-3 mb-4">
-              <div class="w-10 h-10 rounded-full flex items-center justify-center"
-                   style="background:#ffda69;">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center bg-warmyellow">
                 <svg class="w-5 h-5" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                 </svg>
               </div>
-              <h3 class="font-display text-xl font-semibold" style="color:#3d3225;">E-Mail</h3>
+              <h3 class="font-display text-xl font-semibold text-text-strong">E-Mail</h3>
             </div>
 
             <a href="mailto:kontakt@fuereinander-freiburg.de"
-               class="font-body text-base font-medium block mb-3 transition-colors"
-               style="color:#5fa88a; word-break: break-all;">
+               class="font-body text-base font-medium block mb-3 transition-colors text-accent" style="word-break: break-all">
               kontakt@fuereinander-freiburg.de
             </a>
 
             <button onclick="navigator.clipboard.writeText('kontakt@fuereinander-freiburg.de')"
-                    class="font-body text-xs px-4 py-2 rounded-full transition-all flex items-center gap-2"
-                    style="background:#ffda69; color:#3d3225; border: 1px solid #E2C2A2; min-height:36px;"
+                    class="font-body text-xs px-4 py-2 rounded-full transition-all flex items-center gap-2 text-text-strong bg-warmyellow border border-tan" style="min-height:36px"
                     aria-label="E-Mail-Adresse kopieren">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
@@ -861,28 +825,25 @@
             </button>
           </div>
 
-          <div class="h-px" style="background:#a9e2cc;"></div>
+          <div class="h-px bg-mint"></div>
 
           <div>
             <div class="flex items-center gap-3 mb-4">
-              <div class="w-10 h-10 rounded-full flex items-center justify-center"
-                   style="background:#ffda69;">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center bg-warmyellow">
                 <svg class="w-5 h-5" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                 </svg>
               </div>
-              <h3 class="font-display text-xl font-semibold" style="color:#3d3225;">Telefon</h3>
+              <h3 class="font-display text-xl font-semibold text-text-strong">Telefon</h3>
             </div>
 
             <a href="tel:+4915567465016"
-               class="font-body text-base font-medium block mb-3 transition-colors"
-               style="color:#5fa88a;">
+               class="font-body text-base font-medium block mb-3 transition-colors text-accent">
               01556 / 7465016
             </a>
 
             <button onclick="navigator.clipboard.writeText('+4915567465016')"
-                    class="font-body text-xs px-4 py-2 rounded-full transition-all flex items-center gap-2"
-                    style="background:#ffda69; color:#3d3225; border: 1px solid #E2C2A2; min-height:36px;"
+                    class="font-body text-xs px-4 py-2 rounded-full transition-all flex items-center gap-2 text-text-strong bg-warmyellow border border-tan" style="min-height:36px"
                     aria-label="Telefonnummer kopieren">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
@@ -894,17 +855,15 @@
         </div>
 
         <!-- Rechts: Messaging-Apps -->
-        <div class="card-hover rounded-2xl p-8"
-             style="background:#fff4d6; border: 1px solid #E2C2A2;">
+        <div class="card-hover rounded-2xl p-8 bg-lightyellow border border-tan">
 
           <div class="flex items-center gap-3 mb-6">
-            <div class="w-10 h-10 rounded-full flex items-center justify-center"
-                 style="background:#a9e2cc;">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center bg-mint">
               <svg class="w-5 h-5" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
               </svg>
             </div>
-            <h3 class="font-display text-xl font-semibold" style="color:#3d3225;">Messenger</h3>
+            <h3 class="font-display text-xl font-semibold text-text-strong">Messenger</h3>
           </div>
 
           <div class="grid grid-cols-2 gap-3">
@@ -912,8 +871,7 @@
             <!-- WhatsApp -->
             <a href="https://wa.me/4915567465016"
                target="_blank" rel="noopener noreferrer"
-               class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-xl transition-all"
-               style="background:#E2C2A2; border:1px solid #d4b391; color:#3d3225; min-height:80px;"
+               class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-xl transition-all text-text-strong bg-tan border border-tan-dark" style="min-height:80px"
                aria-label="WhatsApp Chat öffnen">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
@@ -924,8 +882,7 @@
             <!-- Telegram -->
             <a href="https://t.me/+4915567465016"
                target="_blank" rel="noopener noreferrer"
-               class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-xl transition-all"
-               style="background:#E2C2A2; border:1px solid #d4b391; color:#3d3225; min-height:80px;"
+               class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-xl transition-all text-text-strong bg-tan border border-tan-dark" style="min-height:80px"
                aria-label="Telegram Chat öffnen">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
@@ -936,8 +893,7 @@
             <!-- Signal -->
             <a href="https://signal.me/#p/+4915567465016"
                target="_blank" rel="noopener noreferrer"
-               class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-xl transition-all"
-               style="background:#E2C2A2; border:1px solid #d4b391; color:#3d3225; min-height:80px;"
+               class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-xl transition-all text-text-strong bg-tan border border-tan-dark" style="min-height:80px"
                aria-label="Signal Chat öffnen">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -947,8 +903,7 @@
 
             <!-- SMS -->
             <a href="sms:+4915567465016"
-               class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-xl transition-all"
-               style="background:#E2C2A2; border:1px solid #d4b391; color:#3d3225; min-height:80px;"
+               class="flex flex-col items-center justify-center gap-2 py-4 px-3 rounded-xl transition-all text-text-strong bg-tan border border-tan-dark" style="min-height:80px"
                aria-label="SMS schreiben">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
@@ -958,7 +913,7 @@
 
           </div>
 
-          <p class="font-body text-xs text-center mt-5" style="color:#6f6047;">
+          <p class="font-body text-xs text-center mt-5 text-text-muted">
             <em>Links öffnen die jeweilige App</em>
           </p>
 
@@ -967,17 +922,15 @@
       </div>
 
       <!-- Kontaktformular -->
-      <div id="kontaktformular" class="reveal reveal-delay-2 card-hover rounded-2xl p-6 md:p-8 mb-6 max-w-5xl mx-auto"
-           style="background:#FEFAE0; border: 1px solid #E2C2A2;">
+      <div id="kontaktformular" class="reveal reveal-delay-2 card-hover rounded-2xl p-6 md:p-8 mb-6 max-w-5xl mx-auto bg-cream border border-tan">
         
         <div class="flex items-center gap-3 mb-6">
-          <div class="w-10 h-10 rounded-full flex items-center justify-center"
-               style="background:#a9e2cc;">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center bg-mint">
             <svg class="w-5 h-5" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
             </svg>
           </div>
-          <h3 class="font-display text-xl font-semibold" style="color:#3d3225;">Schreib uns eine Nachricht</h3>
+          <h3 class="font-display text-xl font-semibold text-text-strong">Schreib uns eine Nachricht</h3>
         </div>
 
         <form id="contact-form" action="mailer.php" method="POST" class="space-y-5">
@@ -989,14 +942,14 @@
 
           <!-- Name -->
           <div>
-            <label for="name" class="block font-body text-sm font-semibold mb-2" style="color:#3d3225;">Name / Pseudonym <span style="color:#e05252;">*</span></label>
-            <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-xl font-body text-base" style="background:#fff; border: 1px solid #E2C2A2; color:#3d3225;">
+            <label for="name" class="block font-body text-sm font-semibold mb-2 text-text-strong">Name / Pseudonym <span style="color:#e05252;">*</span></label>
+            <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan">
           </div>
 
           <!-- Kontaktwunsch -->
           <div>
-            <label for="contact-method" class="block font-body text-sm font-semibold mb-2" style="color:#3d3225;">Wie dürfen wir dir antworten? <span style="color:#e05252;">*</span></label>
-            <select id="contact-method" name="contact_method" required class="w-full px-4 py-3 rounded-xl font-body text-base" style="background:#fff; border: 1px solid #E2C2A2; color:#3d3225;">
+            <label for="contact-method" class="block font-body text-sm font-semibold mb-2 text-text-strong">Wie dürfen wir dir antworten? <span style="color:#e05252;">*</span></label>
+            <select id="contact-method" name="contact_method" required class="w-full px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan">
               <option value="" disabled selected>Bitte wählen...</option>
               <option value="email">E-Mail</option>
               <option value="whatsapp">WhatsApp</option>
@@ -1009,21 +962,21 @@
 
           <!-- Dynamisches Kontaktfeld -->
           <div id="dynamic-contact-field" style="display: none;">
-            <label id="dynamic-label" for="contact-value" class="block font-body text-sm font-semibold mb-2" style="color:#3d3225;">Deine E-Mail / Nummer <span style="color:#e05252;">*</span></label>
-            <input type="text" id="contact-value" name="contact_value" class="w-full px-4 py-3 rounded-xl font-body text-base" style="background:#fff; border: 1px solid #E2C2A2; color:#3d3225;">
+            <label id="dynamic-label" for="contact-value" class="block font-body text-sm font-semibold mb-2 text-text-strong">Deine E-Mail / Nummer <span style="color:#e05252;">*</span></label>
+            <input type="text" id="contact-value" name="contact_value" class="w-full px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan">
           </div>
 
           <!-- Nachricht -->
           <div>
-            <label for="message" class="block font-body text-sm font-semibold mb-2" style="color:#3d3225;">Nachricht <span style="color:#e05252;">*</span></label>
-            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 rounded-xl font-body text-base resize-none" style="background:#fff; border: 1px solid #E2C2A2; color:#3d3225;"></textarea>
+            <label for="message" class="block font-body text-sm font-semibold mb-2 text-text-strong">Nachricht <span style="color:#e05252;">*</span></label>
+            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 rounded-xl font-body text-base resize-none text-text-strong bg-white border border-tan"></textarea>
           </div>
 
           <!-- Datenschutz -->
           <div class="flex items-start gap-3">
-            <input type="checkbox" id="privacy" name="privacy" required class="mt-1 w-5 h-5 rounded" style="accent-color:#5fa88a;">
-            <label for="privacy" class="font-body text-sm leading-relaxed" style="color:#5c4e3a;">
-              Ich willige ein, dass meine Angaben zur Kontaktaufnahme gespeichert werden. Weitere Informationen findest du in den <a href="rechtliches.html" class="underline" style="color:#5fa88a;">rechtlichen Hinweisen</a>. <span style="color:#e05252;">*</span>
+            <input type="checkbox" id="privacy" name="privacy" required class="mt-1 w-5 h-5 rounded text-accent" style="accent-">
+            <label for="privacy" class="font-body text-sm leading-relaxed text-text-body">
+              Ich willige ein, dass meine Angaben zur Kontaktaufnahme gespeichert werden. Weitere Informationen findest du in den <a href="rechtliches.html" class="underline text-accent">rechtlichen Hinweisen</a>. <span style="color:#e05252;">*</span>
             </label>
           </div>
 
@@ -1038,44 +991,43 @@
       </div>
 
       <!-- Rückruf vereinbaren -->
-      <div id="rueckruf" hidden class="reveal reveal-delay-2 card-hover rounded-2xl p-6 md:p-8 mb-6 max-w-5xl mx-auto"
-           style="background:#FEFAE0; border: 1px solid #E2C2A2;">
+      <div id="rueckruf" hidden class="reveal reveal-delay-2 card-hover rounded-2xl p-6 md:p-8 mb-6 max-w-5xl mx-auto bg-cream border border-tan">
 
         <div class="flex items-center gap-3 mb-6">
-          <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:#a9e2cc;">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center bg-mint">
             <svg class="w-5 h-5" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
             </svg>
           </div>
-          <h3 class="font-display text-xl font-semibold" style="color:#3d3225;">Rückruf vereinbaren</h3>
+          <h3 class="font-display text-xl font-semibold text-text-strong">Rückruf vereinbaren</h3>
         </div>
-        <p class="font-body text-sm mb-6" style="color:#5c4e3a;">Wähle einen freien Termin – wir rufen dich dann an.</p>
+        <p class="font-body text-sm mb-6 text-text-body">Wähle einen freien Termin – wir rufen dich dann an.</p>
 
         <!-- Schritt 1: Slot-Auswahl -->
         <div id="rb-step1">
-          <div id="rb-slots-loading" class="font-body text-sm" style="color:#6f6047;">Termine werden geladen …</div>
+          <div id="rb-slots-loading" class="font-body text-sm text-text-muted">Termine werden geladen …</div>
           <div id="rb-slots-grid" class="hidden"></div>
-          <p id="rb-slots-empty" class="hidden font-body text-sm" style="color:#6f6047;">Aktuell sind keine Termine verfügbar.</p>
+          <p id="rb-slots-empty" class="hidden font-body text-sm text-text-muted">Aktuell sind keine Termine verfügbar.</p>
         </div>
 
         <!-- Schritt 2: Kontaktdaten (klappt auf) -->
         <div id="rb-step2" class="hidden mt-6 pt-6" style="border-top: 1px solid #E2C2A2;">
-          <p class="font-body text-sm font-semibold mb-4" style="color:#3d3225;">
-            Gewählter Termin: <span id="rb-selected-label" class="font-normal" style="color:#5fa88a;"></span>
-            <button id="rb-change" class="ml-3 font-body text-xs underline" style="color:#6f6047;">ändern</button>
+          <p class="font-body text-sm font-semibold mb-4 text-text-strong">
+            Gewählter Termin: <span id="rb-selected-label" class="font-normal text-accent"></span>
+            <button id="rb-change" class="ml-3 font-body text-xs underline text-text-muted">ändern</button>
           </p>
           <div class="space-y-4">
             <div>
-              <label for="rb-name" class="block font-body text-sm font-semibold mb-1" style="color:#3d3225;">Name / Pseudonym <span style="color:#e05252;">*</span></label>
-              <input type="text" id="rb-name" class="w-full px-4 py-3 rounded-xl font-body text-base" style="background:#fff; border:1px solid #E2C2A2; color:#3d3225;" placeholder="Wie dürfen wir dich nennen?">
+              <label for="rb-name" class="block font-body text-sm font-semibold mb-1 text-text-strong">Name / Pseudonym <span style="color:#e05252;">*</span></label>
+              <input type="text" id="rb-name" class="w-full px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan" placeholder="Wie dürfen wir dich nennen?">
             </div>
             <div>
-              <label for="rb-telefon" class="block font-body text-sm font-semibold mb-1" style="color:#3d3225;">Telefonnummer <span style="color:#e05252;">*</span></label>
-              <input type="tel" id="rb-telefon" class="w-full px-4 py-3 rounded-xl font-body text-base" style="background:#fff; border:1px solid #E2C2A2; color:#3d3225;" placeholder="Unter dieser Nummer rufen wir an">
+              <label for="rb-telefon" class="block font-body text-sm font-semibold mb-1 text-text-strong">Telefonnummer <span style="color:#e05252;">*</span></label>
+              <input type="tel" id="rb-telefon" class="w-full px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan" placeholder="Unter dieser Nummer rufen wir an">
             </div>
             <div>
-              <label for="rb-email" class="block font-body text-sm font-semibold mb-1" style="color:#3d3225;">E-Mail <span style="color:#e05252;">*</span></label>
-              <input type="email" id="rb-email" class="w-full px-4 py-3 rounded-xl font-body text-base" style="background:#fff; border:1px solid #E2C2A2; color:#3d3225;" placeholder="Für Bestätigung und Storno-Link">
+              <label for="rb-email" class="block font-body text-sm font-semibold mb-1 text-text-strong">E-Mail <span style="color:#e05252;">*</span></label>
+              <input type="email" id="rb-email" class="w-full px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan" placeholder="Für Bestätigung und Storno-Link">
             </div>
             <button id="rb-submit" class="btn-primary w-full font-body font-semibold text-base px-8 py-4 rounded-full transition-all" style="min-height:44px; display:inline-flex; align-items:center; justify-content:center;">
               Termin verbindlich anfragen
@@ -1087,20 +1039,18 @@
       </div>
 
       <!-- Nächstes Treffen -->
-      <div class="reveal reveal-delay-2 card-hover rounded-2xl p-6 text-center max-w-5xl mx-auto flex flex-col items-center"
-           style="background:#ffda69; border: 1px solid #E2C2A2;">
-        <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-5"
-             style="background:#a9e2cc;">
+      <div class="reveal reveal-delay-2 card-hover rounded-2xl p-6 text-center max-w-5xl mx-auto flex flex-col items-center bg-warmyellow border border-tan">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-5 bg-mint">
           <svg class="w-5 h-5" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
           </svg>
         </div>
-        <h3 class="font-display text-xl font-semibold mb-3" style="color:#3d3225;">Nächstes Treffen</h3>
-        <p class="font-body text-base font-medium mb-1" style="color:#5c4e3a;">
+        <h3 class="font-display text-xl font-semibold mb-3 text-text-strong">Nächstes Treffen</h3>
+        <p class="font-body text-base font-medium mb-1 text-text-body">
           Samstag, 27. Juni 2026<br>
           <span class="text-sm">14:00 bis 16:00 Uhr</span>
         </p>
-        <p class="font-body text-sm mt-2 mb-5" style="color:#6f6047;">
+        <p class="font-body text-sm mt-2 mb-5 text-text-muted">
           <span itemscope itemtype="https://schema.org/Place">
             <span itemprop="addressLocality">Freiburg im Breisgau</span> (genauer Ort nach Anmeldung)
           </span>
@@ -1117,43 +1067,39 @@
   <!-- INFOSTREIFEN & FOOTER -->
   <footer class="footer-glass">
     <div class="w-full py-4 text-center">
-      <p class="font-body text-xs mb-3" style="color:#5c3d1e;">⚠ Seite derzeit noch im Aufbau</p>
+      <p class="font-body text-xs mb-3 text-text-footer">⚠ Seite derzeit noch im Aufbau</p>
       <nav aria-label="Footer-Navigation" class="mb-3">
         <ul class="flex flex-wrap gap-4 justify-center">
           <li>
             <a href="rechtliches.html"
-               class="font-body text-xs transition-colors"
-               style="color:#5c3d1e; min-height: 32px; display: inline-flex; align-items: center;">
+               class="font-body text-xs transition-colors text-text-footer" style="min-height: 32px; display: inline-flex; align-items: center">
               Rechtliches
             </a>
           </li>
-          <li><span class="font-body text-xs" style="color:#5c3d1e;">·</span></li>
+          <li><span class="font-body text-xs text-text-footer">·</span></li>
           <li>
             <a href="ausstieg-folgen.html"
-               class="font-body text-xs transition-colors"
-               style="color:#5c3d1e; min-height: 32px; display: inline-flex; align-items: center;">
+               class="font-body text-xs transition-colors text-text-footer" style="min-height: 32px; display: inline-flex; align-items: center">
               Ausstiegsfolgen
             </a>
           </li>
-          <li><span class="font-body text-xs" style="color:#5c3d1e;">·</span></li>
+          <li><span class="font-body text-xs text-text-footer">·</span></li>
           <li>
             <a href="termine.html"
-               class="font-body text-xs transition-colors"
-               style="color:#5c3d1e; min-height: 32px; display: inline-flex; align-items: center;">
+               class="font-body text-xs transition-colors text-text-footer" style="min-height: 32px; display: inline-flex; align-items: center">
               Termine
             </a>
           </li>
-          <li><span class="font-body text-xs" style="color:#5c3d1e;">·</span></li>
+          <li><span class="font-body text-xs text-text-footer">·</span></li>
           <li>
             <a href="partner.html"
-               class="font-body text-xs transition-colors"
-               style="color:#5c3d1e; min-height: 32px; display: inline-flex; align-items: center;">
+               class="font-body text-xs transition-colors text-text-footer" style="min-height: 32px; display: inline-flex; align-items: center">
               Partner
             </a>
           </li>
         </ul>
       </nav>
-      <p class="font-body text-xs" style="color:#5c3d1e;">
+      <p class="font-body text-xs text-text-footer">
         &copy; <span id="year"></span> Füreinander Freiburg · Selbsthilfegruppe für zweifelnde und ausgestiegene Zeugen Jehovas
       </p>
       <p class="font-body text-xs mt-1" style="color:#7a6550;">
