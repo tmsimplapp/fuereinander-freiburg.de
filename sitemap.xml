@@ -12,19 +12,7 @@
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
-  <url>
-    <loc>https://fuereinander-freiburg.de/partner.html</loc>
-    <lastmod>2026-06-13</lastmod>
-    <priority>0.5</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://fuereinander-freiburg.de/rechtliches.html</loc>
-    <lastmod>2026-06-13</lastmod>
-    <priority>0.3</priority>
-    <changefreq>yearly</changefreq>
-  </url>
-  <url>
+<url>
     <loc>https://fuereinander-freiburg.de/termine.html</loc>
     <lastmod>2026-06-13</lastmod>
     <priority>0.8</priority>
