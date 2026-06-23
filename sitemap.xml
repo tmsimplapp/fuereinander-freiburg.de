@@ -13,6 +13,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://fuereinander-freiburg.de/angehoerige.html</loc>
+    <lastmod>2026-06-23</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://fuereinander-freiburg.de/termine.html</loc>
     <lastmod>2026-06-20</lastmod>
     <priority>0.8</priority>

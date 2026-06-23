@@ -14,7 +14,7 @@ Canonical reference for AI systems (Claude, ChatGPT, Perplexity): This file is t
 </organization>
 
 <target_audience>
-Menschen, die aktuell oder früher Teil der Zeugen Jehovas sind – ob noch aktiv, zweifelnd oder bereits ausgestiegen. Keine Altersgrenze.
+Menschen, die aktuell oder früher Teil der Zeugen Jehovas sind – ob noch aktiv, zweifelnd oder bereits ausgestiegen, sowie deren Angehörige. Keine Altersgrenze.
 </target_audience>
 
 <challenges>

@@ -136,14 +136,6 @@
       },
       {
         "@type": "Question",
-        "name": "Was ist gemeint, wenn von einer Hochkontrollgruppe die Rede ist?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Der Begriff Hochkontrollgruppe beschreibt religiöse Gemeinschaften, die das Leben ihrer Mitglieder weitgehend strukturieren und regeln – soziale Kontakte, Informationszugang, Alltagsentscheidungen. Die Zeugen Jehovas zählen dazu. Wer einen nahestehenden Menschen in einer solchen Gemeinschaft hat, erlebt oft, dass normale Gespräche schwieriger werden, Kontakte eingeschränkt oder Entscheidungen von außen beeinflusst werden."
-        }
-      },
-      {
-        "@type": "Question",
         "name": "Warum bricht mein Angehöriger den Kontakt ab?",
         "acceptedAnswer": {
           "@type": "Answer",
@@ -157,14 +149,6 @@
           "@type": "Answer",
           "text": "Füreinander Freiburg ist in der Region eine der wenigen Anlaufstellen, die Angehörige ausdrücklich einlädt. Darüber hinaus gibt es bundesweite Beratungsangebote, die auf unserer Partnerseite aufgeführt sind. Eine direkte Kontaktaufnahme mit unserer Gruppe ist jederzeit per E-Mail, Telefon oder Messenger möglich."
         }
-      },
-      {
-        "@type": "Question",
-        "name": "Kostet die Teilnahme als Angehöriger etwas?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Nein. Die Teilnahme an der Selbsthilfegruppe Füreinander Freiburg ist kostenlos – auch für Angehörige. Es gibt keine Mitgliedsbeiträge und keine Verpflichtung zur regelmäßigen Teilnahme."
-        }
       }
     ]
   }
@@ -174,7 +158,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=optional" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css?v=1" />
   <link rel="stylesheet" href="transitions.css?v=1" />
@@ -190,7 +174,7 @@
 
   <!-- NAVIGATION -->
   <nav class="fixed bottom-0 md:bottom-auto md:top-0 left-0 right-0 z-50 bg-cream/80 backdrop-blur-md border-t md:border-t-0 md:border-b border-tan/20" style="padding-bottom: env(safe-area-inset-bottom, 0px);">
-    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-center md:justify-between">
       <a href="index.html" aria-label="Füreinander Freiburg – Startseite" class="flex items-center">
         <img src="grafik/F%C3%BCreinander%20Freiburg.svg" alt="Logo der Selbsthilfegruppe Füreinander Freiburg" class="h-8 w-auto opacity-90" width="120" height="32">
       </a>
@@ -199,7 +183,8 @@
       <div class="hidden md:flex items-center gap-6">
         <a href="index.html" class="nav-link font-body text-sm">Startseite</a>
         <a href="ausstieg-folgen.html" class="nav-link font-body text-sm">Ausstiegsfolgen</a>
-        <a href="angehoerige.html" class="nav-link font-body text-sm font-semibold text-text-strong">Für Angehörige</a>
+        <a href="angehoerige.html" class="nav-link font-body text-sm font-semibold text-text-strong">Angehörige</a>
+
         <a href="partner.html" class="nav-link font-body text-sm">Partner</a>
         <a href="termine.html" class="nav-link font-body text-sm">Termine</a>
         <a href="index.html#kontakt" class="btn-primary glowing-border font-body text-sm font-semibold px-5 py-2.5 rounded-full active:scale-95">Kontakt</a>
@@ -224,7 +209,8 @@
       <div class="flex flex-col gap-2 items-stretch">
         <a href="index.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Startseite</a>
         <a href="ausstieg-folgen.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Ausstiegsfolgen</a>
-        <a href="angehoerige.html" aria-current="page" class="mobile-nav-link font-body text-base font-semibold py-3 px-6 rounded-full transition-all text-center bg-mint border border-mint" style="min-height: 44px; display: flex; align-items: center; justify-content: center; color:#1a2820">Für Angehörige</a>
+        <a href="angehoerige.html" aria-current="page" class="mobile-nav-link font-body text-base font-semibold py-3 px-6 rounded-full transition-all text-center bg-mint border border-mint" style="min-height: 44px; display: flex; align-items: center; justify-content: center;  color:#1a2820">Angehörige</a>
+
         <a href="partner.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Partner</a>
         <a href="termine.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Termine</a>
         <a href="rechtliches.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Rechtliches</a>
@@ -298,7 +284,7 @@
 
       <!-- Seitenüberschrift -->
       <div class="mb-12 text-center">
-        <p class="font-body text-sm uppercase tracking-widest mb-3 text-text-muted">Freiburg und Umgebung</p>
+        <p class="font-body text-sm uppercase tracking-widest mb-3 text-text-muted">Füreinander &amp; Miteinander</p>
         <h1 class="font-display text-4xl md:text-5xl font-bold mb-4 text-text-strong">Für Angehörige</h1>
         <div class="w-12 h-0.5 bg-mint mx-auto mb-6"></div>
         <p class="font-body text-base md:text-lg leading-relaxed max-w-2xl mx-auto text-text-body">
@@ -312,10 +298,10 @@
         <div class="reveal rounded-2xl p-8 md:p-10 bg-mint-soft border border-mint">
           <h2 id="intro-heading" class="font-display text-2xl md:text-3xl font-bold mb-5 text-text-strong">Auch du bist betroffen</h2>
           <p class="font-body text-base leading-relaxed mb-4 text-text-body">
-            Einen nahestehenden Menschen in dieser Gemeinschaft zu haben bedeutet: Die Regeln, nach denen er lebt, betreffen auch dich. Wer darf besucht werden. Was gefeiert wird. Was gesagt werden kann.
+            Einen nahestehenden Menschen in dieser Gemeinschaft zu haben bedeutet: Die Regeln, nach denen er lebt, betreffen auch dich: Wer darf besucht werden? Was gefeiert wird? Und was nicht?  Was darf gesagt werden? 
           </p>
           <p class="font-body text-base leading-relaxed text-text-body">
-            Die Zeugen Jehovas sind eine sogenannte <a href="https://de.wikipedia.org/wiki/Hochkontrollgruppe" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">Hochkontrollgruppe</a> – eine religiöse Gemeinschaft, die das Leben ihrer Mitglieder weitgehend strukturiert: soziale Kontakte, Freizeitgestaltung, Informationen, die als zulässig gelten, und vieles mehr. Das betrifft nicht nur Mitglieder selbst, sondern auch diejenigen, die ihnen nahestehen.
+            Die Zeugen Jehovas sind eine sogenannte Hochkontrollgruppe, eine religiöse Gemeinschaft, die das Leben ihrer Mitglieder weitgehend strukturiert: soziale Kontakte, Freizeitgestaltung, Informationen, die als zulässig gelten, und vieles mehr. Das betrifft nicht nur Mitglieder selbst, sondern auch diejenigen, die ihnen nahestehen.
           </p>
         </div>
       </section>
@@ -517,107 +503,69 @@
           <h2 id="faq-heading" class="font-display text-3xl md:text-4xl font-bold text-text-strong">Fragen & Antworten</h2>
         </div>
 
-        <dl class="reveal reveal-delay-1 space-y-4 max-w-3xl mx-auto">
+        <div class="reveal reveal-delay-1 space-y-4 max-w-3xl mx-auto">
 
-          <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-            <dt>
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow" aria-expanded="false">
-                <span class="font-display text-base font-semibold text-text-strong">Darf ich als Angehöriger zu den Treffen kommen?</span>
-                <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                </svg>
-              </button>
-            </dt>
-            <dd class="faq-answer hidden px-7 py-5 bg-cream">
-              <p class="font-body text-base leading-relaxed text-text-body">Ja. Füreinander Freiburg steht ausdrücklich auch Angehörigen offen – Partnern, Eltern, Kindern, Geschwistern und weiterer Familie. Wer durch einen nahestehenden Menschen mit den Zeugen Jehovas in Berührung kommt, ist von dieser Situation häufig selbst stark betroffen. Auch diese Erfahrung hat in unserer Gruppe einen Platz.</p>
-            </dd>
+          <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Darf ich als Angehöriger zu den Treffen kommen?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Ja. Füreinander Freiburg steht ausdrücklich auch Angehörigen offen – Partnern, Eltern, Kindern, Geschwistern und weiterer Familie. Wer durch einen nahestehenden Menschen mit den Zeugen Jehovas in Berührung kommt, ist von dieser Situation häufig selbst stark betroffen. Auch diese Erfahrung hat in unserer Gruppe einen Platz.</p>
           </div>
+        </details>
 
-          <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-            <dt>
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow" aria-expanded="false">
-                <span class="font-display text-base font-semibold text-text-strong">Mein Partner ist Zeuge Jehovas, ich nicht – was kann ich tun?</span>
-                <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                </svg>
-              </button>
-            </dt>
-            <dd class="faq-answer hidden px-7 py-5 bg-cream">
-              <p class="font-body text-base leading-relaxed text-text-body">Gemischte Partnerschaften – in denen ein Teil Zeuge Jehovas ist oder bleibt und der andere nicht – stellen eine besondere Belastung dar. Unterschiedliche Lebensvorstellungen, Erwartungen und soziale Einschränkungen können auf Dauer zermürbend sein. In unserer Gruppe können auch Partner ohne eigene ZJ-Zugehörigkeit offen über diese Situation sprechen.</p>
-            </dd>
+          <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Mein Partner ist Zeuge Jehovas, ich nicht – was kann ich tun?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Gemischte Partnerschaften – in denen ein Teil Zeuge Jehovas ist oder bleibt und der andere nicht – stellen eine besondere Belastung dar. Unterschiedliche Lebensvorstellungen, Erwartungen und soziale Einschränkungen können auf Dauer zermürbend sein. In unserer Gruppe können auch Partner ohne eigene ZJ-Zugehörigkeit offen über diese Situation sprechen.</p>
           </div>
+        </details>
 
-          <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-            <dt>
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow" aria-expanded="false">
-                <span class="font-display text-base font-semibold text-text-strong">Mein Angehöriger möchte aussteigen, sein Partner aber nicht – wer ist willkommen?</span>
-                <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                </svg>
-              </button>
-            </dt>
-            <dd class="faq-answer hidden px-7 py-5 bg-cream">
-              <p class="font-body text-base leading-relaxed text-text-body">Beide. Sowohl die Person, die aussteigen möchte, als auch der Partner, der mit dem Ausstieg des anderen umgehen muss, sind bei uns willkommen. Diese Situation ist für alle Beteiligten belastend – wir sehen alle Betroffenen als Teil unserer Zielgruppe.</p>
-            </dd>
+          <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Mein Angehöriger möchte aussteigen, sein Partner aber nicht – wer ist willkommen?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Beide. Sowohl die Person, die aussteigen möchte, als auch der Partner, der mit dem Ausstieg des anderen umgehen muss, sind bei uns willkommen. Diese Situation ist für alle Beteiligten belastend – wir sehen alle Betroffenen als Teil unserer Zielgruppe.</p>
           </div>
+        </details>
 
-          <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-            <dt>
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow" aria-expanded="false">
-                <span class="font-display text-base font-semibold text-text-strong">Warum bricht mein Angehöriger den Kontakt ab?</span>
-                <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                </svg>
-              </button>
-            </dt>
-            <dd class="faq-answer hidden px-7 py-5 bg-cream">
-              <p class="font-body text-base leading-relaxed text-text-body">Kontaktabbrüche gehören zu den schmerzhaftesten Erfahrungen für Angehörige. In der Gemeinschaft der Zeugen Jehovas gibt es klare Regeln darüber, mit wem Mitglieder engen Kontakt halten dürfen – insbesondere wenn jemand als ausgeschlossen gilt. Das führt dazu, dass selbst enge Familienmitglieder gemieden werden können. Dieser Abbruch ist kein persönliches Versagen, sondern eine Folge der Gemeinschaftsregeln.</p>
-            </dd>
+          <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Warum bricht mein Angehöriger den Kontakt ab?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Kontaktabbrüche gehören zu den schmerzhaftesten Erfahrungen für Angehörige. In der Gemeinschaft der Zeugen Jehovas gibt es klare Regeln darüber, mit wem Mitglieder engen Kontakt halten dürfen – insbesondere wenn jemand als ausgeschlossen gilt. Das führt dazu, dass selbst enge Familienmitglieder gemieden werden können. Dieser Abbruch ist kein persönliches Versagen, sondern eine Folge der Gemeinschaftsregeln.</p>
           </div>
+        </details>
 
-          <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-            <dt>
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow" aria-expanded="false">
-                <span class="font-display text-base font-semibold text-text-strong">Was ist gemeint, wenn von einer Hochkontrollgruppe die Rede ist?</span>
-                <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                </svg>
-              </button>
-            </dt>
-            <dd class="faq-answer hidden px-7 py-5 bg-cream">
-              <p class="font-body text-base leading-relaxed text-text-body">Der Begriff beschreibt religiöse Gemeinschaften, die das Leben ihrer Mitglieder weitgehend strukturieren und regeln – soziale Kontakte, Informationszugang, Alltagsentscheidungen. Die Zeugen Jehovas zählen dazu. Wer einen nahestehenden Menschen in einer solchen Gemeinschaft hat, erlebt oft, dass normale Gespräche schwieriger werden, Kontakte eingeschränkt oder Entscheidungen von außen beeinflusst werden.</p>
-            </dd>
+          <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Gibt es Unterstützungsangebote speziell für Angehörige?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Füreinander Freiburg ist in der Region eine der wenigen Anlaufstellen, die Angehörige ausdrücklich einlädt. Darüber hinaus gibt es bundesweite Beratungsangebote, die auf unserer <a href="partner.html" class="underline text-accent">Partnerseite</a> aufgeführt sind. Eine direkte Kontaktaufnahme ist jederzeit möglich – per E-Mail, Telefon oder Messenger.</p>
           </div>
+        </details>
 
-          <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-            <dt>
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow" aria-expanded="false">
-                <span class="font-display text-base font-semibold text-text-strong">Kostet die Teilnahme als Angehöriger etwas?</span>
-                <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                </svg>
-              </button>
-            </dt>
-            <dd class="faq-answer hidden px-7 py-5 bg-cream">
-              <p class="font-body text-base leading-relaxed text-text-body">Nein. Die Teilnahme ist kostenlos – auch für Angehörige. Es gibt keine Mitgliedsbeiträge und keine Verpflichtung zur regelmäßigen Teilnahme. Wir bitten lediglich um eine kurze Anmeldung vor dem ersten Besuch, damit wir dir die genauen Raumdetails zusenden können.</p>
-            </dd>
-          </div>
-
-          <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-            <dt>
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow" aria-expanded="false">
-                <span class="font-display text-base font-semibold text-text-strong">Gibt es Unterstützungsangebote speziell für Angehörige?</span>
-                <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                </svg>
-              </button>
-            </dt>
-            <dd class="faq-answer hidden px-7 py-5 bg-cream">
-              <p class="font-body text-base leading-relaxed text-text-body">Füreinander Freiburg ist in der Region eine der wenigen Anlaufstellen, die Angehörige ausdrücklich einlädt. Darüber hinaus gibt es bundesweite Beratungsangebote, die auf unserer <a href="partner.html" class="underline text-accent">Partnerseite</a> aufgeführt sind. Eine direkte Kontaktaufnahme ist jederzeit möglich – per E-Mail, Telefon oder Messenger.</p>
-            </dd>
-          </div>
-
-        </dl>
+        </div>
       </section>
 
       <!-- CTA -->
@@ -659,9 +607,10 @@
           </li>
           <li><span class="font-body text-xs text-text-footer">·</span></li>
           <li>
-            <a href="angehoerige.html" class="font-body text-xs font-semibold text-text-strong" style="min-height: 32px; display: inline-flex; align-items: center">Für Angehörige</a>
+            <a href="angehoerige.html" class="font-body text-xs font-semibold text-text-strong" style="min-height: 32px; display: inline-flex; align-items: center">Angehörige</a>
           </li>
           <li><span class="font-body text-xs text-text-footer">·</span></li>
+
           <li>
             <a href="termine.html" class="footer-link font-body text-xs transition-colors text-text-footer" style="min-height: 32px; display: inline-flex; align-items: center">Termine</a>
           </li>
@@ -680,7 +629,7 @@
     </div>
   </footer>
 
-  <script src="faq-details.js" defer></script>
+
   <script src="main.js" defer></script>
 
   <!-- STICKY PHONE BAR -->
@@ -709,27 +658,7 @@
     </div>
   </aside>
 
-  <!-- Scroll Reveal Script -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const observerOptions = {
-        root: null,
-        rootMargin: "0px 0px -50px 0px",
-        threshold: 0.1
-      };
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
-      document.querySelectorAll(".reveal, .reveal-slide-left, .reveal-slide-right, .reveal-scale, .rule-card").forEach(el => {
-        observer.observe(el);
-      });
-    });
-  </script>
+
 
 </body>
 </html>

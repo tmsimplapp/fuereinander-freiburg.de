@@ -63,15 +63,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // HTML Template Style (Premium Editorial)
     $email_style = "
         <style>
-            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:wght@400;600&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
             
             body { font-family: 'Source Serif 4', Georgia, serif; background-color: #FEFAE0; color: #5c4e3a; margin: 0; padding: 40px 20px; line-height: 1.7; }
             .wrapper { max-width: 600px; margin: 0 auto; }
             .header { text-align: center; margin-bottom: 30px; }
-            .logo-text { font-family: 'Playfair Display', Georgia, serif; font-size: 24px; color: #3d3225; letter-spacing: 1px; }
+            .logo-text { font-family: 'Lato', sans-serif; font-size: 24px; color: #3d3225; letter-spacing: 1px; }
             .logo-text i { color: #5fa88a; }
             .card { background-color: #ffffff; padding: 48px 40px; border-radius: 20px; border: 1px solid #E2C2A2; box-shadow: 0 10px 30px rgba(61, 50, 37, 0.05); }
-            h2 { font-family: 'Playfair Display', Georgia, serif; color: #3d3225; font-size: 28px; font-weight: 600; margin-top: 0; margin-bottom: 24px; }
+            h2 { font-family: 'Lato', sans-serif; color: #3d3225; font-size: 28px; font-weight: 600; margin-top: 0; margin-bottom: 24px; }
             .data-box { background-color: #d4f1e6; padding: 24px 32px; border-radius: 16px; margin: 32px 0; color: #1a2820; }
             .data-box p { margin: 0 0 12px 0; font-size: 14px; color: #3d3225; opacity: 0.8; }
             .quote-box { background-color: #fff4d6; padding: 24px 32px; border-radius: 16px; border-left: 4px solid #ffda69; margin-top: 24px; font-style: italic; }

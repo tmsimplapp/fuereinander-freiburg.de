@@ -70,7 +70,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=optional" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css?v=1" />
   <link rel="stylesheet" href="transitions.css?v=1" />
@@ -83,7 +83,7 @@
 
   <!-- NAVIGATION -->
   <nav class="fixed bottom-0 md:bottom-auto md:top-0 left-0 right-0 z-50 bg-cream/80 backdrop-blur-md border-t md:border-t-0 md:border-b border-tan/20" style="padding-bottom: env(safe-area-inset-bottom, 0px);">
-    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-center md:justify-between">
       <a href="index.html" aria-label="Füreinander Freiburg – Startseite" class="flex items-center">
         <img src="grafik/F%C3%BCreinander%20Freiburg.svg" alt="Logo der Selbsthilfegruppe Füreinander Freiburg" class="h-8 w-auto opacity-90" width="120" height="32">
       </a>
@@ -92,6 +92,7 @@
       <div class="hidden md:flex items-center gap-6">
         <a href="index.html" class="nav-link font-body text-sm">Startseite</a>
         <a href="ausstieg-folgen.html" class="nav-link font-body text-sm">Ausstiegsfolgen</a>
+        <a href="angehoerige.html" class="nav-link font-body text-sm">Angehörige</a>
         <a href="partner.html" class="nav-link font-body text-sm">Partner</a>
         <a href="termine.html" class="nav-link font-body text-sm">Termine</a>
         <a href="rechtliches.html" class="nav-link font-body text-sm font-semibold text-text-strong">Rechtliches</a>
@@ -118,6 +119,7 @@
         <!-- Navigation -->
         <a href="index.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Startseite</a>
         <a href="ausstieg-folgen.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Ausstiegsfolgen</a>
+        <a href="angehoerige.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Angehörige</a>
         <a href="partner.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Partner</a>
         <a href="termine.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Termine</a>
         <a href="rechtliches.html" aria-current="page" class="mobile-nav-link font-body text-base font-semibold py-3 px-6 rounded-full transition-all text-center bg-mint border border-mint" style="min-height: 44px; display: flex; align-items: center; justify-content: center;  color:#1a2820">Rechtliches</a>
@@ -312,6 +314,12 @@
           </li>
           <li><span class="font-body text-xs text-text-footer">·</span></li>
           <li>
+            <a href="angehoerige.html" class="footer-link font-body text-xs">
+              Angehörige
+            </a>
+          </li>
+          <li><span class="font-body text-xs text-text-footer">·</span></li>
+          <li>
             <a href="termine.html" class="footer-link font-body text-xs">
               Termine
             </a>
@@ -369,28 +377,6 @@
 
 
 
-  <!-- Scroll Reveal Script -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const observerOptions = {
-        root: null,
-        rootMargin: "0px 0px -50px 0px",
-        threshold: 0.1
-      };
 
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
-
-      document.querySelectorAll(".reveal, .reveal-slide-left, .reveal-slide-right, .reveal-scale, .rule-card").forEach(el => {
-        observer.observe(el);
-      });
-    });
-  </script>
 </body>
 </html>

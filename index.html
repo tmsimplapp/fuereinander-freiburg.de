@@ -227,6 +227,14 @@
       },
       {
         "@type": "Question",
+        "name": "Was ist eine Hochkontrollgruppe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Der Begriff Hochkontrollgruppe beschreibt religiöse Gemeinschaften, die das Leben ihrer Mitglieder weitgehend strukturieren und regeln – soziale Kontakte, Informationszugang, Alltagsentscheidungen. Die Zeugen Jehovas zählen dazu. Wer einen nahestehenden Menschen in einer solchen Gemeinschaft hat oder selbst anfängt zu zweifeln, verliert oft nicht nur eine Glaubensgemeinschaft, sondern Freunde, Familie und sein soziales Umfeld."
+        }
+      },
+      {
+        "@type": "Question",
         "name": "Kostet die Teilnahme an der Selbsthilfegruppe Füreinander Freiburg etwas?",
         "acceptedAnswer": {
           "@type": "Answer",
@@ -273,7 +281,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=optional" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css?v=1" />
   <link rel="stylesheet" href="transitions.css?v=1" />
@@ -289,7 +297,7 @@
   <div aria-live="polite" class="sr-only" id="menu-status"></div>
 
   <nav class="fixed bottom-0 md:bottom-auto md:top-0 left-0 right-0 z-50 bg-cream/80 backdrop-blur-md border-t md:border-t-0 md:border-b border-tan/20" style="padding-bottom: env(safe-area-inset-bottom, 0px);">
-    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-center md:justify-between">
       <!-- Logo -->
       <a href="index.html" aria-label="Füreinander Freiburg – Startseite" class="flex items-center">
         <img src="grafik/F%C3%BCreinander%20Freiburg.svg" alt="Logo der Selbsthilfegruppe Füreinander Freiburg" class="h-8 w-auto opacity-90" width="120" height="32">
@@ -299,6 +307,7 @@
       <div class="hidden md:flex items-center gap-6">
         <a href="index.html" class="nav-link font-body text-sm">Startseite</a>
         <a href="ausstieg-folgen.html" class="nav-link font-body text-sm">Ausstiegsfolgen</a>
+        <a href="angehoerige.html" class="nav-link font-body text-sm">Angehörige</a>
         <a href="partner.html" class="nav-link font-body text-sm">Partner</a>
         <a href="termine.html" class="nav-link font-body text-sm">Termine</a>
         <a href="#kontakt" class="btn-primary glowing-border font-body text-sm font-semibold px-5 py-2.5 rounded-full active:scale-95">Kontakt</a>
@@ -324,6 +333,7 @@
         <!-- Navigation -->
         <a href="index.html" aria-current="page" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Startseite</a>
         <a href="ausstieg-folgen.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Ausstiegsfolgen</a>
+        <a href="angehoerige.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Angehörige</a>
         <a href="partner.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Partner</a>
         <a href="termine.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Termine</a>
         <a href="rechtliches.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Rechtliches</a>
@@ -420,13 +430,13 @@
     <div class="hero-full-content">
 
       <p class="hero-anim-1 font-body text-sm font-semibold tracking-widest uppercase mb-6 text-text-muted" style="letter-spacing: 0.2em">
-        Freiburg und Umgebung
+        Füreinander &amp; Miteinander
       </p>
 
-      <h1 class="hero-anim-2 font-display hero-full-title text-text-strong">
+      <h1 class="hero-anim-2 font-caveat hero-full-title text-text-strong" style="font-size: 5.3rem; line-height: 0.9; margin-bottom: 0.5em;">
         <span class="sr-only">Selbsthilfegruppe Freiburg für Zeugen Jehovas: </span>
         Du bist<br>
-        <em class="font-display italic font-normal text-accent">nicht allein.</em>
+        <em class="font-caveat font-normal text-accent" style="font-size: 1.1em; display: inline-block; margin-top: 0.1em;">nicht allein.</em>
       </h1>
 
       <p class="hero-anim-3 font-body hero-full-sub text-text-body">
@@ -641,162 +651,129 @@
         </h2>
       </div>
 
-      <dl class="reveal reveal-delay-1 space-y-4">
+      <div class="reveal reveal-delay-1 space-y-4">
 
-        <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-          <dt>
-            <h3 class=\"m-0\">
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow"
-                    aria-expanded="false">
-              <span class="font-display text-base font-semibold text-text-strong">Für wen ist die Selbsthilfegruppe Füreinander Freiburg?</span>
-              <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </button>
-            </h3>
-          </dt>
-          <dd class="faq-answer hidden px-7 py-5 bg-cream">
+        <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Für wen ist die Selbsthilfegruppe Füreinander Freiburg?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
             <p class="font-body text-base leading-relaxed text-text-body">Eingeladen sind alle, die aktuell oder früher Teil der Zeugen Jehovas sind, ob noch aktiv, zweifelnd oder bereits ausgestiegen. Die Gruppe ist für Menschen mit ersten Zweifeln genauso offen wie für solche, die schon lange ausgestiegen sind und Unterstützung beim Neuanfang suchen. Es gibt keine Voraussetzungen. Du kannst kommen, wie du bist.</p>
-          </dd>
-        </div>
+          </div>
+        </details>
 
-        <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-          <dt>
-            <h3 class=\"m-0\">
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow"
-                    aria-expanded="false">
-              <span class="font-display text-base font-semibold text-text-strong">Was macht die Selbsthilfegruppe Füreinander Freiburg?</span>
-              <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </button>
-            </h3>
-          </dt>
-          <dd class="faq-answer hidden px-7 py-5 bg-cream">
+        <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Was macht die Selbsthilfegruppe Füreinander Freiburg?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
             <p class="font-body text-base leading-relaxed text-text-body">Die Treffen sind ein Ort für Austausch über persönliche Erfahrungen und gegenseitige Unterstützung, ohne Verurteilung oder Druck. Du kannst hier mit Menschen sprechen, die ähnliche Herausforderungen durchlebt haben. Im Vordergrund stehen persönliche Erlebnisse und innere Konflikte, nicht theologische Debatten oder Kritik an der Organisation.</p>
-          </dd>
-        </div>
+          </div>
+        </details>
 
-        <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-          <dt>
-            <h3 class=\"m-0\">
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow"
-                    aria-expanded="false">
-              <span class="font-display text-base font-semibold text-text-strong">Wo trifft sich die Gruppe Füreinander Freiburg?</span>
-              <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </button>
-            </h3>
-          </dt>
-          <dd class="faq-answer hidden px-7 py-5 bg-cream">
+        <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Wo trifft sich die Gruppe Füreinander Freiburg?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
             <p class="font-body text-base leading-relaxed text-text-body">Die Gruppe trifft sich in den Räumlichkeiten des Selbsthilfebüros in Freiburg im Breisgau. Die genaue Adresse und den aktuellen Raum teilen wir dir nach deiner Anmeldung mit. Die Treffen finden monatlich statt. Aktuelle Termine findest du auf unserer <a href="termine.html" class="text-accent underline">Termine-Seite</a> oder per Kontaktaufnahme.</p>
-          </dd>
-        </div>
+          </div>
+        </details>
 
-        <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-          <dt>
-            <h3 class=\"m-0\">
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow"
-                    aria-expanded="false">
-              <span class="font-display text-base font-semibold text-text-strong">Ist die Gruppe Füreinander Freiburg ein Ersatz für Therapie?</span>
-              <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </button>
-            </h3>
-          </dt>
-          <dd class="faq-answer hidden px-7 py-5 bg-cream">
+        <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Ist die Gruppe Füreinander Freiburg ein Ersatz für Therapie?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
             <p class="font-body text-base leading-relaxed text-text-body">Nein, die Selbsthilfegruppe Füreinander Freiburg ist kein Ersatz für professionelle psychologische oder therapeutische Begleitung. Die Gruppe ist ein Ort für gegenseitigen Austausch und emotionale Unterstützung durch Menschen mit ähnlichen Erfahrungen. Bei psychischen Belastungen, Depressionen oder Traumata empfehlen wir zusätzlich die Begleitung durch qualifizierte Therapeuten oder Beratungsstellen. Die Gruppe ergänzt therapeutische Arbeit, ersetzt sie aber nicht.</p>
-          </dd>
-        </div>
+          </div>
+        </details>
 
-        <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-          <dt>
-            <h3 class=\"m-0\">
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow"
-                    aria-expanded="false">
-              <span class="font-display text-base font-semibold text-text-strong">Kostet die Teilnahme bei Füreinander Freiburg etwas?</span>
-              <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </button>
-            </h3>
-          </dt>
-          <dd class="faq-answer hidden px-7 py-5 bg-cream">
+        <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Was ist eine Hochkontrollgruppe?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Der Begriff Hochkontrollgruppe beschreibt religiöse Gemeinschaften, die das Leben ihrer Mitglieder weitgehend strukturieren und regeln – soziale Kontakte, Informationszugang, Alltagsentscheidungen. Die Zeugen Jehovas zählen dazu. Wer einen nahestehenden Menschen in einer solchen Gemeinschaft hat oder selbst anfängt zu zweifeln, verliert oft nicht nur eine Glaubensgemeinschaft, sondern Freunde, Familie und sein soziales Umfeld.</p>
+          </div>
+        </details>
+
+        <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Kostet die Teilnahme bei Füreinander Freiburg etwas?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
             <p class="font-body text-base leading-relaxed text-text-body">Nein, die Teilnahme an der Selbsthilfegruppe Füreinander Freiburg ist komplett kostenlos. Es gibt keine Mitgliedsbeiträge, keine Spendenverpflichtungen und keine versteckten Kosten. Du solltest dich jedoch vor dem ersten Besuch über eine unserer Kontaktmöglichkeiten anmelden, damit wir dir alle wichtigen Informationen zum Treffpunkt und Ablauf zusenden können.</p>
-          </dd>
-        </div>
+          </div>
+        </details>
 
-        <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-          <dt>
-            <h3 class=\"m-0\">
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow"
-                    aria-expanded="false">
-              <span class="font-display text-base font-semibold text-text-strong">Wie kann ich mich anmelden?</span>
-              <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </button>
-            </h3>
-          </dt>
-          <dd class="faq-answer hidden px-7 py-5 bg-cream">
+        <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Wie kann ich mich anmelden?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
             <p class="font-body text-base leading-relaxed text-text-body">Schreib uns eine E-Mail an <a href="mailto:kontakt@fuereinander-freiburg.de" class="text-accent underline">kontakt@fuereinander-freiburg.de</a>, ruf uns an unter 01556 / 7465016 oder nutze einen unserer Messenger-Dienste (WhatsApp, Telegram, Signal). Wir melden uns innerhalb von 1–2 Werktagen und schicken dir alle Infos zum Treffen.</p>
-          </dd>
-        </div>
+          </div>
+        </details>
 
-        <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-          <dt>
-            <h3 class=\"m-0\">
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow"
-                    aria-expanded="false">
-              <span class="font-display text-base font-semibold text-text-strong">Muss ich etwas vorbereiten oder mitbringen?</span>
-              <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </button>
-            </h3>
-          </dt>
-          <dd class="faq-answer hidden px-7 py-5 bg-cream">
+        <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Muss ich etwas vorbereiten oder mitbringen?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
             <p class="font-body text-base leading-relaxed text-text-body">Nein, du musst nichts vorbereiten und nichts mitbringen. Komm einfach, wie du bist: mit deinen Fragen, Gedanken oder auch nur zum Zuhören. Es gibt keinen Druck, etwas zu erzählen. Manche sprechen beim ersten Treffen viel, andere hören erst einmal nur zu. Beides ist in Ordnung.</p>
-          </dd>
-        </div>
+          </div>
+        </details>
 
-        <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-          <dt>
-            <h3 class=\"m-0\">
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow"
-                    aria-expanded="false">
-              <span class="font-display text-base font-semibold text-text-strong">Gibt es eine Altersgrenze?</span>
-              <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </button>
-            </h3>
-          </dt>
-          <dd class="faq-answer hidden px-7 py-5 bg-cream">
+        <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Gibt es eine Altersgrenze?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
             <p class="font-body text-base leading-relaxed text-text-body">Nein, es gibt keine Altersgrenze. Die Selbsthilfegruppe Füreinander Freiburg steht allen Erwachsenen offen, unabhängig vom Alter. Junge Erwachsene, die erst kürzlich ausgestiegen sind, und Menschen, die schon seit Jahrzehnten draußen sind, sind gleichermaßen willkommen. Die verschiedenen Altersgruppen bringen unterschiedliche Perspektiven und Lebenserfahrungen mit.</p>
-          </dd>
-        </div>
+          </div>
+        </details>
 
-        <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-          <dt>
-            <h3 class=\"m-0\">
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow"
-                    aria-expanded="false">
-              <span class="font-display text-base font-semibold text-text-strong">Was passiert, wenn ich nur einmal kommen möchte?</span>
-              <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </button>
-            </h3>
-          </dt>
-          <dd class="faq-answer hidden px-7 py-5 bg-cream">
+        <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Was passiert, wenn ich nur einmal kommen möchte?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
             <p class="font-body text-base leading-relaxed text-text-body">Das ist völlig in Ordnung. Es gibt keine Verpflichtung. Du kannst einmal kommen, die Gruppe kennenlernen und dann entscheiden. Wir hoffen natürlich, dass du dabeibleibst, wenn es dir hilft.</p>
-          </dd>
-        </div>
+          </div>
+        </details>
 
-      </dl>
+      </div>
     </div>
   </section>
 
@@ -1097,8 +1074,14 @@
           <li><span class="font-body text-xs text-text-footer">·</span></li>
           <li>
             <a href="ausstieg-folgen.html"
-               class="font-body text-xs transition-colors text-text-footer" style="min-height: 32px; display: inline-flex; align-items: center">
+               class="font-body text-xs font-semibold text-text-strong" style="min-height: 32px; display: inline-flex; align-items: center">
               Ausstiegsfolgen
+            </a>
+          </li>
+          <li><span class="font-body text-xs text-text-footer">·</span></li>
+          <li>
+            <a href="angehoerige.html" class="footer-link font-body text-xs">
+              Angehörige
             </a>
           </li>
           <li><span class="font-body text-xs text-text-footer">·</span></li>
@@ -1129,9 +1112,9 @@
   <!-- ═══════════════════════════════════════
        JAVASCRIPT
   ════════════════════════════════════════ -->
-  <script src="faq-details.js" defer></script>
+
   <script src="main.js" defer></script>
-  <!-- <script src="rueckruf.js" defer></script> -->
+
 
 
   <!-- ═══════════════════════════════════════
@@ -1171,28 +1154,6 @@
 
 
 
-  <!-- Scroll Reveal Script -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const observerOptions = {
-        root: null,
-        rootMargin: "0px 0px -50px 0px",
-        threshold: 0.1
-      };
 
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
-
-      document.querySelectorAll(".reveal, .reveal-slide-left, .reveal-slide-right, .reveal-scale, .rule-card").forEach(el => {
-        observer.observe(el);
-      });
-    });
-  </script>
 </body>
 </html>

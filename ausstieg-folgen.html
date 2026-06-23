@@ -33,7 +33,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=optional" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css?v=1" />
   <link rel="stylesheet" href="transitions.css?v=1" />
@@ -126,14 +126,6 @@
       },
       {
         "@type": "Question",
-        "name": "Was ist eine Hochkontrollgruppe?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Hochkontrollgruppen regeln, mit wem ihre Mitglieder befreundet sein dürfen, welche Informationen sie konsumieren, welche Entscheidungen sie eigenständig treffen können. Die Zeugen Jehovas gehören dazu. Wer anfängt zu zweifeln oder die Gemeinschaft verlässt, verliert oft nicht nur eine Glaubensgemeinschaft, sondern Freunde, Familie, manchmal alles, was bisher Halt gegeben hat."
-        }
-      },
-      {
-        "@type": "Question",
         "name": "Wie lange dauern die psychischen Folgen eines Ausstiegs aus den Zeugen Jehovas?",
         "acceptedAnswer": {
           "@type": "Answer",
@@ -145,7 +137,7 @@
         "name": "Wo finde ich Unterstützung nach dem Ausstieg aus den Zeugen Jehovas?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Füreinander Freiburg ist eine Selbsthilfegruppe für Menschen, die aus den Zeugen Jehovas ausgestiegen sind oder zweifeln – kostenlos, ohne Verpflichtung. Wer weitere Beratung sucht, findet Unterstützung bei ZEBRA BW (zebra-bw.com) und beim Selbsthilfebüro Freiburg. Für akute Krisen: Telefonseelsorge, kostenlos, rund um die Uhr – 0800 / 111 0 111."
+          "text": "Füreinander Freiburg ist eine Selbsthilfegruppe für Menschen, die aus den Zeugen Jehovas ausgestiegen sind oder zweifeln – kostenlos, ohne Verpflichtung. Wer weitere Beratung sucht, findet Unterstützung bei ZEBRA BW und beim Selbsthilfebüro Freiburg. Für akute Krisen: Telefonseelsorge, kostenlos, rund um die Uhr – 0800 / 111 0 111."
         }
       }
     ]
@@ -162,7 +154,7 @@
 
   <!-- NAVIGATION -->
   <nav class="fixed bottom-0 md:bottom-auto md:top-0 left-0 right-0 z-50 bg-cream/80 backdrop-blur-md border-t md:border-t-0 md:border-b border-tan/20" style="padding-bottom: env(safe-area-inset-bottom, 0px);">
-    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-center md:justify-between">
       <a href="index.html" aria-label="Füreinander Freiburg – Startseite" class="flex items-center">
         <img src="grafik/F%C3%BCreinander%20Freiburg.svg" alt="Logo der Selbsthilfegruppe Füreinander Freiburg" class="h-8 w-auto opacity-90" width="120" height="32">
       </a>
@@ -171,6 +163,7 @@
       <div class="hidden md:flex items-center gap-6">
         <a href="index.html" class="nav-link font-body text-sm">Startseite</a>
         <a href="ausstieg-folgen.html" class="nav-link font-body text-sm font-semibold text-text-strong">Ausstiegsfolgen</a>
+        <a href="angehoerige.html" class="nav-link font-body text-sm">Angehörige</a>
         <a href="partner.html" class="nav-link font-body text-sm">Partner</a>
         <a href="termine.html" class="nav-link font-body text-sm">Termine</a>
         <a href="index.html#kontakt" class="btn-primary glowing-border font-body text-sm font-semibold px-5 py-2.5 rounded-full active:scale-95">Kontakt</a>
@@ -196,6 +189,7 @@
         <!-- Navigation -->
         <a href="index.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Startseite</a>
         <a href="ausstieg-folgen.html" aria-current="page" class="mobile-nav-link font-body text-base font-semibold py-3 px-6 rounded-full transition-all text-center bg-mint border border-mint" style="min-height: 44px; display: flex; align-items: center; justify-content: center;  color:#1a2820">Ausstiegsfolgen</a>
+        <a href="angehoerige.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Angehörige</a>
         <a href="partner.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Partner</a>
         <a href="termine.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Termine</a>
         <a href="rechtliches.html" class="mobile-nav-link font-body text-base font-medium py-3 px-6 rounded-full transition-all text-center text-text-body bg-lightyellow border border-tan" style="min-height: 44px; display: flex; align-items: center; justify-content: center">Rechtliches</a>
@@ -283,7 +277,7 @@
       <!-- Einleitungstext -->
       <section class="mb-8 text-center max-w-4xl mx-auto">
         <p class="font-body text-sm md:text-base leading-relaxed justify-last-center md:text-center hyphens-auto md:hyphens-none text-text-body">
-          Ein Ausstieg aus religiösen <a href="https://de.wikipedia.org/wiki/Hochkontrollgruppe" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">Hochkontrollgruppen</a> oder <a href="https://de.wikipedia.org/wiki/Spiritueller_Missbrauch" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">geistlich missbräuchlichen</a> Gemeinschaften prägt Menschen oft lange.
+          Ein Ausstieg aus religiösen Hochkontrollgruppen oder geistlich missbräuchlichen Gemeinschaften prägt Menschen oft lange.
           Hochkontrollgruppen – darunter fallen auch die Zeugen Jehovas – sind religiöse Organisationen, die das Leben ihrer Mitglieder weitreichend kontrollieren: soziale Kontakte, Informationszugang, Entscheidungen im Alltag.
           Wer diese Gemeinschaft verlässt oder zu zweifeln beginnt, verliert oft sein soziales Umfeld und seinen Halt.
           Wer eine Hochkontrollgruppe verlassen hat oder noch zögert, findet hier Muster, die vielleicht vertraut klingen.
@@ -593,79 +587,57 @@
           <h2 class="font-display text-3xl md:text-4xl font-bold text-text-strong">Fragen & Antworten</h2>
         </div>
 
-        <dl class="space-y-4 max-w-3xl mx-auto">
+        <div class="space-y-4 max-w-3xl mx-auto">
 
-          <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-            <dt>
-            <h3 class=\"m-0\">
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow" aria-expanded="false">
-                <span class="font-display text-base font-semibold text-text-strong">Was sind häufige Symptome nach dem Ausstieg aus den Zeugen Jehovas?</span>
-                <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-              </button>
-            </h3>
-          </dt>
-            <dd class="faq-answer hidden px-7 py-5 bg-cream">
-              <p class="font-body text-base leading-relaxed text-text-body">Nach dem Ausstieg beginnt für viele eine zweite, innere Auseinandersetzung: Angst, Schuldgefühle, Einsamkeit, Identitätsfragen. Schlafprobleme und depressive Phasen sind keine Seltenheit. Manche merken, dass sie auf religiöse Sprache oder Bibeltexte anders reagieren als andere – mit Anspannung, nicht mit Ruhe. Das ist kein Zeichen von Schwäche, sondern eine Folge von dem, was war.</p>
-            </dd>
+          <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Was sind häufige Symptome nach dem Ausstieg aus den Zeugen Jehovas?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Nach dem Ausstieg beginnt für viele eine zweite, innere Auseinandersetzung: Angst, Schuldgefühle, Einsamkeit, Identitätsfragen. Schlafprobleme und depressive Phasen sind keine Seltenheit. Manche merken, dass sie auf religiöse Sprache oder Bibeltexte anders reagieren als andere – mit Anspannung, nicht mit Ruhe. Das ist kein Zeichen von Schwäche, sondern eine Folge von dem, was war.</p>
           </div>
+        </details>
 
-          <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-            <dt>
-            <h3 class=\"m-0\">
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow" aria-expanded="false">
-                <span class="font-display text-base font-semibold text-text-strong">Welche Veränderungen im Glaubensbereich erleben Menschen nach dem Ausstieg?</span>
-                <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-              </button>
-            </h3>
-          </dt>
-            <dd class="faq-answer hidden px-7 py-5 bg-cream">
-              <p class="font-body text-base leading-relaxed text-text-body">Viele, die eine Hochkontrollgruppe verlassen, stehen vor einer merkwürdigen Spannung: Sie wollen mit Glauben nichts mehr zu tun haben, vermissen aber gleichzeitig etwas, das sie nicht benennen können. Angst vor Gott statt Vertrauen, Schwarz-Weiß-Denken, das Gefühl, den eigenen Gedanken nicht trauen zu dürfen. Das sind typische Nachwirkungen. Religiöse Räume fühlen sich nicht mehr sicher an, auch wenn man weiß, dass sie es sein könnten.</p>
-            </dd>
+          <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Welche Veränderungen im Glaubensbereich erleben Menschen nach dem Ausstieg?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Viele, die eine Hochkontrollgruppe verlassen, stehen vor einer merkwürdigen Spannung: Sie wollen mit Glauben nichts mehr zu tun haben, vermissen aber gleichzeitig etwas, das sie nicht benennen können. Angst vor Gott statt Vertrauen, Schwarz-Weiß-Denken, das Gefühl, den eigenen Gedanken nicht trauen zu dürfen. Das sind typische Nachwirkungen. Religiöse Räume fühlen sich nicht mehr sicher an, auch wenn man weiß, dass sie es sein könnten.</p>
           </div>
+        </details>
 
-          <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-            <dt>
-            <h3 class=\"m-0\">
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow" aria-expanded="false">
-                <span class="font-display text-base font-semibold text-text-strong">Was ist eine Hochkontrollgruppe?</span>
-                <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-              </button>
-            </h3>
-          </dt>
-            <dd class="faq-answer hidden px-7 py-5 bg-cream">
-              <p class="font-body text-base leading-relaxed text-text-body">Hochkontrollgruppen regeln, mit wem ihre Mitglieder befreundet sein dürfen, welche Informationen sie konsumieren, welche Entscheidungen sie eigenständig treffen können. Die Zeugen Jehovas gehören dazu. Wer anfängt zu zweifeln oder die Gemeinschaft verlässt, verliert oft nicht nur eine Glaubensgemeinschaft, sondern Freunde, Familie, manchmal alles, was bisher Halt gegeben hat.</p>
-            </dd>
+          <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Wie lange dauern die psychischen Folgen eines Ausstiegs?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Das lässt sich nicht vorhersagen. Manche spüren nach wenigen Monaten, dass sich etwas löst. Andere tragen Muster wie Schwarz-Weiß-Denken oder tiefes Misstrauen noch Jahre mit sich. Was viele berichten: Es hilft, mit Menschen zu reden, die dasselbe kennen. Und manchmal hilft auch professionelle Begleitung, Dinge zu sortieren, die man allein nicht einordnen kann.</p>
           </div>
+        </details>
 
-          <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-            <dt>
-            <h3 class=\"m-0\">
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow" aria-expanded="false">
-                <span class="font-display text-base font-semibold text-text-strong">Wie lange dauern die psychischen Folgen eines Ausstiegs?</span>
-                <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-              </button>
-            </h3>
-          </dt>
-            <dd class="faq-answer hidden px-7 py-5 bg-cream">
-              <p class="font-body text-base leading-relaxed text-text-body">Das lässt sich nicht vorhersagen. Manche spüren nach wenigen Monaten, dass sich etwas löst. Andere tragen Muster wie Schwarz-Weiß-Denken oder tiefes Misstrauen noch Jahre mit sich. Was viele berichten: Es hilft, mit Menschen zu reden, die dasselbe kennen. Und manchmal hilft auch professionelle Begleitung, Dinge zu sortieren, die man allein nicht einordnen kann.</p>
-            </dd>
+          <details class="group rounded-2xl overflow-hidden mb-4 border border-[#E2C2A2]">
+          <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer bg-warmyellow text-text-strong font-display text-base font-semibold list-none [&::-webkit-details-marker]:hidden">
+            Wo finde ich Unterstützung nach dem Ausstieg aus den Zeugen Jehovas?
+            <svg class="w-5 h-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-7 py-5 bg-cream">
+            <p class="font-body text-base leading-relaxed text-text-body">Füreinander Freiburg ist eine Selbsthilfegruppe für Menschen, die aus den Zeugen Jehovas ausgestiegen sind oder zweifeln – kostenlos, ohne Verpflichtung. Wer weitere Beratung sucht, findet Unterstützung bei ZEBRA BW und beim <a href="partner.html" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">Selbsthilfebüro Freiburg</a>. Für akute Krisen: Telefonseelsorge, kostenlos, rund um die Uhr – 0800 / 111 0 111.</p>
           </div>
+        </details>
 
-          <div class="rounded-2xl overflow-hidden" style="border: 1px solid #E2C2A2;">
-            <dt>
-            <h3 class=\"m-0\">
-              <button class="faq-btn w-full flex items-center justify-between gap-4 px-7 py-5 text-left bg-warmyellow" aria-expanded="false">
-                <span class="font-display text-base font-semibold text-text-strong">Wo finde ich Unterstützung nach dem Ausstieg aus den Zeugen Jehovas?</span>
-                <svg class="faq-icon w-5 h-5 flex-shrink-0 transition-transform" fill="none" stroke="#6f6047" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-              </button>
-            </h3>
-          </dt>
-            <dd class="faq-answer hidden px-7 py-5 bg-cream">
-              <p class="font-body text-base leading-relaxed text-text-body">Füreinander Freiburg ist eine Selbsthilfegruppe für Menschen, die aus den Zeugen Jehovas ausgestiegen sind oder zweifeln – kostenlos, ohne Verpflichtung. Wer weitere Beratung sucht, findet Unterstützung bei <a href="https://zebra-bw.com/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">ZEBRA BW</a> und beim <a href="partner.html" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">Selbsthilfebüro Freiburg</a>. Für akute Krisen: Telefonseelsorge, kostenlos, rund um die Uhr – 0800 / 111 0 111.</p>
-            </dd>
-          </div>
-
-        </dl>
+        </div>
       </section>
 
       <!-- Hilfe-Teaser -->
@@ -693,8 +665,14 @@
           </li>
           <li><span class="font-body text-xs text-text-footer">·</span></li>
           <li>
-            <a href="ausstieg-folgen.html" class="font-body text-xs font-semibold text-text-strong">
+            <a href="ausstieg-folgen.html" class="font-body text-xs font-semibold text-text-strong" style="min-height: 32px; display: inline-flex; align-items: center">
               Ausstiegsfolgen
+            </a>
+          </li>
+          <li><span class="font-body text-xs text-text-footer">·</span></li>
+          <li>
+            <a href="angehoerige.html" class="footer-link font-body text-xs">
+              Angehörige
             </a>
           </li>
           <li><span class="font-body text-xs text-text-footer">·</span></li>
@@ -717,7 +695,7 @@
     </div>
   </footer>
 
-  <script src="faq-details.js" defer></script>
+
   <script src="main.js" defer></script>
 
   <!-- ════════════════════════════════════════

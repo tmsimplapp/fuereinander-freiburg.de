@@ -24,8 +24,9 @@ module.exports = {
         tan: '#E2C2A2',
       },
       fontFamily: {
-        display: ['"Playfair Display"', 'Georgia', 'serif'],
-        body: ['"Source Serif 4"', 'Georgia', 'serif'],
+        display: ['"Lato"', 'sans-serif'],
+        body: ['"Lato"', 'sans-serif'],
+        caveat: ['"Caveat Brush"', 'cursive'],
       },
     },
   },
