@@ -18,7 +18,7 @@ function erste_uhrzeit(string $json): string {
     return (!empty($arr) && isset($arr[0])) ? $arr[0] : '18:00';
 }
 
-$termin = ['termin_datum' => '', 'uhrzeit' => '18:00', 'slot_laenge_min' => 120, 'aktiv' => 1, 'bemerkung' => ''];
+$termin = ['termin_datum' => '', 'uhrzeit' => '18:00', 'slot_laenge_min' => 120, 'aktiv' => 1, 'bemerkung' => '', 'max_teilnehmer' => 8];
 
 if ($is_edit) {
     $stmt = $db->prepare('SELECT * FROM slot_konfiguration WHERE id = ? LIMIT 1');
@@ -35,6 +35,7 @@ if ($is_edit) {
         'slot_laenge_min' => $row['slot_laenge_min'],
         'aktiv'           => $row['aktiv'],
         'bemerkung'       => $row['bemerkung'] ?? '',
+        'max_teilnehmer'  => $row['max_teilnehmer'] ?? 8,
     ];
 }
 
@@ -49,7 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $uhrzeit   = trim($_POST['uhrzeit'] ?? '');
     $dauer     = $_POST['slot_laenge_min'] ?? '';
     $aktiv     = isset($_POST['aktiv']) ? 1 : 0;
-    $bemerkung = trim($_POST['bemerkung'] ?? '');
+    $bemerkung      = trim($_POST['bemerkung'] ?? '');
+    $max_teilnehmer = $_POST['max_teilnehmer'] ?? '';
 
     // Datum
     $d = DateTime::createFromFormat('Y-m-d', $datum);
@@ -72,26 +74,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = 'Dauer muss eine positive ganze Zahl in Minuten sein (1–1440).';
     }
 
+    // Max. Teilnehmer
+    if (!ctype_digit((string)$max_teilnehmer) || (int)$max_teilnehmer < 1 || (int)$max_teilnehmer > 999) {
+        $errors[] = 'Max. Teilnehmer muss eine Zahl zwischen 1 und 999 sein.';
+    }
+
     if (empty($errors)) {
         $dauer_int      = (int)$dauer;
         $uhrzeiten_json = json_encode([$uhrzeit]);
-
-        $bemerkung_db = $bemerkung === '' ? null : $bemerkung;
+        $bemerkung_db   = $bemerkung === '' ? null : $bemerkung;
+        $max_tln_int    = (int)$max_teilnehmer;
 
         if ($is_edit) {
             $stmt = $db->prepare(
                 'UPDATE slot_konfiguration
-                 SET termin_datum = ?, uhrzeiten = ?, slot_laenge_min = ?, aktiv = ?, bemerkung = ?
+                 SET termin_datum = ?, uhrzeiten = ?, slot_laenge_min = ?, aktiv = ?, bemerkung = ?, max_teilnehmer = ?
                  WHERE id = ?'
             );
-            $stmt->execute([$datum, $uhrzeiten_json, $dauer_int, $aktiv, $bemerkung_db, $id]);
+            $stmt->execute([$datum, $uhrzeiten_json, $dauer_int, $aktiv, $bemerkung_db, $max_tln_int, $id]);
             $_SESSION['flash'] = ['type' => 'ok', 'msg' => 'Termin aktualisiert.'];
         } else {
             $stmt = $db->prepare(
-                'INSERT INTO slot_konfiguration (termin_datum, uhrzeiten, slot_laenge_min, aktiv, bemerkung)
-                 VALUES (?, ?, ?, ?, ?)'
+                'INSERT INTO slot_konfiguration (termin_datum, uhrzeiten, slot_laenge_min, aktiv, bemerkung, max_teilnehmer)
+                 VALUES (?, ?, ?, ?, ?, ?)'
             );
-            $stmt->execute([$datum, $uhrzeiten_json, $dauer_int, $aktiv, $bemerkung_db]);
+            $stmt->execute([$datum, $uhrzeiten_json, $dauer_int, $aktiv, $bemerkung_db, $max_tln_int]);
             $_SESSION['flash'] = ['type' => 'ok', 'msg' => 'Termin angelegt.'];
         }
 
@@ -105,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $termin['slot_laenge_min'] = $dauer;
     $termin['aktiv']           = $aktiv;
     $termin['bemerkung']       = $bemerkung;
+    $termin['max_teilnehmer']  = $max_teilnehmer;
 }
 ?>
 <!DOCTYPE html>
@@ -151,6 +159,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                min="1" max="1440" value="<?= e((string)$termin['slot_laenge_min']) ?>">
       </div>
     </div>
+
+    <label for="max_teilnehmer">Max. Teilnehmer</label>
+    <input type="number" id="max_teilnehmer" name="max_teilnehmer" required
+           min="1" max="999" value="<?= e((string)$termin['max_teilnehmer']) ?>">
 
     <label for="bemerkung">Bemerkung <span style="color:#aaa;font-weight:400">(optional, öffentlich sichtbar)</span></label>
     <textarea id="bemerkung" name="bemerkung" rows="3"

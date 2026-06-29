@@ -192,23 +192,7 @@
   // ═══════════════════════════════════════
 
   function initRevealAnimations() {
-    // Warte bis Hero-Section sichtbar war (Performance-Boost)
-    const heroSection = document.querySelector('.hero-full');
-    if (!heroSection) {
-      startRevealObservers();
-      return;
-    }
-
-    const heroObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setTimeout(startRevealObservers, 300);
-          heroObserver.disconnect();
-        }
-      });
-    }, { threshold: 0.1 });
-
-    heroObserver.observe(heroSection);
+    requestAnimationFrame(startRevealObservers);
   }
 
   function startRevealObservers() {
@@ -220,16 +204,6 @@
         }
       });
     }, { threshold: 0.15 });
-
-    document.querySelectorAll('.reveal, .reveal-slide-left, .reveal-slide-right, .reveal-scale')
-      .forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          el.classList.add('visible');
-        } else {
-          revealObserver.observe(el);
-        }
-      });
 
     const ruleObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -243,7 +217,26 @@
       });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.rule-card').forEach(el => ruleObserver.observe(el));
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.reveal, .reveal-slide-left, .reveal-slide-right, .reveal-scale')
+        .forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            el.classList.add('visible');
+          } else {
+            revealObserver.observe(el);
+          }
+        });
+
+      document.querySelectorAll('.rule-card').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          el.classList.add('visible');
+        } else {
+          ruleObserver.observe(el);
+        }
+      });
+    });
   }
 
   // ═══════════════════════════════════════

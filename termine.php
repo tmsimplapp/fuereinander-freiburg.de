@@ -8,7 +8,7 @@ $pdo = new PDO(
 );
 
 $stmt = $pdo->query(
-    "SELECT termin_datum, uhrzeiten, slot_laenge_min, bemerkung
+    "SELECT termin_datum, uhrzeiten, slot_laenge_min, bemerkung, max_teilnehmer
      FROM slot_konfiguration
      WHERE aktiv = 1 AND termin_datum >= CURDATE()
      ORDER BY termin_datum ASC"
@@ -205,6 +205,12 @@ function format_zeitraum(string $uhrzeiten_json, int $dauer_min): string {
           <?php else: ?>
             <?php foreach ($termine_db as $t): ?>
             <div class="rounded-2xl p-6 sm:p-8 card-hover bg-cream border border-mint">
+              <?php if (!empty($t['max_teilnehmer'])): ?>
+              <span class="inline-flex items-center gap-1.5 font-body text-sm px-3 py-1 rounded-full bg-lightyellow border border-tan text-text-body mb-4">
+                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                Kleine Gruppe · max. <?= (int)$t['max_teilnehmer'] ?> Personen
+              </span>
+              <?php endif; ?>
               <div class="flex items-center gap-4 mb-4">
                 <div class="w-12 h-12 rounded-full flex items-center justify-center bg-mint">
                   <svg class="w-6 h-6" fill="none" stroke="#1a2820" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
@@ -234,9 +240,10 @@ function format_zeitraum(string $uhrzeiten_json, int $dauer_min): string {
 
       <section class="mt-16 text-center" aria-labelledby="anmeldung-heading">
         <h2 id="anmeldung-heading" class="font-display text-xl font-semibold mb-4 text-text-strong">Möchtest du am nächsten Treffen teilnehmen?</h2>
-        <p class="font-body text-base max-w-xl mx-auto mb-6 text-text-body">
+        <p class="font-body text-base max-w-xl mx-auto mb-4 text-text-body">
           Um den geschützten Rahmen der Gruppe zu wahren und dir die genauen Raumdetails zuzusenden, bitten wir dich um eine kurze Anmeldung vor deinem ersten Besuch. Spontanes Erscheinen ist leider nicht möglich.
         </p>
+        <p class="font-body text-sm max-w-xl mx-auto mb-6 text-text-muted">Unsere Treffen sind klein, damit du dich vom ersten Moment an aufgehoben fühlst.</p>
         <a href="index.html#kontakt" class="btn-primary glowing-border font-body text-sm font-semibold px-6 py-3 rounded-full inline-block active:scale-95">Jetzt anmelden</a>
       </section>
 
