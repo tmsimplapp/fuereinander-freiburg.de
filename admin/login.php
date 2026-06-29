@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
 
             // Admin laden
-            $stmt = $db->prepare('SELECT id, password_hash FROM admins WHERE username = ? LIMIT 1');
+            $stmt = $db->prepare('SELECT id, password_hash, totp_enabled FROM admins WHERE username = ? LIMIT 1');
             $stmt->execute([$username]);
             $row = $stmt->fetch();
 
@@ -53,9 +53,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $db->prepare('DELETE FROM admin_rate_limit WHERE ip_hash = ?')->execute([$ip_hash]);
 
                 session_regenerate_id(true);
+                $_SESSION['admin_last_active'] = time();
+
+                // 2FA aktiv? → Pre-Auth-Zustand, noch KEIN admin_logged_in setzen
+                if (!empty($row['totp_enabled'])) {
+                    $_SESSION['pre_2fa_id']   = (int) $row['id'];
+                    $_SESSION['totp_pending'] = true;
+                    header('Location: login_2fa.php');
+                    exit;
+                }
+
+                // Kein 2FA → direkt einloggen
                 $_SESSION['admin_logged_in']  = true;
                 $_SESSION['admin_id']         = (int) $row['id'];
-                $_SESSION['admin_last_active'] = time();
 
                 header('Location: termine.php');
                 exit;
@@ -78,31 +88,24 @@ $timeout = isset($_GET['timeout']);
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Admin – Anmelden</title>
 <meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="admin.css">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,sans-serif;background:#f4f4f4;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:1rem}
-.card{background:#fff;border-radius:8px;padding:2rem;width:100%;max-width:360px;box-shadow:0 2px 8px rgba(0,0,0,.12)}
-h1{font-size:1.2rem;margin-bottom:1.5rem;color:#222}
-label{display:block;font-size:.85rem;color:#555;margin-bottom:.25rem;margin-top:1rem}
-input{width:100%;padding:.55rem .75rem;border:1px solid #ccc;border-radius:4px;font-size:1rem}
-input:focus{outline:2px solid #a9e2cc;border-color:#a9e2cc}
-button{margin-top:1.5rem;width:100%;padding:.65rem;background:#a9e2cc;border:none;border-radius:4px;font-size:1rem;font-weight:600;cursor:pointer;color:#1a2820}
-button:hover{background:#8dd4bb}
-.alert{margin-top:1rem;padding:.65rem .75rem;border-radius:4px;font-size:.9rem}
-.alert-error{background:#fee2e2;color:#991b1b}
-.alert-info{background:#dbeafe;color:#1e40af}
+button[type=submit]{margin-top:1.5rem;width:100%;min-height:48px;font-size:1rem}
 </style>
 </head>
-<body>
-<div class="card">
-  <h1>Füreinander Freiburg · Admin</h1>
+<body class="login-wrap">
+<div class="login-card">
+  <div class="login-logo">
+    <img src="../grafik/F%C3%BCreinander%20Freiburg.svg" alt="Füreinander Freiburg Logo">
+    <span>Admin</span>
+  </div>
 
   <?php if ($timeout): ?>
     <div class="alert alert-info">Sitzung abgelaufen. Bitte neu anmelden.</div>
   <?php endif; ?>
 
   <?php if ($error !== ''): ?>
-    <div class="alert alert-error"><?= e($error) ?></div>
+    <div class="alert alert-err"><?= e($error) ?></div>
   <?php endif; ?>
 
   <form method="post" autocomplete="off" novalidate>
@@ -115,7 +118,7 @@ button:hover{background:#8dd4bb}
     <input type="password" id="password" name="password" required
            autocomplete="current-password" maxlength="1024">
 
-    <button type="submit">Anmelden</button>
+    <button type="submit" class="btn btn-primary">Anmelden</button>
   </form>
 </div>
 </body>

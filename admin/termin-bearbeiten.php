@@ -115,39 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <title>Admin – Termin <?= $is_edit ? 'bearbeiten' : 'anlegen' ?></title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<style>
-/* Datepicker-Input als Button */
-#termin_datum{background:#a9e2cc;color:#1a2820;font-weight:600;border:none;border-radius:4px;cursor:pointer;text-align:left}
-#termin_datum:hover{background:#8dd4bb}
-#termin_datum::placeholder{color:#1a2820;opacity:.7}
-/* Flatpickr Admin-Theme */
-.flatpickr-calendar{font-family:system-ui,sans-serif;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.12);border:1px solid #e5e7eb}
-.flatpickr-day.selected,.flatpickr-day.selected:hover{background:#a9e2cc;border-color:#a9e2cc;color:#1a2820}
-.flatpickr-day:hover{background:#f0faf6;border-color:transparent}
-.flatpickr-day.today{border-color:#a9e2cc}
-.flatpickr-months .flatpickr-month{background:#f9fafb;color:#333}
-.flatpickr-current-month .flatpickr-monthDropdown-months{background:#f9fafb}
-.flatpickr-weekday{color:#888;font-weight:600}
-.flatpickr-input{cursor:pointer}
-</style>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,sans-serif;background:#f4f4f4;color:#222;padding:1rem}
-.card{background:#fff;border-radius:8px;padding:1.5rem;max-width:420px;box-shadow:0 1px 4px rgba(0,0,0,.1)}
-h1{font-size:1.1rem;margin-bottom:1.25rem;color:#333}
-label{display:block;font-size:.85rem;color:#555;margin-bottom:.25rem;margin-top:1rem}
-input[type=date],input[type=time],input[type=number],input[type=text]{width:100%;padding:.55rem .75rem;border:1px solid #ccc;border-radius:4px;font-size:1rem}
-input:focus{outline:2px solid #a9e2cc;border-color:#a9e2cc}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-.checkbox-row{display:flex;align-items:center;gap:.5rem;margin-top:1.25rem}
-.checkbox-row input{width:auto}
-.actions{display:flex;gap:.75rem;margin-top:1.5rem}
-.btn{display:inline-block;padding:.5rem 1rem;border-radius:4px;font-size:.875rem;font-weight:600;text-decoration:none;cursor:pointer;border:none}
-.btn-primary{background:#a9e2cc;color:#1a2820}.btn-primary:hover{background:#8dd4bb}
-.btn-secondary{background:#e5e7eb;color:#374151}.btn-secondary:hover{background:#d1d5db}
-.errors{background:#fee2e2;color:#991b1b;padding:.65rem .85rem;border-radius:4px;margin-bottom:1rem;font-size:.875rem}
-.errors li{margin-left:1rem;margin-top:.25rem}
-</style>
+<link rel="stylesheet" href="admin.css">
 </head>
 <body>
 <div class="card">
@@ -195,7 +163,7 @@ input:focus{outline:2px solid #a9e2cc;border-color:#a9e2cc}
       <label for="aktiv" style="margin:0">Öffentlich sichtbar</label>
     </div>
 
-    <div class="actions">
+    <div class="form-actions">
       <button type="submit" class="btn btn-primary">Speichern</button>
       <a href="termine.php" class="btn btn-secondary">Abbrechen</a>
     </div>

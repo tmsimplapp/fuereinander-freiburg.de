@@ -9,9 +9,12 @@ unset($_SESSION['flash']);
 $stmt = $db->query(
     'SELECT id, termin_datum, uhrzeiten, slot_laenge_min, aktiv
      FROM slot_konfiguration
-     ORDER BY termin_datum ASC'
+     ORDER BY (termin_datum < CURRENT_DATE), termin_datum ASC'
 );
 $termine = $stmt->fetchAll();
+
+$counter_file = __DIR__ . '/../counter.txt';
+$seitenaufrufe = file_exists($counter_file) ? (int) file_get_contents($counter_file) : 0;
 
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -42,46 +45,20 @@ function zeitraum_lesbar(string $json, int $dauer): string {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Admin – Termine</title>
 <meta name="robots" content="noindex,nofollow">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,sans-serif;background:#f4f4f4;color:#222;padding:1rem}
-.topbar{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:.75rem 1rem;border-radius:6px;margin-bottom:1.5rem;box-shadow:0 1px 4px rgba(0,0,0,.1)}
-.topbar h1{font-size:1rem;color:#333}
-a.btn,button.btn{display:inline-block;padding:.45rem .9rem;border-radius:4px;font-size:.875rem;font-weight:600;text-decoration:none;cursor:pointer;border:none;line-height:1.4}
-.btn-primary{background:#a9e2cc;color:#1a2820}.btn-primary:hover{background:#8dd4bb}
-.btn-danger{background:#fee2e2;color:#991b1b}.btn-danger:hover{background:#fecaca}
-.btn-secondary{background:#e5e7eb;color:#374151}.btn-secondary:hover{background:#d1d5db}
-.btn-toggle-on{background:#fef9c3;color:#854d0e;border:1px solid #fde047}.btn-toggle-on:hover{background:#fef08a}
-.btn-toggle-off{background:#dcfce7;color:#166534;border:1px solid #86efac}.btn-toggle-off:hover{background:#bbf7d0}
-.btn-logout{background:transparent;color:#666;font-size:.8rem;text-decoration:underline;padding:.25rem .5rem;border:none;cursor:pointer}
-table{width:100%;border-collapse:collapse;background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.1)}
-th,td{text-align:left;padding:.7rem .85rem;font-size:.875rem;vertical-align:middle}
-th{background:#f9fafb;color:#555;font-weight:600;border-bottom:1px solid #e5e7eb}
-tr:not(:last-child) td{border-bottom:1px solid #f3f4f6}
-.inactive td{opacity:.45}
-.badge{display:inline-block;padding:.2rem .55rem;border-radius:99px;font-size:.75rem;font-weight:600}
-.badge-on{background:#dcfce7;color:#166534}
-.badge-off{background:#f3f4f6;color:#6b7280}
-.alert{padding:.65rem .85rem;border-radius:4px;margin-bottom:1rem;font-size:.875rem}
-.alert-ok{background:#d1fae5;color:#065f46}
-.alert-err{background:#fee2e2;color:#991b1b}
-.actions{display:flex;gap:.4rem;flex-wrap:wrap}
-.add-link{margin-bottom:1rem;display:inline-block}
-/* Modal */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:100;align-items:center;justify-content:center}
-.modal-overlay.active{display:flex}
-.modal{background:#fff;border-radius:10px;padding:1.5rem;max-width:340px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,.18)}
-.modal h2{font-size:1rem;margin-bottom:.5rem;color:#222}
-.modal p{font-size:.875rem;color:#555;margin-bottom:1.25rem}
-.modal-actions{display:flex;gap:.6rem;justify-content:flex-end}
-</style>
+<link rel="stylesheet" href="admin.css">
 </head>
 <body>
 <div class="topbar">
-  <h1>Füreinander Freiburg · Terminverwaltung</h1>
-  <form method="post" action="logout.php">
-    <button type="submit" class="btn-logout">Abmelden</button>
-  </form>
+  <div class="topbar-brand">
+    <img src="../grafik/F%C3%BCreinander%20Freiburg.svg" alt="Logo">
+    <h1>Terminverwaltung</h1>
+  </div>
+  <div class="topbar-nav">
+    <a href="profil.php" class="nav-link">Profil</a>
+    <form method="post" action="logout.php">
+      <button type="submit" class="btn-logout">Abmelden</button>
+    </form>
+  </div>
 </div>
 
 <?php if ($flash): ?>
@@ -90,12 +67,17 @@ tr:not(:last-child) td{border-bottom:1px solid #f3f4f6}
   </div>
 <?php endif; ?>
 
+<div class="infobox">
+  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+  Seitenaufrufe: <strong><?= number_format($seitenaufrufe, 0, ',', '.') ?></strong>
+</div>
+
 <a href="termin-bearbeiten.php" class="btn btn-primary add-link">+ Neuer Termin</a>
 
 <?php if (empty($termine)): ?>
   <p style="color:#666;font-size:.9rem">Noch keine Termine vorhanden.</p>
 <?php else: ?>
-<table>
+<table class="termine-table">
   <thead>
     <tr>
       <th>Datum</th>
@@ -106,17 +88,22 @@ tr:not(:last-child) td{border-bottom:1px solid #f3f4f6}
     </tr>
   </thead>
   <tbody>
-  <?php foreach ($termine as $t): ?>
-    <tr class="<?= $t['aktiv'] ? '' : 'inactive' ?>">
-      <td><strong><?= e(datum_lesbar($t['termin_datum'], $wochentage, $monate)) ?></strong></td>
-      <td><?= e(zeitraum_lesbar($t['uhrzeiten'], (int)$t['slot_laenge_min'])) ?></td>
-      <td><?= (int)$t['slot_laenge_min'] ?> min</td>
-      <td>
+  <?php foreach ($termine as $t): 
+    $is_past = strtotime($t['termin_datum']) < strtotime('today');
+    $row_class = [];
+    if (!$t['aktiv']) $row_class[] = 'inactive';
+    if ($is_past) $row_class[] = 'past-event';
+  ?>
+    <tr class="<?= implode(' ', $row_class) ?>">
+      <td data-label="Datum"><strong><?= e(datum_lesbar($t['termin_datum'], $wochentage, $monate)) ?></strong></td>
+      <td data-label="Uhrzeit"><?= e(zeitraum_lesbar($t['uhrzeiten'], (int)$t['slot_laenge_min'])) ?></td>
+      <td data-label="Dauer"><?= (int)$t['slot_laenge_min'] ?> min</td>
+      <td data-label="Status">
         <span class="badge <?= $t['aktiv'] ? 'badge-on' : 'badge-off' ?>">
           <?= $t['aktiv'] ? 'Sichtbar' : 'Versteckt' ?>
         </span>
       </td>
-      <td>
+      <td data-label="Aktionen">
         <div class="actions">
           <a href="termin-bearbeiten.php?id=<?= (int)$t['id'] ?>" class="btn btn-secondary">Bearbeiten</a>
 

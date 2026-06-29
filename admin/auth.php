@@ -23,5 +23,11 @@ if (empty($_SESSION['admin_logged_in'])) {
     exit;
 }
 
+// 2FA noch ausstehend?
+if (!empty($_SESSION['totp_pending'])) {
+    header('Location: login_2fa.php');
+    exit;
+}
+
 // Timestamp aktualisieren
 $_SESSION['admin_last_active'] = time();
