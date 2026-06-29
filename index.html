@@ -939,13 +939,13 @@
           <!-- Name -->
           <div>
             <label for="name" class="block font-body text-sm font-semibold mb-2 text-text-strong">Name / Pseudonym <span style="color:#e05252;">*</span></label>
-            <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan">
+            <input type="text" id="name" name="name" required autocomplete="name" placeholder="z. B. Maria oder einfach „Anonym"" class="w-full px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan">
           </div>
 
           <!-- Kontaktwunsch -->
           <div>
             <label for="contact-method" class="block font-body text-sm font-semibold mb-2 text-text-strong">Wie dürfen wir dir antworten? <span style="color:#e05252;">*</span></label>
-            <select id="contact-method" name="contact_method" required class="w-full px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan">
+            <select id="contact-method" name="contact_method" required class="w-1/2 px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan">
               <option value="" disabled selected>Bitte wählen...</option>
               <option value="email">E-Mail</option>
               <option value="whatsapp">WhatsApp</option>
@@ -959,18 +959,18 @@
           <!-- Dynamisches Kontaktfeld -->
           <div id="dynamic-contact-field" style="display: none;">
             <label id="dynamic-label" for="contact-value" class="block font-body text-sm font-semibold mb-2 text-text-strong">Deine E-Mail / Nummer <span style="color:#e05252;">*</span></label>
-            <input type="text" id="contact-value" name="contact_value" class="w-full px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan">
+            <input type="text" id="contact-value" name="contact_value" class="w-full px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan" placeholder="">
           </div>
 
           <!-- Nachricht -->
           <div>
             <label for="message" class="block font-body text-sm font-semibold mb-2 text-text-strong">Nachricht <span style="color:#e05252;">*</span></label>
-            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 rounded-xl font-body text-base resize-none text-text-strong bg-white border border-tan"></textarea>
+            <textarea id="message" name="message" rows="4" required placeholder="Was möchtest du uns mitteilen?" class="w-full px-4 py-3 rounded-xl font-body text-base resize-none text-text-strong bg-white border border-tan"></textarea>
           </div>
 
           <!-- Datenschutz -->
           <div class="flex items-start gap-3">
-            <input type="checkbox" id="privacy" name="privacy" required class="mt-1 w-5 h-5 rounded text-accent" style="accent-">
+            <input type="checkbox" id="privacy" name="privacy" required class="mt-1 w-5 h-5 rounded text-accent" style="accent-color: #a9e2cc;">
             <label for="privacy" class="font-body text-sm leading-relaxed text-text-body">
               Ich willige ein, dass meine Angaben zur Kontaktaufnahme gespeichert werden. Weitere Informationen findest du in den <a href="rechtliches.html" class="underline text-accent">rechtlichen Hinweisen</a>. <span style="color:#e05252;">*</span>
             </label>
@@ -979,7 +979,7 @@
           <!-- Submit & Feedback -->
           <div>
             <button type="submit" id="submit-btn" class="btn-primary w-full font-body font-semibold text-base px-8 py-4 rounded-full transition-all" style="min-height: 44px; display: inline-flex; align-items: center; justify-content: center;">
-              Nachricht senden
+              Unverbindlich anfragen
             </button>
           </div>
           <div id="form-feedback" class="hidden rounded-xl p-4 font-body text-sm" style="border: 1px solid;"></div>

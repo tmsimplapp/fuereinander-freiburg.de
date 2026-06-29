@@ -5,13 +5,11 @@
  * und leitet die Benachrichtigung an Telegram weiter.
  */
 
-define('TELEGRAM_BOT_TOKEN', '8835333763:AAEh7i7da-CjZf37JFl0GswCTCfEltezbP4');
-define('TELEGRAM_CHAT_ID', '-5176222824');
+require_once __DIR__ . '/telegram-config.php';
 
-// --- IMAP ZUGANGSDATEN BITTE ANPASSEN ---
-$imap_server = "{w01ff866.kasserver.com:993/imap/ssl}INBOX"; // Korrekter Server für all-inkl
-$imap_user   = "kontakt@fuereinander-freiburg.de";       // E-Mail oder Postfach-Login (z.B. w012345)
-$imap_pass   = "Fiu_}+0jumEcn+ukZyid/";      // <-- HIER PASSWORT EINTRAGEN
+$imap_server = IMAP_SERVER;
+$imap_user   = IMAP_USER;
+$imap_pass   = IMAP_PASS;
 
 // Fehleranzeige aktivieren für den direkten Aufruf im Browser
 ini_set('display_errors', 1);

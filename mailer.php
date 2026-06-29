@@ -38,7 +38,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    // 2. Daten sammeln & bereinigen
+    // 2. Rate-Limiting: max. 3 Absendungen pro IP in 10 Minuten
+    $ip_hash  = hash('sha256', $_SERVER['REMOTE_ADDR'] ?? '');
+    $rl_file  = sys_get_temp_dir() . '/mailer_rl_' . $ip_hash . '.json';
+    $now      = time();
+    $window   = 600;
+    $max      = 3;
+    $attempts = file_exists($rl_file) ? json_decode(file_get_contents($rl_file), true) : [];
+    $attempts = array_filter($attempts, fn($t) => $t > $now - $window);
+    if (count($attempts) >= $max) {
+        http_response_code(429);
+        echo json_encode(['status' => 'error', 'message' => 'Zu viele Anfragen. Bitte warte 10 Minuten.']);
+        exit;
+    }
+    $attempts[] = $now;
+    file_put_contents($rl_file, json_encode(array_values($attempts)), LOCK_EX);
+
+    // 3. Daten sammeln & bereinigen
     $name = strip_tags(trim($_POST["name"] ?? ''));
     $contact_method = strip_tags(trim($_POST["contact_method"] ?? ''));
     $contact_value = strip_tags(trim($_POST["contact_value"] ?? ''));
@@ -98,14 +114,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
                 <div class='data-box'>
                     <p>Folgende Anfrage ist über die Website eingegangen:</p>
-                    <strong>Name / Pseudonym:</strong> $name<br>
-                    <strong>Kontaktweg:</strong> $contact_method<br>
-                    <strong>Kontakt:</strong> $contact_value
+                    <strong>Name / Pseudonym:</strong> " . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . "<br>
+                    <strong>Kontaktweg:</strong> " . htmlspecialchars($contact_method, ENT_QUOTES, 'UTF-8') . "<br>
+                    <strong>Kontakt:</strong> " . htmlspecialchars($contact_value, ENT_QUOTES, 'UTF-8') . "
                 </div>
                 
                 <p><strong>Nachricht:</strong></p>
-                <div class='quote-box'>" . nl2br($message) . "</div>
-                
+                <div class='quote-box'>" . nl2br(htmlspecialchars($message, ENT_QUOTES, 'UTF-8')) . "</div>
+
                 <div class='divider'></div>
                 <p style='margin-bottom: 0; font-size: 14px; color: #5fa88a;'>Datenschutzhinweis wurde vom Absender akzeptiert.</p>
             </div>
@@ -119,7 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email_headers .= "Content-Type: text/html; charset=UTF-8\r\n";
     
     if ($contact_method === 'email') {
-        $email_headers .= "Reply-To: $contact_value\r\n";
+        $email_headers .= "Reply-To: " . str_replace(["\r", "\n"], '', $contact_value) . "\r\n";
     }
 
     $mail_success = mail($to, $subject, $email_content, $email_headers, "-fkontakt@fuereinander-freiburg.de");
@@ -145,17 +161,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class='logo-text'><i>füreinander</i> Freiburg</div>
                 </div>
                 <div class='card'>
-                    <h2>Hallo $name,</h2>
+                    <h2>Hallo " . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . ",</h2>
                     <p>vielen Dank für deine Nachricht. Wir haben diese erhalten und werden uns schnellstmöglich bei dir melden.</p>
                     
                     <div class='data-box'>
                         <p>Folgende Daten speichern wir zur gewünschten Kontaktaufnahme:</p>
                         <strong>Kontaktweg:</strong> E-Mail<br>
-                        <strong>E-Mail:</strong> $contact_value
+                        <strong>E-Mail:</strong> " . htmlspecialchars($contact_value, ENT_QUOTES, 'UTF-8') . "
                     </div>
-                    
+
                     <p><strong>Deine Nachricht an uns:</strong></p>
-                    <div class='quote-box'>" . nl2br($message) . "</div>
+                    <div class='quote-box'>" . nl2br(htmlspecialchars($message, ENT_QUOTES, 'UTF-8')) . "</div>
                     
                     <div class='divider'></div>
                     <p style='margin-bottom: 0;'>Herzliche Grüße,<br><strong>Das Team von Füreinander Freiburg</strong></p>

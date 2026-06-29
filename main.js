@@ -222,7 +222,14 @@
     }, { threshold: 0.15 });
 
     document.querySelectorAll('.reveal, .reveal-slide-left, .reveal-slide-right, .reveal-scale')
-      .forEach(el => revealObserver.observe(el));
+      .forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          el.classList.add('visible');
+        } else {
+          revealObserver.observe(el);
+        }
+      });
 
     const ruleObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -262,10 +269,12 @@
       if (method === 'email') {
         dynamicLabel.innerHTML = 'Deine E-Mail-Adresse <span style="color:#e05252;">*</span>';
         contactValue.type = 'email';
+        contactValue.autocomplete = 'email';
         contactValue.placeholder = 'name@beispiel.de';
       } else {
         dynamicLabel.innerHTML = 'Deine Telefonnummer <span style="color:#e05252;">*</span>';
         contactValue.type = 'tel';
+        contactValue.autocomplete = 'tel';
         contactValue.placeholder = '+49 123 4567890';
       }
     });
