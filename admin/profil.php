@@ -172,6 +172,7 @@ if (!empty($admin['totp_enabled']) && !$totp_backup_new) {
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<link rel="icon" href="../grafik/F%C3%BCreinander%20Freiburg.svg" type="image/svg+xml">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Admin – Profil</title>

@@ -118,6 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<link rel="icon" href="../grafik/F%C3%BCreinander%20Freiburg.svg" type="image/svg+xml">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Admin – Termin <?= $is_edit ? 'bearbeiten' : 'anlegen' ?></title>
@@ -187,8 +188,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 flatpickr('#termin_datum', {
   locale: 'de',
   dateFormat: 'Y-m-d',
+  altInput: true,
+  altFormat: 'd.m.Y',
   allowInput: false,
   disableMobile: true,
+  onReady(_, __, fp) {
+    const select = fp.calendarContainer.querySelector('.flatpickr-monthDropdown-months');
+    if (!select) return;
+    const wrap = document.createElement('span');
+    wrap.className = 'fp-month-wrap';
+    select.parentNode.insertBefore(wrap, select);
+    wrap.appendChild(select);
+  }
 });
 </script>
 </body>
