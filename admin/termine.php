@@ -7,14 +7,14 @@ $flash = $_SESSION['flash'] ?? null;
 unset($_SESSION['flash']);
 
 $stmt = $db->query(
-    'SELECT id, termin_datum, uhrzeiten, slot_laenge_min, aktiv
+    'SELECT id, termin_datum, uhrzeiten, slot_laenge_min, aktiv, ausgebucht
      FROM slot_konfiguration
      ORDER BY (termin_datum < CURRENT_DATE), termin_datum ASC'
 );
 $termine = $stmt->fetchAll();
 
-$counter_file = __DIR__ . '/../counter.txt';
-$seitenaufrufe = file_exists($counter_file) ? (int) file_get_contents($counter_file) : 0;
+$stmtCounter = $db->query("SELECT wert FROM statistiken WHERE name = 'seitenaufrufe'");
+$seitenaufrufe = (int) $stmtCounter->fetchColumn();
 
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -85,6 +85,7 @@ function zeitraum_lesbar(string $json, int $dauer): string {
       <th>Datum</th>
       <th>Uhrzeit</th>
       <th>Dauer</th>
+      <th>Ausgebucht</th>
       <th>Status</th>
       <th>Aktionen</th>
     </tr>
@@ -100,22 +101,32 @@ function zeitraum_lesbar(string $json, int $dauer): string {
       <td data-label="Datum"><strong><?= e(datum_lesbar($t['termin_datum'], $wochentage, $monate)) ?></strong></td>
       <td data-label="Uhrzeit"><?= e(zeitraum_lesbar($t['uhrzeiten'], (int)$t['slot_laenge_min'])) ?></td>
       <td data-label="Dauer"><?= (int)$t['slot_laenge_min'] ?> min</td>
+      <td data-label="Ausgebucht">
+        <form method="post" action="termin-toggle.php" style="margin:0">
+          <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
+          <input type="hidden" name="id" value="<?= (int)$t['id'] ?>">
+          <input type="hidden" name="field" value="ausgebucht">
+          <button type="submit" class="toggle-switch <?= $t['ausgebucht'] ? 'active' : '' ?>" title="Klicken zum Umschalten">
+            <span class="toggle-track" style="<?= $t['ausgebucht'] ? 'background-color:#dc2626' : '' ?>"><span class="toggle-knob"></span></span>
+            <span class="toggle-label" style="<?= $t['ausgebucht'] ? 'color:#dc2626' : '' ?>"><?= $t['ausgebucht'] ? 'Ja' : 'Nein' ?></span>
+          </button>
+        </form>
+      </td>
       <td data-label="Status">
-        <span class="badge <?= $t['aktiv'] ? 'badge-on' : 'badge-off' ?>">
-          <?= $t['aktiv'] ? 'Sichtbar' : 'Versteckt' ?>
-        </span>
+        <form method="post" action="termin-toggle.php" style="margin:0">
+          <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
+          <input type="hidden" name="id" value="<?= (int)$t['id'] ?>">
+          <input type="hidden" name="field" value="aktiv">
+          <button type="submit" class="toggle-switch <?= $t['aktiv'] ? 'active' : '' ?>" title="Klicken zum Umschalten">
+            <span class="toggle-track"><span class="toggle-knob"></span></span>
+            <span class="toggle-label"><?= $t['aktiv'] ? 'Sichtbar' : 'Versteckt' ?></span>
+          </button>
+        </form>
       </td>
       <td data-label="Aktionen">
         <div class="actions">
-          <a href="termin-bearbeiten.php?id=<?= (int)$t['id'] ?>" class="btn btn-secondary">Bearbeiten</a>
-
-          <form method="post" action="termin-toggle.php">
-            <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
-            <input type="hidden" name="id" value="<?= (int)$t['id'] ?>">
-            <button type="submit" class="btn <?= $t['aktiv'] ? 'btn-toggle-on' : 'btn-toggle-off' ?>">
-              <?= $t['aktiv'] ? 'Verstecken' : 'Zeigen' ?>
-            </button>
-          </form>
+          <a href="termin-bearbeiten.php?id=<?= (int)$t['id'] ?>" class="btn btn-edit">Bearbeiten</a>
+          <a href="termin-bearbeiten.php?id=<?= (int)$t['id'] ?>&copy=1" class="btn btn-secondary" title="Kopieren">Kopieren</a>
 
           <form method="post" action="termin-loeschen.php" class="loeschen-form">
             <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">

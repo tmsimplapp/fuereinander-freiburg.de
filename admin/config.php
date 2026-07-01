@@ -89,7 +89,7 @@ function totp_calculate(string $secret_key, int $time_slice): string {
     return str_pad((string)$code, 6, '0', STR_PAD_LEFT);
 }
 
-function totp_verify(string $secret_key, string $code, int $discrepancy = 1): int|false {
+function totp_verify(string $secret_key, string $code, int $discrepancy = 0): int|false {
     $time_slice = (int)floor(time() / 30);
     for ($i = -$discrepancy; $i <= $discrepancy; $i++) {
         $slice = $time_slice + $i;

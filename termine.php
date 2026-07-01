@@ -8,7 +8,7 @@ $pdo = new PDO(
 );
 
 $stmt = $pdo->query(
-    "SELECT termin_datum, uhrzeiten, slot_laenge_min, bemerkung, max_teilnehmer
+    "SELECT termin_datum, uhrzeiten, slot_laenge_min, bemerkung, max_teilnehmer, ausgebucht
      FROM slot_konfiguration
      WHERE aktiv = 1 AND termin_datum >= CURDATE()
      ORDER BY termin_datum ASC"
@@ -107,7 +107,7 @@ function format_zeitraum(string $uhrzeiten_json, int $dauer_min): string {
   </script>
 </head>
 
-<body class="antialiased">
+<body class="antialiased flex flex-col min-h-screen">
 
   <div aria-live="polite" class="sr-only" id="menu-status"></div>
 
@@ -178,7 +178,7 @@ function format_zeitraum(string $uhrzeiten_json, int $dauer_min): string {
   </div>
 
   <!-- HAUPTINHALT -->
-  <main class="pt-8 md:pt-28 pb-20 min-h-screen">
+  <main class="pt-8 md:pt-28 pb-20 flex-grow">
     <div class="max-w-3xl mx-auto px-6">
 
       <nav aria-label="Breadcrumb" class="mb-6 text-center md:hidden">
@@ -205,7 +205,12 @@ function format_zeitraum(string $uhrzeiten_json, int $dauer_min): string {
           <?php else: ?>
             <?php foreach ($termine_db as $t): ?>
             <div class="rounded-2xl p-6 sm:p-8 card-hover bg-cream border border-mint">
-              <?php if (!empty($t['max_teilnehmer'])): ?>
+              <?php if (!empty($t['ausgebucht'])): ?>
+              <span class="inline-flex items-center gap-1.5 font-body text-sm px-4 py-1 rounded-full border mb-4 font-semibold" style="background:#fff0f0;border-color:#ffcdd2;color:#c62828">
+                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+                Ausgebucht
+              </span>
+              <?php elseif (!empty($t['max_teilnehmer'])): ?>
               <span class="inline-flex items-center gap-1.5 font-body text-sm px-3 py-1 rounded-full bg-lightyellow border border-tan text-text-body mb-4">
                 <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 Kleine Gruppe · max. <?= (int)$t['max_teilnehmer'] ?> Personen

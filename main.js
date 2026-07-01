@@ -164,7 +164,8 @@
 
       // Sticky Phone Bar
       if (stickyBar) {
-        stickyBar.classList.toggle('visible', scrollY > 200);
+        const canScroll200 = (document.documentElement.scrollHeight - window.innerHeight) > 200;
+        stickyBar.classList.toggle('visible', !canScroll200 || scrollY > 200);
       }
 
       ticking = false;

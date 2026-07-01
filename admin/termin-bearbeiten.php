@@ -9,7 +9,8 @@ if (empty($_SESSION['csrf_token'])) {
 $csrf = $_SESSION['csrf_token'];
 
 $id      = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-$is_edit = $id > 0;
+$is_copy = isset($_GET['copy']) && $_GET['copy'] == 1;
+$is_edit = $id > 0 && !$is_copy;
 $errors  = [];
 
 // Startuhrzeit aus JSON-Array extrahieren
@@ -18,9 +19,9 @@ function erste_uhrzeit(string $json): string {
     return (!empty($arr) && isset($arr[0])) ? $arr[0] : '18:00';
 }
 
-$termin = ['termin_datum' => '', 'uhrzeit' => '18:00', 'slot_laenge_min' => 120, 'aktiv' => 1, 'bemerkung' => '', 'max_teilnehmer' => 8];
+$termin = ['termin_datum' => '', 'uhrzeit' => '18:00', 'slot_laenge_min' => 120, 'aktiv' => 1, 'bemerkung' => '', 'max_teilnehmer' => 8, 'ausgebucht' => 0];
 
-if ($is_edit) {
+if ($is_edit || $is_copy) {
     $stmt = $db->prepare('SELECT * FROM slot_konfiguration WHERE id = ? LIMIT 1');
     $stmt->execute([$id]);
     $row = $stmt->fetch();
@@ -30,12 +31,13 @@ if ($is_edit) {
         exit;
     }
     $termin = [
-        'termin_datum'    => $row['termin_datum'],
+        'termin_datum'    => $is_copy ? '' : $row['termin_datum'],
         'uhrzeit'         => erste_uhrzeit($row['uhrzeiten']),
         'slot_laenge_min' => $row['slot_laenge_min'],
-        'aktiv'           => $row['aktiv'],
+        'aktiv'           => $is_copy ? 0 : $row['aktiv'],
         'bemerkung'       => $row['bemerkung'] ?? '',
         'max_teilnehmer'  => $row['max_teilnehmer'] ?? 8,
+        'ausgebucht'      => $is_copy ? 0 : $row['ausgebucht'],
     ];
 }
 
@@ -52,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $aktiv     = isset($_POST['aktiv']) ? 1 : 0;
     $bemerkung      = trim($_POST['bemerkung'] ?? '');
     $max_teilnehmer = $_POST['max_teilnehmer'] ?? '';
+    $ausgebucht     = isset($_POST['ausgebucht']) ? 1 : 0;
 
     // Datum
     $d = DateTime::createFromFormat('Y-m-d', $datum);
@@ -88,17 +91,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($is_edit) {
             $stmt = $db->prepare(
                 'UPDATE slot_konfiguration
-                 SET termin_datum = ?, uhrzeiten = ?, slot_laenge_min = ?, aktiv = ?, bemerkung = ?, max_teilnehmer = ?
+                 SET termin_datum = ?, uhrzeiten = ?, slot_laenge_min = ?, aktiv = ?, bemerkung = ?, max_teilnehmer = ?, ausgebucht = ?
                  WHERE id = ?'
             );
-            $stmt->execute([$datum, $uhrzeiten_json, $dauer_int, $aktiv, $bemerkung_db, $max_tln_int, $id]);
+            $stmt->execute([$datum, $uhrzeiten_json, $dauer_int, $aktiv, $bemerkung_db, $max_tln_int, $ausgebucht, $id]);
             $_SESSION['flash'] = ['type' => 'ok', 'msg' => 'Termin aktualisiert.'];
         } else {
             $stmt = $db->prepare(
-                'INSERT INTO slot_konfiguration (termin_datum, uhrzeiten, slot_laenge_min, aktiv, bemerkung, max_teilnehmer)
-                 VALUES (?, ?, ?, ?, ?, ?)'
+                'INSERT INTO slot_konfiguration (termin_datum, uhrzeiten, slot_laenge_min, aktiv, bemerkung, max_teilnehmer, ausgebucht)
+                 VALUES (?, ?, ?, ?, ?, ?, ?)'
             );
-            $stmt->execute([$datum, $uhrzeiten_json, $dauer_int, $aktiv, $bemerkung_db, $max_tln_int]);
+            $stmt->execute([$datum, $uhrzeiten_json, $dauer_int, $aktiv, $bemerkung_db, $max_tln_int, $ausgebucht]);
             $_SESSION['flash'] = ['type' => 'ok', 'msg' => 'Termin angelegt.'];
         }
 
@@ -113,6 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $termin['aktiv']           = $aktiv;
     $termin['bemerkung']       = $bemerkung;
     $termin['max_teilnehmer']  = $max_teilnehmer;
+    $termin['ausgebucht']      = $ausgebucht;
 }
 ?>
 <!DOCTYPE html>
@@ -121,14 +125,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <link rel="icon" href="../grafik/F%C3%BCreinander%20Freiburg.svg" type="image/svg+xml">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin – Termin <?= $is_edit ? 'bearbeiten' : 'anlegen' ?></title>
+<title>Admin – Termin <?= $is_edit ? 'bearbeiten' : ($is_copy ? 'kopieren' : 'anlegen') ?></title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link rel="stylesheet" href="admin.css">
 </head>
 <body>
 <div class="card">
-  <h1><?= $is_edit ? 'Termin bearbeiten' : 'Neuer Termin' ?></h1>
+  <h1><?= $is_edit ? 'Termin bearbeiten' : ($is_copy ? 'Termin kopieren' : 'Neuer Termin') ?></h1>
 
   <?php if (!empty($errors)): ?>
     <div class="errors">
@@ -169,6 +173,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <textarea id="bemerkung" name="bemerkung" rows="3"
               style="width:100%;padding:.55rem .75rem;border:1px solid #ccc;border-radius:4px;font-size:1rem;resize:vertical;font-family:inherit"
               placeholder="z. B. Bitte Eingang Hintergebäude nutzen."><?= e($termin['bemerkung'] ?? '') ?></textarea>
+
+    <div class="checkbox-row" style="margin-bottom:1rem">
+      <input type="checkbox" id="ausgebucht" name="ausgebucht" value="1"
+             <?= $termin['ausgebucht'] ? 'checked' : '' ?>>
+      <label for="ausgebucht" style="margin:0;color:#c00;font-weight:600">Als Ausgebucht markieren</label>
+    </div>
 
     <div class="checkbox-row">
       <input type="checkbox" id="aktiv" name="aktiv" value="1"

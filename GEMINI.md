@@ -1,3 +1,7 @@
+## Code-Änderungen (WICHTIG)
+
+- **Niemals ohne Rücksprache Code ändern.** Hole immer erst die explizite Freigabe von Tobias ein, bevor du Skripte anpasst, erstellst oder löschst.
+
 ## Token-Effizienz
 
 - Verwende so wenig Tokens wie möglich, ohne die Verständlichkeit zu verlieren.
@@ -22,3 +26,19 @@
 - **Bei Code-Fragen**: nur den Codeblock, keine Erklärung (außer Tobias fordert sie ausdrücklich an)
 - **Bei fehlenden Infos**: gezielt nachfragen statt raten oder spekulieren
 - **Ausnahme zur Längenbegrenzung**: Wenn Tobias "ausführlich", "Schritt für Schritt", "deep dive" oder ähnliches sagt, darfst du die Längenbegrenzung ignorieren
+
+## Projektregeln
+
+- **SEO**: Meta-Tags, Schema.org (`SupportGroup`), semantisches HTML, Core Web Vitals optimieren
+- **Mobile-First**: Responsive Design – funktioniert auf Handy, Tablet und Desktop
+- **KI-Auffindbarkeit**: Strukturierte Daten, klare Informationsarchitektur, Machine-readable Content
+- **Sprache**: Alle Inhalte ausschließlich auf Deutsch
+- **Kein Framework-Overhead**: Kein React, kein Build-Tool – einfaches PHP/HTML + Tailwind CSS
+
+## Inhaltliche Grenzen (Website)
+
+Die Gruppe hat folgende Regeln, die auf der Website widergespiegelt werden sollen:
+- Keine theologischen Diskussionen
+- Kein Kritisieren der Wachtturm-Gesellschaft
+- Neutraler, persönlicher Austausch
+- Die Gruppe ist kein Ersatz für psychologische Therapie

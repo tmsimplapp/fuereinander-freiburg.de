@@ -53,3 +53,16 @@ CREATE TABLE IF NOT EXISTS `buchung_rate_limit` (
   PRIMARY KEY (`id`),
   KEY `idx_ip_zeit` (`ip_hash`, `erstellt_am`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Statistiken (z.B. Seitenaufrufe)
+CREATE TABLE IF NOT EXISTS `statistiken` (
+  `id`     INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name`   VARCHAR(50)  NOT NULL,
+  `wert`   INT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Initialer Eintrag für Aufrufe (falls noch nicht vorhanden)
+INSERT IGNORE INTO `statistiken` (`name`, `wert`) VALUES ('seitenaufrufe', 0);
+
