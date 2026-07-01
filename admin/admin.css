@@ -253,6 +253,9 @@ textarea { resize: vertical; }
 .hint { font-size: .75rem; color: #999; margin-top: .25rem; }
 .divider { margin: 1.5rem 0; border: none; border-top: 1px solid var(--border); }
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+@media (max-width: 400px) {
+  .row2 { grid-template-columns: 1fr; }
+}
 .checkbox-row {
   display: flex;
   align-items: center;
@@ -290,6 +293,33 @@ textarea { resize: vertical; }
 .termine-table .past-event td { opacity: .45; }
 .actions { display: flex; gap: .4rem; flex-wrap: wrap; align-items: center; }
 .add-link { margin-bottom: 1rem; display: inline-flex; }
+
+/* ── Vergangene Termine (Dropdown) ── */
+.vergangene-termine { margin-top: 1.5rem; }
+.vergangene-termine summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  min-height: 44px;
+  padding: .5rem .9rem;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: .875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.vergangene-termine summary::-webkit-details-marker { display: none; }
+.vergangene-termine summary::before {
+  content: '▸';
+  font-size: .75rem;
+  transition: transform .15s;
+}
+.vergangene-termine[open] summary::before { transform: rotate(90deg); }
+.vergangene-termine[open] summary { border-radius: var(--radius-md) var(--radius-md) 0 0; margin-bottom: .75rem; }
+.vergangene-termine .termine-table { margin-top: 0; }
 
 /* ── Termine-Cards (Mobile) ── */
 @media (max-width: 640px) {
@@ -331,6 +361,16 @@ textarea { resize: vertical; }
 
   /* Topbar auf Mobile kompakter */
   .topbar h1 { font-size: .85rem; }
+
+  /* Aktions-Buttons in Card-Ansicht: 2 pro Reihe statt eng nebeneinander */
+  .termine-table .actions .btn { flex: 1 1 calc(50% - .2rem); }
+  .termine-table .actions .loeschen-form { flex: 1 1 calc(50% - .2rem); }
+  .termine-table .actions .loeschen-form .btn { width: 100%; }
+}
+
+/* Infobox + "Neuer Termin"-Button: auf schmalen Screens stapeln */
+@media (max-width: 400px) {
+  .infobox-row { flex-direction: column; }
 }
 
 /* ── Modal ── */

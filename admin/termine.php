@@ -37,68 +37,15 @@ function zeitraum_lesbar(string $json, int $dauer): string {
     $end_min = (int)$h*60 + (int)$m + $dauer;
     return $start . ' – ' . sprintf('%02d:%02d', intdiv($end_min,60), $end_min%60) . ' Uhr';
 }
-?>
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<link rel="icon" href="../grafik/F%C3%BCreinander%20Freiburg.svg" type="image/svg+xml">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin – Termine</title>
-<meta name="robots" content="noindex,nofollow">
-<link rel="stylesheet" href="admin.css">
-</head>
-<body>
-<div class="topbar">
-  <div class="topbar-brand">
-    <img src="../grafik/F%C3%BCreinander%20Freiburg.svg" alt="Logo">
-    <h1>Terminverwaltung</h1>
-  </div>
-  <div class="topbar-nav">
-    <a href="profil.php" class="nav-link">Profil</a>
-    <form method="post" action="logout.php">
-      <button type="submit" class="btn-logout">Abmelden</button>
-    </form>
-  </div>
-</div>
 
-<?php if ($flash): ?>
-  <div class="alert <?= $flash['type'] === 'ok' ? 'alert-ok' : 'alert-err' ?>">
-    <?= e($flash['msg']) ?>
-  </div>
-<?php endif; ?>
-
-<div style="display:flex;align-items:stretch;gap:.75rem;margin-bottom:1rem">
-  <div class="infobox" style="margin-bottom:0">
-    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-    Seitenaufrufe: <strong><?= number_format($seitenaufrufe, 0, ',', '.') ?></strong>
-  </div>
-  <a href="termin-bearbeiten.php" class="btn btn-primary add-link" style="margin-bottom:0">+ Neuer Termin</a>
-</div>
-
-<?php if (empty($termine)): ?>
-  <p style="color:#666;font-size:.9rem">Noch keine Termine vorhanden.</p>
-<?php else: ?>
-<table class="termine-table">
-  <thead>
-    <tr>
-      <th>Datum</th>
-      <th>Uhrzeit</th>
-      <th>Dauer</th>
-      <th>Ausgebucht</th>
-      <th>Status</th>
-      <th>Aktionen</th>
-    </tr>
-  </thead>
-  <tbody>
-  <?php foreach ($termine as $t): 
-    $is_past = strtotime($t['termin_datum']) < strtotime('today');
+function termin_zeile(array $t, bool $is_past, string $csrf, array $wt, array $mo): string {
     $row_class = [];
     if (!$t['aktiv']) $row_class[] = 'inactive';
     if ($is_past) $row_class[] = 'past-event';
-  ?>
+    ob_start();
+    ?>
     <tr class="<?= implode(' ', $row_class) ?>">
-      <td data-label="Datum"><strong><?= e(datum_lesbar($t['termin_datum'], $wochentage, $monate)) ?></strong></td>
+      <td data-label="Datum"><strong><?= e(datum_lesbar($t['termin_datum'], $wt, $mo)) ?></strong></td>
       <td data-label="Uhrzeit"><?= e(zeitraum_lesbar($t['uhrzeiten'], (int)$t['slot_laenge_min'])) ?></td>
       <td data-label="Dauer"><?= (int)$t['slot_laenge_min'] ?> min</td>
       <td data-label="Ausgebucht">
@@ -132,16 +79,115 @@ function zeitraum_lesbar(string $json, int $dauer): string {
             <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
             <input type="hidden" name="id" value="<?= (int)$t['id'] ?>">
             <button type="button" class="btn btn-danger"
-                    onclick="loeschenBestaetigen(this.closest('form'), <?= e(json_encode(datum_lesbar($t['termin_datum'], $wochentage, $monate))) ?>)">
+                    onclick="loeschenBestaetigen(this.closest('form'), <?= e(json_encode(datum_lesbar($t['termin_datum'], $wt, $mo))) ?>)">
               Löschen
             </button>
           </form>
         </div>
       </td>
     </tr>
+    <?php
+    return ob_get_clean();
+}
+?>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<link rel="icon" href="../grafik/F%C3%BCreinander%20Freiburg.svg" type="image/svg+xml">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin – Termine</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-brand">
+    <img src="../grafik/F%C3%BCreinander%20Freiburg.svg" alt="Logo">
+    <h1>Terminverwaltung</h1>
+  </div>
+  <div class="topbar-nav">
+    <a href="profil.php" class="nav-link">Profil</a>
+    <form method="post" action="logout.php">
+      <button type="submit" class="btn-logout">Abmelden</button>
+    </form>
+  </div>
+</div>
+
+<?php if ($flash): ?>
+  <div class="alert <?= $flash['type'] === 'ok' ? 'alert-ok' : 'alert-err' ?>">
+    <?= e($flash['msg']) ?>
+  </div>
+<?php endif; ?>
+
+<div class="infobox-row" style="display:flex;align-items:stretch;gap:.75rem;margin-bottom:1rem">
+  <div class="infobox" style="margin-bottom:0">
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+    Seitenaufrufe: <strong><?= number_format($seitenaufrufe, 0, ',', '.') ?></strong>
+  </div>
+  <a href="termin-bearbeiten.php" class="btn btn-primary add-link" style="margin-bottom:0">+ Neuer Termin</a>
+</div>
+
+<?php if (empty($termine)): ?>
+  <p style="color:#666;font-size:.9rem">Noch keine Termine vorhanden.</p>
+<?php else:
+  $heute = strtotime('today');
+  $kommende = [];
+  $vergangene = [];
+  foreach ($termine as $t) {
+      if (strtotime($t['termin_datum']) < $heute) {
+          $vergangene[] = $t;
+      } else {
+          $kommende[] = $t;
+      }
+  }
+?>
+
+<?php if (empty($kommende)): ?>
+  <p style="color:#666;font-size:.9rem">Keine kommenden Termine vorhanden.</p>
+<?php else: ?>
+<table class="termine-table">
+  <thead>
+    <tr>
+      <th>Datum</th>
+      <th>Uhrzeit</th>
+      <th>Dauer</th>
+      <th>Ausgebucht</th>
+      <th>Status</th>
+      <th>Aktionen</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($kommende as $t): ?>
+    <?= termin_zeile($t, false, $csrf, $wochentage, $monate) ?>
   <?php endforeach; ?>
   </tbody>
 </table>
+<?php endif; ?>
+
+<?php if (!empty($vergangene)): ?>
+<details class="vergangene-termine">
+  <summary>Vergangene Termine (<?= count($vergangene) ?>)</summary>
+  <table class="termine-table">
+    <thead>
+      <tr>
+        <th>Datum</th>
+        <th>Uhrzeit</th>
+        <th>Dauer</th>
+        <th>Ausgebucht</th>
+        <th>Status</th>
+        <th>Aktionen</th>
+      </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($vergangene as $t): ?>
+      <?= termin_zeile($t, true, $csrf, $wochentage, $monate) ?>
+    <?php endforeach; ?>
+    </tbody>
+  </table>
+</details>
+<?php endif; ?>
+
 <?php endif; ?>
 
 <!-- Lösch-Modal -->
