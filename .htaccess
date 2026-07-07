@@ -19,6 +19,16 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^(.+)$ $1.html [L,QSA]
 
+# 2b. Entferne .php-Endungen aus der URL (301 Permanent Redirect)
+RewriteCond %{THE_REQUEST} ^GET\ (.*)\.php\ HTTP
+RewriteRule (.*)\.php$ /$1 [R=301,L]
+
+# 3b. Füge .php intern hinzu, wenn Datei existiert
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+)$ $1.php [L,QSA]
+
 # 4. DirectoryIndex für Startseite
 DirectoryIndex index.html
 

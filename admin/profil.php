@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $plain_codes  = [];
                 $hashed_codes = [];
                 for ($i = 0; $i < 10; $i++) {
-                    $c = bin2hex(random_bytes(5));
+                    $c = bin2hex(random_bytes(8));
                     $plain_codes[]  = $c;
                     $hashed_codes[] = hash('sha256', strtolower(trim($c)));
                 }

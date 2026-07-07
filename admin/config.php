@@ -15,7 +15,7 @@ session_set_cookie_params([
     'samesite' => 'Lax',
 ]);
 
-define('SESSION_TIMEOUT', 1800); // 30 Minuten Inaktivitäts-Timeout
+define('SESSION_TIMEOUT', 900); // 15 Minuten Inaktivitäts-Timeout
 define('BRUTE_MAX_ATTEMPTS', 5);
 define('BRUTE_WINDOW_SECONDS', 900); // 15 Minuten
 
