@@ -144,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 
   <?php if (!empty($errors)): ?>
-    <div class="errors">
+    <div class="errors" role="alert" tabindex="-1">
       <strong>Bitte korrigieren:</strong>
       <ul>
         <?php foreach ($errors as $err): ?>
@@ -161,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="crm-col-main">
         <section class="crm-panel">
           <div class="crm-panel-head">
-            <span class="crm-icon" aria-hidden="true">📅</span>
+            <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg></span>
             <div>
               <h2>Termindaten</h2>
               <span class="crm-panel-sub">Datum, Uhrzeit und Kapazität</span>
@@ -191,14 +191,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
           <label for="bemerkung">Bemerkung <span style="color:#aaa;font-weight:400">(optional, öffentlich sichtbar)</span></label>
           <textarea id="bemerkung" name="bemerkung" rows="3"
-                    placeholder="z. B. Bitte Eingang Hintergebäude nutzen."><?= e($termin['bemerkung'] ?? '') ?></textarea>
+                    placeholder="z. B. Bitte Eingang Hintergebäude nutzen…"><?= e($termin['bemerkung'] ?? '') ?></textarea>
         </section>
       </div>
 
       <aside class="crm-side">
         <section class="crm-panel">
           <div class="crm-panel-head">
-            <span class="crm-icon" aria-hidden="true">⚙️</span>
+            <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></span>
             <div><h2>Sichtbarkeit</h2></div>
           </div>
 
@@ -210,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="checkbox" id="aktiv" name="aktiv" value="1" <?= $termin['aktiv'] ? 'checked' : '' ?>>
           </div>
 
-          <div class="crm-toggle-card" style="margin-top:.6rem">
+          <div class="crm-toggle-card is-warn" style="margin-top:.6rem">
             <div class="crm-toggle-text">
               <strong>Ausgebucht</strong>
               <small>Keine Buchung mehr möglich</small>
@@ -249,7 +249,12 @@ flatpickr('#termin_datum', {
   }
 });
 <?php if (!empty($errors)): ?>
-document.getElementById('uhrzeit').focus();
+(function() {
+  const err = document.querySelector('.errors');
+  if (err) err.scrollIntoView({ block: 'center' });
+  const invalid = document.querySelector('form :invalid');
+  (invalid || document.getElementById('uhrzeit')).focus();
+})();
 <?php endif; ?>
 </script>
 </body>

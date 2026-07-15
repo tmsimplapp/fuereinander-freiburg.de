@@ -89,13 +89,13 @@ $regionen = $db->query('SELECT id, name FROM community_regionen ORDER BY name AS
 
 <section class="crm-panel is-narrow" style="margin-bottom:1.5rem">
   <div class="crm-panel-head">
-    <span class="crm-icon" aria-hidden="true">📍</span>
+    <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
     <div><h2>Neue Region anlegen</h2></div>
   </div>
   <form method="post" class="inline-form">
     <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
     <input type="hidden" name="action" value="add">
-    <input type="text" name="name" required maxlength="80" placeholder="z. B. Niederbayern">
+    <input type="text" name="name" required maxlength="80" placeholder="z. B. Niederbayern…">
     <button type="submit" class="btn btn-primary">Hinzufügen</button>
   </form>
 </section>
@@ -118,11 +118,12 @@ $regionen = $db->query('SELECT id, name FROM community_regionen ORDER BY name AS
         </form>
       </td>
       <td data-label="Aktionen">
-        <form method="post" onsubmit="return confirm('Region „' + <?= json_encode($r['name'], JSON_HEX_APOS | JSON_HEX_QUOT) ?> + '“ wirklich löschen?')">
+        <form method="post" class="loeschen-form">
           <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
           <input type="hidden" name="action" value="delete">
           <input type="hidden" name="id" value="<?= (int)$r['id'] ?>">
-          <button type="submit" class="btn btn-danger">Löschen</button>
+          <button type="button" class="btn btn-danger"
+                  onclick="loeschenBestaetigen(this.closest('form'), <?= e(json_encode($r['name'])) ?>)">Löschen</button>
         </form>
       </td>
     </tr>
@@ -130,6 +131,39 @@ $regionen = $db->query('SELECT id, name FROM community_regionen ORDER BY name AS
   </tbody>
 </table>
 <?php endif; ?>
+
+<div class="modal-overlay" id="loeschModal">
+  <div class="modal">
+    <h2>Region löschen</h2>
+    <p id="loeschModalText">Soll diese Region wirklich gelöscht werden?</p>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-secondary" onclick="modalSchliessen()">Abbrechen</button>
+      <button type="button" class="btn btn-danger" id="loeschBestaetigen">Ja, löschen</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let pendingForm = null;
+function loeschenBestaetigen(form, name) {
+  pendingForm = form;
+  document.getElementById('loeschModalText').textContent = 'Soll „' + name + '" wirklich gelöscht werden?';
+  document.getElementById('loeschModal').classList.add('active');
+}
+function modalSchliessen() {
+  pendingForm = null;
+  document.getElementById('loeschModal').classList.remove('active');
+}
+document.getElementById('loeschBestaetigen').addEventListener('click', function() {
+  if (pendingForm) pendingForm.submit();
+});
+document.getElementById('loeschModal').addEventListener('click', function(e) {
+  if (e.target === this) modalSchliessen();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') modalSchliessen();
+});
+</script>
 
 </div>
 </div>

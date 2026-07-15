@@ -203,6 +203,7 @@ a.btn, button.btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  touch-action: manipulation;
   min-height: 44px;
   padding: .5rem 1rem;
   border-radius: var(--radius-sm);
@@ -347,6 +348,7 @@ input[type=time],
 input[type=number],
 input[type=email],
 input[type=url],
+input[type=tel],
 select,
 textarea {
   width: 100%;
@@ -356,6 +358,7 @@ textarea {
   font-size: 1rem;
   font-family: inherit;
   min-height: 44px;
+  touch-action: manipulation;
   transition: border-color .15s, outline .15s;
 }
 input:focus-visible, textarea:focus-visible, select:focus-visible {
@@ -498,8 +501,9 @@ textarea { resize: vertical; }
   flex-shrink: 0;
   border-radius: var(--radius-sm);
   background: var(--mint);
-  font-size: .95rem;
+  color: var(--text);
 }
+.crm-panel-head .crm-icon svg { width: 17px; height: 17px; }
 .crm-panel-head h2 { font-size: .95rem; font-weight: 600; color: var(--text); }
 .crm-panel-head .crm-panel-sub {
   display: block;
@@ -585,7 +589,7 @@ textarea { resize: vertical; }
   border-radius: var(--radius-sm);
   font-size: .82rem;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--text);
   transition: background .15s, color .15s, box-shadow .15s;
 }
 .crm-segmented input { position: absolute; opacity: 0; width: 0; height: 0; }
@@ -609,15 +613,43 @@ textarea { resize: vertical; }
 .crm-toggle-card .crm-toggle-text { flex: 1; min-width: 0; }
 .crm-toggle-card .crm-toggle-text strong { display: block; font-size: .85rem; color: var(--text); }
 .crm-toggle-card .crm-toggle-text small { font-size: .72rem; color: var(--text-muted); }
+/* Checkbox als Switch (einheitlich mit .toggle-switch) */
 .crm-toggle-card input[type=checkbox] {
-  width: auto;
-  min-height: auto;
-  width: 18px;
-  height: 18px;
-  accent-color: var(--mint-dark);
+  appearance: none;
+  -webkit-appearance: none;
   flex-shrink: 0;
+  width: 40px;
+  height: 24px;
+  min-height: auto;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 12px;
+  background: #cbd2ce;
+  position: relative;
   cursor: pointer;
+  transition: background .18s;
 }
+.crm-toggle-card input[type=checkbox]::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: 0 1px 2px rgba(0,0,0,.25);
+  transition: transform .18s;
+}
+.crm-toggle-card input[type=checkbox]:checked { background: var(--mint-dark); }
+.crm-toggle-card input[type=checkbox]:checked::after { transform: translateX(16px); }
+.crm-toggle-card input[type=checkbox]:focus-visible {
+  outline: 2px solid var(--mint-dark);
+  outline-offset: 2px;
+}
+/* Warn-Variante (z. B. Ausgebucht) */
+.crm-toggle-card.is-warn input[type=checkbox]:checked { background: #dc2626; }
 
 .crm-actions {
   display: flex;

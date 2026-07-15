@@ -16,7 +16,7 @@ $alle_regionen = $db->query('SELECT id, name FROM community_regionen ORDER BY na
 $alle_tags     = $db->query('SELECT id, name FROM community_tags ORDER BY name ASC')->fetchAll();
 
 $kontakt = [
-    'name' => '', 'website' => '', 'strasse' => '', 'plz_ort' => '',
+    'name' => '', 'website' => '', 'telefon' => '', 'strasse' => '', 'plz' => '', 'ort' => '',
     'vermittlung' => 'direkt', 'bundesweit' => 0, 'notizen' => '', 'aktiv' => 1,
 ];
 $personen = [];
@@ -56,8 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $name            = trim($_POST['name'] ?? '');
     $website         = trim($_POST['website'] ?? '');
+    $telefon         = trim($_POST['telefon'] ?? '');
     $strasse         = trim($_POST['strasse'] ?? '');
-    $plz_ort         = trim($_POST['plz_ort'] ?? '');
+    $plz             = trim($_POST['plz'] ?? '');
+    $ort             = trim($_POST['ort'] ?? '');
     $vermittlung     = $_POST['vermittlung'] ?? 'direkt';
     $bundesweit      = isset($_POST['bundesweit']) ? 1 : 0;
     $notizen         = trim($_POST['notizen'] ?? '');
@@ -100,8 +102,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $params = [
             $name,
             $website === '' ? null : $website,
+            $telefon === '' ? null : $telefon,
             $strasse === '' ? null : $strasse,
-            $plz_ort === '' ? null : $plz_ort,
+            $plz === '' ? null : $plz,
+            $ort === '' ? null : $ort,
             $vermittlung,
             $bundesweit,
             $notizen === '' ? null : $notizen,
@@ -111,15 +115,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($is_edit) {
             $stmt = $db->prepare(
                 'UPDATE community_organisationen
-                 SET name=?, website=?, strasse=?, plz_ort=?, vermittlung=?, bundesweit=?, notizen=?, aktiv=?
+                 SET name=?, website=?, telefon=?, strasse=?, plz=?, ort=?, vermittlung=?, bundesweit=?, notizen=?, aktiv=?
                  WHERE id=?'
             );
             $stmt->execute([...$params, $id]);
         } else {
             $stmt = $db->prepare(
                 'INSERT INTO community_organisationen
-                 (name, website, strasse, plz_ort, vermittlung, bundesweit, notizen, aktiv)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+                 (name, website, telefon, strasse, plz, ort, vermittlung, bundesweit, notizen, aktiv)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
             );
             $stmt->execute($params);
             $id = (int)$db->lastInsertId();
@@ -163,7 +167,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Eingaben fuer Wiederanzeige merken
     $kontakt = [
-        'name' => $name, 'website' => $website, 'strasse' => $strasse, 'plz_ort' => $plz_ort,
+        'name' => $name, 'website' => $website, 'telefon' => $telefon,
+        'strasse' => $strasse, 'plz' => $plz, 'ort' => $ort,
         'vermittlung' => $vermittlung, 'bundesweit' => $bundesweit, 'notizen' => $notizen, 'aktiv' => $aktiv,
     ];
     $personen = $parsed_personen;
@@ -195,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 
   <?php if (!empty($errors)): ?>
-    <div class="errors">
+    <div class="errors" role="alert" tabindex="-1">
       <strong>Bitte korrigieren:</strong>
       <ul>
         <?php foreach ($errors as $err): ?>
@@ -214,7 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <section class="crm-panel">
           <div class="crm-panel-head">
-            <span class="crm-icon" aria-hidden="true">🏷️</span>
+            <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg></span>
             <div>
               <h2>Stammdaten</h2>
               <span class="crm-panel-sub">Name, Website und Anschrift</span>
@@ -222,26 +227,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
 
           <label for="name">Name / Organisation</label>
-          <input type="text" id="name" name="name" required maxlength="160" value="<?= e($kontakt['name']) ?>" placeholder="z. B. Beratungsstelle Freiburg">
+          <input type="text" id="name" name="name" required maxlength="160" autocomplete="organization" value="<?= e($kontakt['name']) ?>" placeholder="z. B. Beratungsstelle Freiburg…">
 
           <div class="row2">
             <div>
               <label for="website">Website</label>
-              <input type="url" id="website" name="website" maxlength="255" value="<?= e($kontakt['website'] ?? '') ?>" placeholder="https://…">
+              <input type="url" id="website" name="website" maxlength="255" autocomplete="url" inputmode="url" value="<?= e($kontakt['website'] ?? '') ?>" placeholder="https://…">
             </div>
             <div>
-              <label for="strasse">Straße & Hausnummer</label>
-              <input type="text" id="strasse" name="strasse" maxlength="120" value="<?= e($kontakt['strasse'] ?? '') ?>" placeholder="z. B. Musterstr. 1">
+              <label for="telefon">Telefon</label>
+              <input type="tel" id="telefon" name="telefon" maxlength="40" autocomplete="tel" inputmode="tel" value="<?= e($kontakt['telefon'] ?? '') ?>" placeholder="z. B. 0761 123456…">
             </div>
           </div>
 
-          <label for="plz_ort">PLZ / Ort</label>
-          <input type="text" id="plz_ort" name="plz_ort" maxlength="120" value="<?= e($kontakt['plz_ort'] ?? '') ?>" placeholder="z. B. 79098 Freiburg">
+          <label for="strasse">Straße & Hausnummer</label>
+          <input type="text" id="strasse" name="strasse" maxlength="120" autocomplete="street-address" value="<?= e($kontakt['strasse'] ?? '') ?>" placeholder="z. B. Musterstr. 1…">
+
+          <div class="row2">
+            <div>
+              <label for="plz">PLZ</label>
+              <input type="text" id="plz" name="plz" maxlength="10" autocomplete="postal-code" inputmode="numeric" value="<?= e($kontakt['plz'] ?? '') ?>" placeholder="z. B. 79098…">
+            </div>
+            <div>
+              <label for="ort">Ort</label>
+              <input type="text" id="ort" name="ort" maxlength="120" autocomplete="address-level2" value="<?= e($kontakt['ort'] ?? '') ?>" placeholder="z. B. Freiburg…">
+            </div>
+          </div>
         </section>
 
         <section class="crm-panel">
           <div class="crm-panel-head">
-            <span class="crm-icon" aria-hidden="true">👥</span>
+            <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
             <div>
               <h2>Ansprechpartner</h2>
               <span class="crm-panel-sub">Personen mit Kontaktdaten</span>
@@ -259,21 +275,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   <div class="row2">
                     <div>
                       <label>Name</label>
-                      <input type="text" name="p_name[]" maxlength="120" value="<?= e($p['name'] ?? '') ?>" placeholder="Z. B. Max Mustermann">
+                      <input type="text" name="p_name[]" maxlength="120" autocomplete="off" value="<?= e($p['name'] ?? '') ?>" placeholder="z. B. Max Mustermann…">
                     </div>
                     <div>
                       <label>E-Mail</label>
-                      <input type="email" name="p_email[]" maxlength="200" value="<?= e($p['email'] ?? '') ?>">
+                      <input type="email" name="p_email[]" maxlength="200" autocomplete="off" inputmode="email" spellcheck="false" value="<?= e($p['email'] ?? '') ?>">
                     </div>
                   </div>
                   <div class="row2">
                     <div>
                       <label>Telefon</label>
-                      <input type="text" name="p_telefon[]" maxlength="40" value="<?= e($p['telefon'] ?? '') ?>">
+                      <input type="tel" name="p_telefon[]" maxlength="40" autocomplete="off" inputmode="tel" value="<?= e($p['telefon'] ?? '') ?>">
                     </div>
                     <div>
                       <label>Handynummer</label>
-                      <input type="text" name="p_handy[]" maxlength="40" value="<?= e($p['handy'] ?? '') ?>">
+                      <input type="tel" name="p_handy[]" maxlength="40" autocomplete="off" inputmode="tel" value="<?= e($p['handy'] ?? '') ?>">
                     </div>
                   </div>
                 </div>
@@ -285,7 +301,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <section class="crm-panel">
           <div class="crm-panel-head">
-            <span class="crm-icon" aria-hidden="true">📝</span>
+            <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
             <div>
               <h2>Interne Notizen</h2>
               <span class="crm-panel-sub">Nur intern sichtbar</span>
@@ -302,7 +318,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <section class="crm-panel">
           <div class="crm-panel-head">
-            <span class="crm-icon" aria-hidden="true">⚙️</span>
+            <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg></span>
             <div><h2>Status & Vermittlung</h2></div>
           </div>
 
@@ -337,7 +353,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <section class="crm-panel">
           <div class="crm-panel-head">
-            <span class="crm-icon" aria-hidden="true">📍</span>
+            <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
             <div><h2>Regionen</h2></div>
           </div>
           <?php if (empty($alle_regionen)): ?>
@@ -358,7 +374,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <section class="crm-panel">
           <div class="crm-panel-head">
-            <span class="crm-icon" aria-hidden="true">🎯</span>
+            <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></span>
             <div><h2>Spezialisierungs-Tags</h2></div>
           </div>
           <?php if (empty($alle_tags)): ?>
@@ -389,7 +405,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 </div>
 <?php if (!empty($errors)): ?>
-<script>document.getElementById('name').focus();</script>
+<script>
+(function() {
+  const err = document.querySelector('.errors');
+  if (err) err.scrollIntoView({ block: 'center' });
+  const invalid = document.querySelector('form :invalid');
+  (invalid || document.getElementById('name')).focus();
+})();
+</script>
 <?php endif; ?>
 <script>
 function renumberPersonen() {
@@ -413,21 +436,21 @@ function addPerson() {
       <div class="row2">
         <div>
           <label>Name</label>
-          <input type="text" name="p_name[]" maxlength="120" placeholder="Z. B. Max Mustermann">
+          <input type="text" name="p_name[]" maxlength="120" autocomplete="off" placeholder="z. B. Max Mustermann…">
         </div>
         <div>
           <label>E-Mail</label>
-          <input type="email" name="p_email[]" maxlength="200">
+          <input type="email" name="p_email[]" maxlength="200" autocomplete="off" inputmode="email" spellcheck="false">
         </div>
       </div>
       <div class="row2">
         <div>
           <label>Telefon</label>
-          <input type="text" name="p_telefon[]" maxlength="40">
+          <input type="tel" name="p_telefon[]" maxlength="40" autocomplete="off" inputmode="tel">
         </div>
         <div>
           <label>Handynummer</label>
-          <input type="text" name="p_handy[]" maxlength="40">
+          <input type="tel" name="p_handy[]" maxlength="40" autocomplete="off" inputmode="tel">
         </div>
       </div>
     </div>

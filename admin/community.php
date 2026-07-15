@@ -35,9 +35,9 @@ if (in_array($f_vermittlung, ['direkt', 'ueber_uns'], true)) {
     $params[] = $f_vermittlung;
 }
 if ($f_suche !== '') {
-    $where[] = '(k.name LIKE ? OR k.website LIKE ? OR k.strasse LIKE ? OR k.plz_ort LIKE ? OR k.notizen LIKE ? OR EXISTS (SELECT 1 FROM community_personen p WHERE p.organisation_id = k.id AND (p.name LIKE ? OR p.telefon LIKE ? OR p.handy LIKE ? OR p.email LIKE ?)))';
+    $where[] = '(k.name LIKE ? OR k.website LIKE ? OR k.telefon LIKE ? OR k.strasse LIKE ? OR k.plz LIKE ? OR k.ort LIKE ? OR k.notizen LIKE ? OR EXISTS (SELECT 1 FROM community_personen p WHERE p.organisation_id = k.id AND (p.name LIKE ? OR p.telefon LIKE ? OR p.handy LIKE ? OR p.email LIKE ?)))';
     $like = '%' . $f_suche . '%';
-    array_push($params, $like, $like, $like, $like, $like, $like, $like, $like, $like);
+    array_push($params, $like, $like, $like, $like, $like, $like, $like, $like, $like, $like, $like);
 }
 
 $sql = 'SELECT k.* FROM community_organisationen k';
@@ -162,10 +162,12 @@ if ($kontakt_ids) {
       <td data-label="Name">
         <strong><?= e($k['name']) ?></strong>
         <?php if ($k['website']): ?><br><a href="<?= e($k['website']) ?>" target="_blank" style="font-size:.8rem;color:inherit;text-decoration:underline">Website</a><?php endif; ?>
-        <?php if ($k['strasse'] || $k['plz_ort']): ?>
+        <?php if ($k['telefon']): ?><br><span style="font-size:.8rem;color:#666"><?= e($k['telefon']) ?></span><?php endif; ?>
+        <?php $plz_ort = trim(($k['plz'] ?? '') . ' ' . ($k['ort'] ?? '')); ?>
+        <?php if ($k['strasse'] || $plz_ort !== ''): ?>
           <div style="font-size:.8rem;color:#666;margin-top:.2rem">
-            <?= e($k['strasse']) ?><br>
-            <?= e($k['plz_ort']) ?>
+            <?php if ($k['strasse']): ?><?= e($k['strasse']) ?><br><?php endif; ?>
+            <?= e($plz_ort) ?>
           </div>
         <?php endif; ?>
       </td>

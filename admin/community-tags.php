@@ -89,13 +89,13 @@ $tags = $db->query('SELECT id, name FROM community_tags ORDER BY name ASC')->fet
 
 <section class="crm-panel is-narrow" style="margin-bottom:1.5rem">
   <div class="crm-panel-head">
-    <span class="crm-icon" aria-hidden="true">🎯</span>
+    <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></span>
     <div><h2>Neuen Tag anlegen</h2></div>
   </div>
   <form method="post" class="inline-form">
     <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
     <input type="hidden" name="action" value="add">
-    <input type="text" name="name" required maxlength="80" placeholder="z. B. ohne theologischen Hintergrund">
+    <input type="text" name="name" required maxlength="80" placeholder="z. B. ohne theologischen Hintergrund…">
     <button type="submit" class="btn btn-primary">Hinzufügen</button>
   </form>
 </section>
@@ -118,11 +118,12 @@ $tags = $db->query('SELECT id, name FROM community_tags ORDER BY name ASC')->fet
         </form>
       </td>
       <td data-label="Aktionen">
-        <form method="post" onsubmit="return confirm('Tag „' + <?= json_encode($t['name'], JSON_HEX_APOS | JSON_HEX_QUOT) ?> + '“ wirklich löschen?')">
+        <form method="post" class="loeschen-form">
           <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
           <input type="hidden" name="action" value="delete">
           <input type="hidden" name="id" value="<?= (int)$t['id'] ?>">
-          <button type="submit" class="btn btn-danger">Löschen</button>
+          <button type="button" class="btn btn-danger"
+                  onclick="loeschenBestaetigen(this.closest('form'), <?= e(json_encode($t['name'])) ?>)">Löschen</button>
         </form>
       </td>
     </tr>
@@ -130,6 +131,39 @@ $tags = $db->query('SELECT id, name FROM community_tags ORDER BY name ASC')->fet
   </tbody>
 </table>
 <?php endif; ?>
+
+<div class="modal-overlay" id="loeschModal">
+  <div class="modal">
+    <h2>Tag löschen</h2>
+    <p id="loeschModalText">Soll dieser Tag wirklich gelöscht werden?</p>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-secondary" onclick="modalSchliessen()">Abbrechen</button>
+      <button type="button" class="btn btn-danger" id="loeschBestaetigen">Ja, löschen</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let pendingForm = null;
+function loeschenBestaetigen(form, name) {
+  pendingForm = form;
+  document.getElementById('loeschModalText').textContent = 'Soll „' + name + '" wirklich gelöscht werden?';
+  document.getElementById('loeschModal').classList.add('active');
+}
+function modalSchliessen() {
+  pendingForm = null;
+  document.getElementById('loeschModal').classList.remove('active');
+}
+document.getElementById('loeschBestaetigen').addEventListener('click', function() {
+  if (pendingForm) pendingForm.submit();
+});
+document.getElementById('loeschModal').addEventListener('click', function(e) {
+  if (e.target === this) modalSchliessen();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') modalSchliessen();
+});
+</script>
 
 </div>
 </div>

@@ -196,7 +196,7 @@ if (!empty($admin['totp_enabled']) && !$totp_backup_new) {
 
 <section class="crm-panel">
   <div class="crm-panel-head">
-    <span class="crm-icon" aria-hidden="true">👤</span>
+    <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
     <div>
       <h2>Zugangsdaten</h2>
       <span class="crm-panel-sub">Benutzername und Passwort</span>
@@ -208,7 +208,7 @@ if (!empty($admin['totp_enabled']) && !$totp_backup_new) {
   <?php endif; ?>
 
   <?php if (!empty($errors)): ?>
-    <div class="errors">
+    <div class="errors" role="alert" tabindex="-1">
       <strong>Bitte korrigieren:</strong>
       <ul>
         <?php foreach ($errors as $err): ?>
@@ -253,7 +253,7 @@ if (!empty($admin['totp_enabled']) && !$totp_backup_new) {
 <aside class="crm-side">
 <section class="crm-panel">
   <div class="crm-panel-head">
-    <span class="crm-icon" aria-hidden="true">🔐</span>
+    <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
     <div>
       <h2>2-Faktor-Authentifizierung</h2>
       <span class="crm-panel-sub">TOTP-App wie Google Authenticator, Aegis, Bitwarden</span>
