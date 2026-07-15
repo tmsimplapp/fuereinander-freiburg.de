@@ -101,16 +101,21 @@ function termin_zeile(array $t, bool $is_past, string $csrf, array $wt, array $m
 <link rel="stylesheet" href="admin.css">
 </head>
 <body>
-<div class="topbar">
-  <div class="topbar-brand">
-    <img src="../grafik/F%C3%BCreinander%20Freiburg.svg" alt="Logo">
+<div class="admin-layout">
+<?php $active_nav = 'termine'; require __DIR__ . '/nav.php'; ?>
+<div class="admin-main">
+
+<div class="page-head">
+  <div>
+    <span class="page-eyebrow">Termine</span>
     <h1>Terminverwaltung</h1>
   </div>
-  <div class="topbar-nav">
-    <a href="profil.php" class="nav-link">Profil</a>
-    <form method="post" action="logout.php">
-      <button type="submit" class="btn-logout">Abmelden</button>
-    </form>
+  <div class="page-head-actions">
+    <div class="infobox" style="margin-bottom:0">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+      Seitenaufrufe: <strong><?= number_format($seitenaufrufe, 0, ',', '.') ?></strong>
+    </div>
+    <a href="termin-bearbeiten.php" class="btn btn-primary add-link" style="margin-bottom:0">+ Neuer Termin</a>
   </div>
 </div>
 
@@ -119,14 +124,6 @@ function termin_zeile(array $t, bool $is_past, string $csrf, array $wt, array $m
     <?= e($flash['msg']) ?>
   </div>
 <?php endif; ?>
-
-<div class="infobox-row" style="display:flex;align-items:stretch;gap:.75rem;margin-bottom:1rem">
-  <div class="infobox" style="margin-bottom:0">
-    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-    Seitenaufrufe: <strong><?= number_format($seitenaufrufe, 0, ',', '.') ?></strong>
-  </div>
-  <a href="termin-bearbeiten.php" class="btn btn-primary add-link" style="margin-bottom:0">+ Neuer Termin</a>
-</div>
 
 <?php if (empty($termine)): ?>
   <p style="color:#666;font-size:.9rem">Noch keine Termine vorhanden.</p>
@@ -224,5 +221,7 @@ document.getElementById('loeschModal').addEventListener('click', function(e) {
   if (e.target === this) modalSchliessen();
 });
 </script>
+</div>
+</div>
 </body>
 </html>

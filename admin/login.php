@@ -122,5 +122,8 @@ button[type=submit]{margin-top:1.5rem;width:100%;min-height:48px;font-size:1rem}
     <button type="submit" class="btn btn-primary">Anmelden</button>
   </form>
 </div>
+<?php if ($error !== ''): ?>
+<script>document.getElementById('username').focus();</script>
+<?php endif; ?>
 </body>
 </html>

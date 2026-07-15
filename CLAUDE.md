@@ -8,54 +8,59 @@ Gilt zusätzlich: `C:\Users\tmass\OneDrive\Megamind\CLAUDE.md` (Token-Effizienz,
 
 Landingpage für die Selbsthilfegruppe **Füreinander Freiburg** – eine Selbsthilfegruppe für zweifelnde und ausgestiegene Zeugen Jehovas.
 
-**Einzelseite ohne weitere verknüpfte Unterseiten** (außer einer separaten Seite „Rechtliche Hinweise").
-
-## Projektinformationen
-
-Weiterführende Projektdokumentation und Entscheidungen befinden sich hier:
-`C:\Users\tmass\OneDrive\Megamind\02 Projekte\Website Selbsthilfegruppe\`
-
-- `Website Selbsthilfegruppe.md` – Hauptdokumentation, Ziel, Design, Farbpalette, Quelltexte
-- `Mindestangaben Website Selbsthilfegruppe.md` – Vorlage für die Seite „Rechtliche Hinweise"
+**Mehrseitig:** `index.html` (Hauptseite mit Buchungswidget), `ausstieg-folgen.html`, `angehoerige.html`, `partner.html`, `termine.php`, `rechtliches.html`. Dazu Admin-Bereich (`admin/`) und Rückruf-Buchungssystem (PHP + MySQL).
 
 ## Arbeitsordner
 
-| Inhalt | Pfad |
-|--------|------|
-| Landingpage (Quellcode) | `C:\Users\tmass\OneDrive\Dokumente\Selbsthilfegruppe\Landingpage` |
-| Logos (eigen & fremd) | `C:\Users\tmass\OneDrive\Dokumente\Selbsthilfegruppe\Logos` |
-| Werbematerialien | `C:\Users\tmass\OneDrive\Dokumente\Selbsthilfegruppe` |
+**Repo-Root = Web-Root.** Quellcode, Logos und alle Assets liegen direkt hier:
+`C:\Users\tmass\OneDrive\KI Projekte\füreinander-freiburg.de`
+
+Kein separater Ordner unter `Dokumente\Selbsthilfegruppe` mehr – falls in älteren Notizen (Megamind-Vault) abweichende Pfade auftauchen, gilt dieser Ordner hier als aktuell.
+
+**Vor der ersten Datei-Suche in diesem Projekt: `git ls-files` (bzw. `rtk git ls-files`) statt Glob/Grep auf Verdacht.** Das Repo enthält u. a. `.git/objects/*`-Treffer bei generischem `Glob *`, die die echte Struktur verdecken.
 
 ## Schnellreferenz – Dateistruktur
 
-| Datei | Zweck |
+| Datei/Ordner | Zweck |
 |-------|-------|
-| `index.html` | Hauptseite (Hero, Über uns, Gruppenregeln, Kontakt, Footer) |
-| `partner.html` | Partnerseite (Platzhalter, noch im Aufbau) |
-| `rechtliches.html` | Rechtliche Hinweise (Platzhalter, noch im Aufbau) |
-| `styles.css` | Gemeinsame Custom-CSS-Klassen aller drei Seiten |
-| `grafik/Füreinander Freiburg.svg` | Logo-SVG – wird auf allen Seiten als `grafik/F%C3%BCreinander%20Freiburg.svg` referenziert |
-| `grafik/hero_grafik.png` | Pusteblume-Bild im Hero (nur index.html) |
+| `index.html` | Startseite (Hero, Über uns, Buchungswidget, „Nächstes Treffen", FAQ, Footer) |
+| `ausstieg-folgen.html` | Infoseite Ausstiegsfolgen |
+| `angehoerige.html` | Infoseite für Angehörige |
+| `partner.html` | Partnerseite |
+| `rechtliches.html` | Rechtliche Hinweise |
+| `termine.php` | Terminübersicht, liest live aus DB-Tabelle `slot_konfiguration` |
+| `naechster-termin.php` | JSON-Endpoint, liefert nächsten Termin (für index.html-Fetch) |
+| `buchung.php`, `buchung-helpers.php`, `buchung-config.php` | Rückruf-Buchungssystem (Buchungslogik, Config, DB-Zugangsdaten) |
+| `cancel.php` | Terminstorno über Link |
+| `db_setup.sql` | DB-Schema fürs Buchungssystem |
+| `admin/` | Admin-Bereich (Login, 2FA, Termine anlegen/bearbeiten/löschen) |
+| `mailer.php`, `counter.php` | Formular-Mailversand, Zähler |
+| `styles.css`, `tailwind.css`, `tailwind-src.css`, `tailwind.config.js` | Styling (Tailwind CLI-Build, siehe unten) |
+| `main.js`, `transitions.js` | Frontend-Logik, Seitenübergänge |
+| `grafik/Füreinander Freiburg.svg` | Logo-SVG – referenziert als `grafik/F%C3%BCreinander%20Freiburg.svg` |
 
 **Wichtig für Änderungen:**
-- Tailwind-Config (`tailwind.config`) bleibt als `<script>`-Block in jeder HTML-Datei (CDN-Anforderung)
+- Tailwind wird per CLI gebaut (`package.json`/`tailwind-src.css` → `tailwind.css`) – nach CSS-Änderungen `npm run build` nicht vergessen
 - Custom-CSS-Klassen (`.btn-primary`, `.reveal`, `.card-hover`, etc.) → `styles.css`
 - Logo-Pfad ist immer `grafik/F%C3%BCreinander%20Freiburg.svg` (relativ zur jeweiligen HTML-Datei)
+- `styles.css` lädt nach `tailwind.css` und kann Utilities überschreiben
 
 ## Technischer Stack
 
-- **HTML-Dateien**: `index.html`, `partner.html`, `rechtliches.html`
-- **CSS**: Tailwind CSS via CDN + eigene Klassen in `styles.css`
-- Kein Build-Prozess, kein JavaScript-Framework, keine externen Abhängigkeiten
-- Die Seite wird als statische Datei ausgeliefert
+- **Seiten**: statisches HTML (`index.html`, `partner.html`, etc.) + dynamisches PHP (`termine.php`, `admin/*`, Buchungssystem)
+- **CSS**: Tailwind CLI-Build (kein CDN mehr) + eigene Klassen in `styles.css`
+- **Backend**: PHP + MySQL (Zugangsdaten in `buchung-config.php`, nicht in Git)
+- Kein JS-Framework, kein SPA-Build
 
-## Seitenstruktur
+## Seitenstruktur (index.html)
 
 1. **Hero Section** – Einladende Überschrift, Kernaussage, CTA-Button „Kontakt aufnehmen"
 2. **Info-Abschnitt** – Drei Textkarten mit dem Quellentext der Gruppe
-3. **Kontakt-Abschnitt** – E-Mail-Link: `kontakt@fuereinander-freiburg.de`
-4. **Footer** – Hinweis auf Zusammenarbeit mit selbsthilfegruppen-freiburg.de und zebra-bw.com
-5. **Seite „Rechtliche Hinweise"** – Separate Seite (Link im Footer), noch zu befüllen mit Name, Ort, E-Mail
+3. **Buchungswidget** – Rückruf-Anfrage mit Slot-Auswahl (Name, Telefon, E-Mail)
+4. **„Nächstes Treffen"** – Datum/Zeit live via `naechster-termin.php`, Link zu allen Terminen
+5. **FAQ-Abschnitt**
+6. **Kontakt-Abschnitt** – E-Mail-Link: `kontakt@fuereinander-freiburg.de`
+7. **Footer** – Link zur Selbsthilfekontaktstelle Freiburg (selbsthilfegruppen-freiburg.de), Navigation zu allen Unterseiten
 
 ## Farbpalette
 
@@ -75,7 +80,8 @@ Tailwind-Bezeichnungen: `mint`, `warmyellow`, `cream`, `lightyellow`, `tan`
 - **Mobile-First**: Responsive Design – funktioniert auf Handy, Tablet und Desktop
 - **KI-Auffindbarkeit**: Strukturierte Daten, klare Informationsarchitektur, Machine-readable Content
 - **Sprache**: Alle Inhalte ausschließlich auf Deutsch
-- **Kein Framework-Overhead**: Kein React, kein Build-Tool – einfaches HTML + Tailwind CDN
+- **Kein Framework-Overhead**: Kein React, kein SPA-Build
+- **Sicherheit**: `buchung-config.php` (DB-Zugangsdaten) und `admin/`-Login nicht öffentlich dokumentieren, keine Secrets in Commits
 
 ## Inhaltliche Grenzen
 
@@ -97,5 +103,4 @@ Die Gruppe hat folgende Regeln, die auf der Website widergespiegelt werden solle
 
 ## Offene Aufgaben
 
-- [ ] Platzhalter in der Seite „Rechtliche Hinweise" befüllen (Name, Ort, E-Mail)
-- [ ] Ort und Zeit der Treffen eintragen (aktuell noch Platzhalter im Kontaktabschnitt)
+- [ ] Meta-Title/Description auf `index.html` und `termine.php` final verfeinern

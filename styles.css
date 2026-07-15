@@ -33,7 +33,7 @@ body {
   background-attachment: fixed;
   font-family: 'Lato', sans-serif;
   overscroll-behavior: none;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Mobil: Blocksatz mit zentrierter letzter Zeile */

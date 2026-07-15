@@ -65,21 +65,23 @@ if ($emails) {
         
         $body = strip_tags(trim($body));
         
-        // Zitate und Verlauf abschneiden (Am ... schrieb, On ... wrote, Original Message, etc.)
+        // Bei Grußformeln abschneiden, um alte Verläufe/Signaturen zu ignorieren
+        $body = preg_replace('/(?:\n|^)\s*(Mit freundlichen Grüßen|Freundliche Grüße|Viele Grüße|Beste Grüße|Herzliche Grüße|Liebe Grüße|Schöne Grüße|Gruß|Regards|Best regards).*$/is', '', $body);
+        
+        // Zitate und Verlauf abschneiden
         $body = preg_replace('/(\nAm\s+.*\s+schrieb.*|\nOn\s+.*\s+wrote.*|\n-{5}Original Message-{5}.*|\n>.*)/is', '', $body);
         
-        // Text auf maximal 300 Zeichen begrenzen
-        if (mb_strlen($body) > 300) {
-            $body = mb_substr($body, 0, 300) . "... [gekürzt]";
+        // Text auf maximal 250 Wörter begrenzen
+        $words = preg_split('/\s+/', trim($body));
+        if (count($words) > 250) {
+            $body = implode(' ', array_slice($words, 0, 250)) . " ... [gekürzt]";
         }
         
-        if (empty($body)) $body = "<i>Kein Textinhalt lesbar (eventuell nur HTML/Anhang).</i>";
+        if (empty($body)) $body = "<i>Kein Textinhalt lesbar.</i>";
 
-        $text = "📩 <b>Neue E-Mail im Postfach!</b>\n\n"
-              . "👤 <b>Von:</b> " . htmlspecialchars($fromname . " (" . $fromaddr . ")") . "\n"
-              . "📌 <b>Betreff:</b> " . htmlspecialchars($subject) . "\n\n"
-              . "💬 <b>Nachricht:</b>\n" . htmlspecialchars($body) . "\n\n"
-              . "<i>Email bitte in Outlook öffnen, lesen und beantworten.</i>";
+        $text = "<b>Neue Mail von " . htmlspecialchars($fromname) . "</b>\n"
+              . "<b>Betreff:</b> " . htmlspecialchars($subject) . "\n\n"
+              . htmlspecialchars($body);
 
         $url = "https://api.telegram.org/bot" . TELEGRAM_BOT_TOKEN . "/sendMessage";
         $post_fields = [

@@ -1044,8 +1044,8 @@
         </div>
         <h3 class="font-display text-xl font-semibold mb-3 text-text-strong">Nächstes Treffen</h3>
         <p class="font-body text-base font-medium mb-1 text-text-body">
-          Samstag, 27. Juni 2026<br>
-          <span class="text-sm">14:00 bis 16:00 Uhr</span>
+          <span id="nt-datum">Samstag, 27. Juni 2026</span><br>
+          <span id="nt-zeitraum" class="text-sm">14:00 bis 16:00 Uhr</span>
         </p>
         <p class="font-body text-sm mt-2 mb-5 text-text-muted">
           <span itemscope itemtype="https://schema.org/Place">
@@ -1056,8 +1056,22 @@
           Alle Termine ansehen
         </a>
       </div>
+
     </div>
   </section>
+
+  <script>
+    fetch('naechster-termin.php')
+      .then(r => r.json())
+      .then(t => {
+        if (!t.found) return;
+        const d = document.getElementById('nt-datum');
+        const z = document.getElementById('nt-zeitraum');
+        if (d) d.textContent = t.datum;
+        if (z) z.textContent = t.zeitraum;
+      })
+      .catch(() => {});
+  </script>
 
   </main>
 

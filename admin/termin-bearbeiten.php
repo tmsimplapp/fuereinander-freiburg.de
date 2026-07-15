@@ -131,8 +131,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <link rel="stylesheet" href="admin.css">
 </head>
 <body>
-<div class="card">
-  <h1><?= $is_edit ? 'Termin bearbeiten' : ($is_copy ? 'Termin kopieren' : 'Neuer Termin') ?></h1>
+<div class="admin-layout">
+<?php $active_nav = 'termine'; require __DIR__ . '/nav.php'; ?>
+<div class="admin-main">
+
+  <div class="crm-header">
+    <div>
+      <span class="crm-eyebrow"><?= $is_edit ? 'Termin bearbeiten' : ($is_copy ? 'Termin kopieren' : 'Neuer Termin') ?></span>
+      <h1><?= $is_edit ? 'Termin bearbeiten' : ($is_copy ? 'Termin kopieren' : 'Neuer Termin') ?></h1>
+    </div>
+    <a href="termine.php" class="btn btn-edit">← Übersicht</a>
+  </div>
 
   <?php if (!empty($errors)): ?>
     <div class="errors">
@@ -148,49 +157,77 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <form method="post">
     <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
 
-    <label for="termin_datum">Datum</label>
-    <input type="text" id="termin_datum" name="termin_datum" required
-           value="<?= e($termin['termin_datum']) ?>" placeholder="Datum wählen" readonly>
+    <div class="crm-grid">
+      <div class="crm-col-main">
+        <section class="crm-panel">
+          <div class="crm-panel-head">
+            <span class="crm-icon" aria-hidden="true">📅</span>
+            <div>
+              <h2>Termindaten</h2>
+              <span class="crm-panel-sub">Datum, Uhrzeit und Kapazität</span>
+            </div>
+          </div>
 
-    <div class="row2">
-      <div>
-        <label for="uhrzeit">Uhrzeit (Beginn)</label>
-        <input type="time" id="uhrzeit" name="uhrzeit" required
-               value="<?= e($termin['uhrzeit']) ?>">
+          <label for="termin_datum">Datum</label>
+          <input type="text" id="termin_datum" name="termin_datum" required
+                 value="<?= e($termin['termin_datum']) ?>" placeholder="Datum wählen" readonly>
+
+          <div class="row2">
+            <div>
+              <label for="uhrzeit">Uhrzeit (Beginn)</label>
+              <input type="time" id="uhrzeit" name="uhrzeit" required
+                     value="<?= e($termin['uhrzeit']) ?>">
+            </div>
+            <div>
+              <label for="slot_laenge_min">Dauer (Minuten)</label>
+              <input type="number" id="slot_laenge_min" name="slot_laenge_min" required
+                     min="1" max="1440" value="<?= e((string)$termin['slot_laenge_min']) ?>">
+            </div>
+          </div>
+
+          <label for="max_teilnehmer">Max. Teilnehmer</label>
+          <input type="number" id="max_teilnehmer" name="max_teilnehmer" required
+                 min="1" max="999" value="<?= e((string)$termin['max_teilnehmer']) ?>">
+
+          <label for="bemerkung">Bemerkung <span style="color:#aaa;font-weight:400">(optional, öffentlich sichtbar)</span></label>
+          <textarea id="bemerkung" name="bemerkung" rows="3"
+                    placeholder="z. B. Bitte Eingang Hintergebäude nutzen."><?= e($termin['bemerkung'] ?? '') ?></textarea>
+        </section>
       </div>
-      <div>
-        <label for="slot_laenge_min">Dauer (Minuten)</label>
-        <input type="number" id="slot_laenge_min" name="slot_laenge_min" required
-               min="1" max="1440" value="<?= e((string)$termin['slot_laenge_min']) ?>">
-      </div>
+
+      <aside class="crm-side">
+        <section class="crm-panel">
+          <div class="crm-panel-head">
+            <span class="crm-icon" aria-hidden="true">⚙️</span>
+            <div><h2>Sichtbarkeit</h2></div>
+          </div>
+
+          <div class="crm-toggle-card">
+            <div class="crm-toggle-text">
+              <strong>Öffentlich sichtbar</strong>
+              <small>Auf der Website anzeigen</small>
+            </div>
+            <input type="checkbox" id="aktiv" name="aktiv" value="1" <?= $termin['aktiv'] ? 'checked' : '' ?>>
+          </div>
+
+          <div class="crm-toggle-card" style="margin-top:.6rem">
+            <div class="crm-toggle-text">
+              <strong>Ausgebucht</strong>
+              <small>Keine Buchung mehr möglich</small>
+            </div>
+            <input type="checkbox" id="ausgebucht" name="ausgebucht" value="1" <?= $termin['ausgebucht'] ? 'checked' : '' ?>>
+          </div>
+        </section>
+      </aside>
     </div>
 
-    <label for="max_teilnehmer">Max. Teilnehmer</label>
-    <input type="number" id="max_teilnehmer" name="max_teilnehmer" required
-           min="1" max="999" value="<?= e((string)$termin['max_teilnehmer']) ?>">
-
-    <label for="bemerkung">Bemerkung <span style="color:#aaa;font-weight:400">(optional, öffentlich sichtbar)</span></label>
-    <textarea id="bemerkung" name="bemerkung" rows="3"
-              style="width:100%;padding:.55rem .75rem;border:1px solid #ccc;border-radius:4px;font-size:1rem;resize:vertical;font-family:inherit"
-              placeholder="z. B. Bitte Eingang Hintergebäude nutzen."><?= e($termin['bemerkung'] ?? '') ?></textarea>
-
-    <div class="checkbox-row" style="margin-bottom:1rem">
-      <input type="checkbox" id="ausgebucht" name="ausgebucht" value="1"
-             <?= $termin['ausgebucht'] ? 'checked' : '' ?>>
-      <label for="ausgebucht" style="margin:0;color:#c00;font-weight:600">Als Ausgebucht markieren</label>
-    </div>
-
-    <div class="checkbox-row">
-      <input type="checkbox" id="aktiv" name="aktiv" value="1"
-             <?= $termin['aktiv'] ? 'checked' : '' ?>>
-      <label for="aktiv" style="margin:0">Öffentlich sichtbar</label>
-    </div>
-
-    <div class="form-actions">
+    <div class="crm-actions">
       <button type="submit" class="btn btn-primary">Speichern</button>
       <a href="termine.php" class="btn btn-secondary">Abbrechen</a>
     </div>
   </form>
+
+</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/de.js"></script>
@@ -211,6 +248,9 @@ flatpickr('#termin_datum', {
     wrap.appendChild(select);
   }
 });
+<?php if (!empty($errors)): ?>
+document.getElementById('uhrzeit').focus();
+<?php endif; ?>
 </script>
 </body>
 </html>

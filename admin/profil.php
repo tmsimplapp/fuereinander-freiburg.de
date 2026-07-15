@@ -180,22 +180,28 @@ if (!empty($admin['totp_enabled']) && !$totp_backup_new) {
 <link rel="stylesheet" href="admin.css">
 </head>
 <body>
+<div class="admin-layout">
+<?php $active_nav = 'profil'; require __DIR__ . '/nav.php'; ?>
+<div class="admin-main">
 
-<div class="topbar">
-  <div class="topbar-brand">
-    <img src="../grafik/F%C3%BCreinander%20Freiburg.svg" alt="Logo">
+<div class="page-head">
+  <div>
+    <span class="page-eyebrow">Konto</span>
     <h1>Profil</h1>
-  </div>
-  <div class="topbar-nav">
-    <a href="termine.php" class="nav-link">Termine</a>
-    <form method="post" action="logout.php">
-      <button type="submit" class="btn-logout">Abmelden</button>
-    </form>
   </div>
 </div>
 
-<div class="card">
-  <h2>Profil bearbeiten</h2>
+<div class="crm-grid">
+<div class="crm-col-main">
+
+<section class="crm-panel">
+  <div class="crm-panel-head">
+    <span class="crm-icon" aria-hidden="true">👤</span>
+    <div>
+      <h2>Zugangsdaten</h2>
+      <span class="crm-panel-sub">Benutzername und Passwort</span>
+    </div>
+  </div>
 
   <?php if ($success): ?>
     <div class="alert alert-ok">Änderungen gespeichert.</div>
@@ -240,14 +246,19 @@ if (!empty($admin['totp_enabled']) && !$totp_backup_new) {
       <a href="termine.php" class="btn btn-secondary">Abbrechen</a>
     </div>
   </form>
+</section>
 </div>
 
 <!-- ── 2FA-Bereich ── -->
-<div class="card" style="margin-top:1.5rem">
-  <h2 style="margin-bottom:.25rem">2-Faktor-Authentifizierung</h2>
-  <p style="font-size:.85rem;color:#666;margin-bottom:1rem">
-    Schütze deinen Account mit einem TOTP-Authenticator (z.&nbsp;B. Google Authenticator, Aegis, Bitwarden).
-  </p>
+<aside class="crm-side">
+<section class="crm-panel">
+  <div class="crm-panel-head">
+    <span class="crm-icon" aria-hidden="true">🔐</span>
+    <div>
+      <h2>2-Faktor-Authentifizierung</h2>
+      <span class="crm-panel-sub">TOTP-App wie Google Authenticator, Aegis, Bitwarden</span>
+    </div>
+  </div>
 
   <?php if ($totp_success !== ''): ?>
     <div class="alert alert-ok"><?= e($totp_success) ?></div>
@@ -257,13 +268,13 @@ if (!empty($admin['totp_enabled']) && !$totp_backup_new) {
   <?php endif; ?>
 
   <?php if (!empty($admin['totp_enabled'])): ?>
-    <p>Status: <span class="badge badge-on">Aktiv</span>
-       &nbsp;<span style="font-size:.8rem;color:#888"><?= $backup_count ?> Backup-Code<?= $backup_count !== 1 ? 's' : '' ?> verbleibend</span></p>
+    <p class="status-line"><span class="badge badge-on">Aktiv</span>
+       <span style="font-size:.8rem;color:#888"><?= $backup_count ?> Backup-Code<?= $backup_count !== 1 ? 's' : '' ?> verbleibend</span></p>
 
     <?php if ($totp_backup_new): ?>
       <div class="alert alert-info" style="margin-top:1rem">
         <strong>Neue Backup-Codes — jetzt sichern, werden nicht erneut angezeigt:</strong>
-        <ul style="margin-top:.5rem;margin-left:1rem;font-family:monospace;font-size:.95rem">
+        <ul class="code-list">
           <?php foreach ($totp_backup_new as $bc): ?>
             <li><?= e($bc) ?></li>
           <?php endforeach; ?>
@@ -347,14 +358,18 @@ if (!empty($admin['totp_enabled']) && !$totp_backup_new) {
 
   <?php else: ?>
     <!-- 2FA noch nicht eingerichtet -->
-    <p>Status: <span class="badge badge-off">Inaktiv</span></p>
+    <p class="status-line"><span class="badge badge-off">Inaktiv</span></p>
     <form method="post" autocomplete="off" style="margin-top:1rem">
       <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
       <input type="hidden" name="totp_action" value="setup_init">
       <button type="submit" class="btn btn-primary">2FA einrichten</button>
     </form>
   <?php endif; ?>
+</section>
+</aside>
 </div>
 
+</div>
+</div>
 </body>
 </html>
