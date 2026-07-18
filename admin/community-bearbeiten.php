@@ -13,7 +13,7 @@ $is_edit = $id > 0;
 $errors  = [];
 
 $alle_regionen = $db->query('SELECT id, name FROM community_regionen ORDER BY name ASC')->fetchAll();
-$alle_tags     = $db->query('SELECT id, name FROM community_tags ORDER BY name ASC')->fetchAll();
+$alle_tags     = $db->query('SELECT id, name, beschreibung FROM community_tags ORDER BY name ASC')->fetchAll();
 
 $kontakt = [
     'name' => '', 'website' => '', 'telefon' => '', 'strasse' => '', 'plz' => '', 'ort' => '',
@@ -56,6 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $name            = trim($_POST['name'] ?? '');
     $website         = trim($_POST['website'] ?? '');
+    if ($website !== '' && !preg_match('#^https?://#i', $website)) {
+        $website = 'https://' . $website;
+    }
     $telefon         = trim($_POST['telefon'] ?? '');
     $strasse         = trim($_POST['strasse'] ?? '');
     $plz             = trim($_POST['plz'] ?? '');
@@ -72,6 +75,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $p_tels    = $_POST['p_telefon'] ?? [];
     $p_handys  = $_POST['p_handy'] ?? [];
     $p_emails  = $_POST['p_email'] ?? [];
+    $p_strasses= $_POST['p_strasse'] ?? [];
+    $p_plzs    = $_POST['p_plz'] ?? [];
+    $p_orts    = $_POST['p_ort'] ?? [];
 
     $gueltige_region_ids = array_map('intval', array_column($alle_regionen, 'id'));
     $gueltige_tag_ids    = array_map('intval', array_column($alle_tags, 'id'));
@@ -94,6 +100,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'telefon' => trim($p_tels[$index] ?? ''),
                 'handy'   => trim($p_handys[$index] ?? ''),
                 'email'   => trim($p_emails[$index] ?? ''),
+                'strasse' => trim($p_strasses[$index] ?? ''),
+                'plz'     => trim($p_plzs[$index] ?? ''),
+                'ort'     => trim($p_orts[$index] ?? ''),
             ];
         }
     }
@@ -132,14 +141,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Personen neu verknuepfen
         $db->prepare('DELETE FROM community_personen WHERE organisation_id = ?')->execute([$id]);
         if ($parsed_personen) {
-            $stmt = $db->prepare('INSERT INTO community_personen (organisation_id, name, telefon, handy, email) VALUES (?, ?, ?, ?, ?)');
+            $stmt = $db->prepare('INSERT INTO community_personen (organisation_id, name, telefon, handy, email, strasse, plz, ort) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
             foreach ($parsed_personen as $p) {
                 $stmt->execute([
                     $id,
                     $p['name'],
                     $p['telefon'] === '' ? null : $p['telefon'],
                     $p['handy'] === '' ? null : $p['handy'],
-                    $p['email'] === '' ? null : $p['email']
+                    $p['email'] === '' ? null : $p['email'],
+                    $p['strasse'] === '' ? null : $p['strasse'],
+                    $p['plz'] === '' ? null : $p['plz'],
+                    $p['ort'] === '' ? null : $p['ort']
                 ]);
             }
         }
@@ -160,8 +172,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        $_SESSION['flash'] = ['type' => 'ok', 'msg' => $is_edit ? 'Organisation aktualisiert.' : 'Organisation angelegt.'];
-        header('Location: community.php');
+        $_SESSION['flash'] = ['type' => 'ok', 'msg' => ($is_edit ? 'Aktualisiert: ' : 'Angelegt: ') . $name];
+        if (isset($_POST['save_action']) && $_POST['save_action'] === 'save_stay') {
+            header('Location: community-bearbeiten.php?id=' . $id);
+        } else {
+            header('Location: community.php');
+        }
         exit;
     }
 
@@ -218,13 +234,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="crm-col-main">
 
         <section class="crm-panel">
-          <div class="crm-panel-head">
+          <div class="crm-panel-head" style="cursor:pointer;" onclick="const t=document.getElementById('stammdaten_container'); const i=document.getElementById('stammdaten_icon'); if(t.style.display==='none'){t.style.display='block';i.style.transform='rotate(180deg)';}else{t.style.display='none';i.style.transform='rotate(0deg)';}">
             <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg></span>
-            <div>
+            <div style="flex:1;">
               <h2>Stammdaten</h2>
               <span class="crm-panel-sub">Name, Website und Anschrift</span>
             </div>
+            <span id="stammdaten_icon" style="transition:transform 0.2s; transform:rotate(0deg); color:#6b7280;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
           </div>
+          <div id="stammdaten_container" style="display:none; margin-top:1rem;">
 
           <label for="name">Name / Organisation</label>
           <input type="text" id="name" name="name" required maxlength="160" autocomplete="organization" value="<?= e($kontakt['name']) ?>" placeholder="z. B. Beratungsstelle Freiburg…">
@@ -232,7 +250,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <div class="row2">
             <div>
               <label for="website">Website</label>
-              <input type="url" id="website" name="website" maxlength="255" autocomplete="url" inputmode="url" value="<?= e($kontakt['website'] ?? '') ?>" placeholder="https://…">
+              <div style="display:flex;gap:.3rem;">
+                <input type="text" id="website" name="website" maxlength="255" autocomplete="url" inputmode="url" value="<?= e($kontakt['website'] ?? '') ?>" placeholder="z. B. domain.de" style="flex:1;">
+                <a href="#" id="website-link" class="btn btn-secondary" target="_blank" style="padding:0 .6rem;display:flex;align-items:center;" title="Website im neuen Tab öffnen">
+                  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+              </div>
             </div>
             <div>
               <label for="telefon">Telefon</label>
@@ -253,16 +276,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <input type="text" id="ort" name="ort" maxlength="120" autocomplete="address-level2" value="<?= e($kontakt['ort'] ?? '') ?>" placeholder="z. B. Freiburg…">
             </div>
           </div>
+          </div>
         </section>
 
         <section class="crm-panel">
-          <div class="crm-panel-head">
+          <div class="crm-panel-head" style="cursor:pointer;" onclick="const t=document.getElementById('ansprechpartner_container'); const i=document.getElementById('ansprechpartner_icon'); const c=document.getElementById('ansprechpartner_count'); if(t.style.display==='none'){t.style.display='block';i.style.transform='rotate(180deg)';c.style.display='none';}else{t.style.display='none';i.style.transform='rotate(0deg)'; const num = Array.from(document.querySelectorAll('#personen-container input[name=&quot;p_name[]&quot;]')).filter(inp => inp.value.trim() !== '').length; c.textContent = ' (' + num + ')'; c.style.display='inline';}">
             <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-            <div>
-              <h2>Ansprechpartner</h2>
+            <div style="flex:1;">
+              <h2>Ansprechpartner<span id="ansprechpartner_count" style="display:none; color:#6b7280; font-weight:normal;"></span></h2>
               <span class="crm-panel-sub">Personen mit Kontaktdaten</span>
             </div>
+            <span id="ansprechpartner_icon" style="transition:transform 0.2s; transform:rotate(180deg); color:#6b7280;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
           </div>
+          <div id="ansprechpartner_container" style="display:block; margin-top:1rem;">
 
           <div id="personen-container">
             <?php
@@ -292,23 +318,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                       <input type="tel" name="p_handy[]" maxlength="40" autocomplete="off" inputmode="tel" value="<?= e($p['handy'] ?? '') ?>">
                     </div>
                   </div>
+                  <?php $has_addr = !empty($p['strasse']) || !empty($p['plz']) || !empty($p['ort']); ?>
+                  <div style="margin-top: .75rem;">
+                    <label style="display:inline-flex; align-items:center; gap:.4rem; font-weight:normal; font-size:.9rem; cursor:pointer; color:#4b5563;">
+                      <input type="checkbox" onchange="this.parentElement.nextElementSibling.style.display = this.checked ? 'block' : 'none'" <?= $has_addr ? 'checked' : '' ?>>
+                      Abweichende Adresse eingeben
+                    </label>
+                    <div style="display: <?= $has_addr ? 'block' : 'none' ?>; margin-top: .5rem; padding-top: .5rem; border-top: 1px dashed #e5e7eb;">
+                      <div class="person-address-grid">
+                        <div>
+                          <label>Straße & Hausnummer</label>
+                          <input type="text" name="p_strasse[]" maxlength="255" autocomplete="off" value="<?= e($p['strasse'] ?? '') ?>">
+                        </div>
+                        <div>
+                          <label>PLZ</label>
+                          <input type="text" name="p_plz[]" maxlength="10" autocomplete="off" value="<?= e($p['plz'] ?? '') ?>">
+                        </div>
+                        <div>
+                          <label>Ort</label>
+                          <input type="text" name="p_ort[]" maxlength="255" autocomplete="off" value="<?= e($p['ort'] ?? '') ?>">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             <?php endforeach; ?>
           </div>
           <button type="button" class="btn btn-add-person" onclick="addPerson()">+ Weitere Person hinzufügen</button>
+          </div>
         </section>
 
         <section class="crm-panel">
-          <div class="crm-panel-head">
+          <div class="crm-panel-head" style="cursor:pointer;" onclick="const t=document.getElementById('notizen_container'); const i=document.getElementById('notizen_icon'); if(t.style.display==='none'){t.style.display='block';i.style.transform='rotate(180deg)';}else{t.style.display='none';i.style.transform='rotate(0deg)';}">
             <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
-            <div>
-              <h2>Interne Notizen</h2>
+            <div style="flex:1;">
+              <h2>Interne Notizen<span id="notizen_alert" style="color:#ef4444; font-weight:bold; margin-left:0.3rem; display:<?= trim($kontakt['notizen'] ?? '') !== '' ? 'inline' : 'none' ?>;" title="Notizen vorhanden">(!)</span></h2>
               <span class="crm-panel-sub">Nur intern sichtbar</span>
             </div>
+            <span id="notizen_icon" style="transition:transform 0.2s; transform:rotate(0deg); color:#6b7280;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
           </div>
-          <textarea id="notizen" name="notizen" rows="5"
-                    placeholder="z. B. Erfahrungen, Besonderheiten, Reaktionszeit…"><?= e($kontakt['notizen'] ?? '') ?></textarea>
+          <div id="notizen_container" style="display:none; margin-top:1rem;">
+            <textarea id="notizen" name="notizen" rows="5" oninput="document.getElementById('notizen_alert').style.display = this.value.trim() !== '' ? 'inline' : 'none';"
+                      placeholder="z. B. Erfahrungen, Besonderheiten, Reaktionszeit…"><?= e($kontakt['notizen'] ?? '') ?></textarea>
+          </div>
         </section>
 
       </div>
@@ -383,10 +436,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" class="checkbox-picker-search" data-picker="tags-picker" placeholder="Tags durchsuchen…">
             <div class="checkbox-picker" id="tags-picker">
               <?php foreach ($alle_tags as $t): ?>
-                <label>
-                  <input type="checkbox" name="tags[]" value="<?= (int)$t['id'] ?>"
-                         <?= in_array((int)$t['id'], $tag_ids, true) ? 'checked' : '' ?>>
-                  <?= e($t['name']) ?>
+                <label style="display:flex;flex-direction:column;align-items:flex-start;margin-bottom:0.6rem;">
+                  <div style="display:flex;align-items:center;">
+                    <input type="checkbox" name="tags[]" value="<?= (int)$t['id'] ?>"
+                           <?= in_array((int)$t['id'], $tag_ids, true) ? 'checked' : '' ?>>
+                    <?= e($t['name']) ?>
+                  </div>
+                  <?php if (!empty($t['beschreibung'])): ?>
+                    <div style="font-size:0.8rem;color:#6b7280;margin-left:1.5rem;font-weight:normal;line-height:1.2;margin-top:0.15rem;"><?= e($t['beschreibung']) ?></div>
+                  <?php endif; ?>
                 </label>
               <?php endforeach; ?>
             </div>
@@ -396,9 +454,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </aside>
     </div>
 
-    <div class="crm-actions">
-      <button type="submit" class="btn btn-primary">Speichern</button>
-      <a href="community.php" class="btn btn-secondary">Abbrechen</a>
+    <div class="crm-actions crm-actions-sticky">
+      <button type="submit" name="save_action" value="save_close" class="btn btn-primary">Speichern & schließen</button>
+      <button type="submit" name="save_action" value="save_stay" class="btn btn-soft-green" style="font-weight:500;">Zwischenspeichern</button>
+      <a href="community.php" class="btn btn-secondary crm-actions-cancel">Abbrechen</a>
     </div>
   </form>
 
@@ -453,6 +512,28 @@ function addPerson() {
           <input type="tel" name="p_handy[]" maxlength="40" autocomplete="off" inputmode="tel">
         </div>
       </div>
+      <div style="margin-top: .75rem;">
+        <label style="display:inline-flex; align-items:center; gap:.4rem; font-weight:normal; font-size:.9rem; cursor:pointer; color:#4b5563;">
+          <input type="checkbox" onchange="this.parentElement.nextElementSibling.style.display = this.checked ? 'block' : 'none'">
+          Abweichende Adresse eingeben
+        </label>
+        <div style="display: none; margin-top: .5rem; padding-top: .5rem; border-top: 1px dashed #e5e7eb;">
+          <div class="person-address-grid">
+            <div>
+              <label>Straße & Hausnummer</label>
+              <input type="text" name="p_strasse[]" maxlength="255" autocomplete="off">
+            </div>
+            <div>
+              <label>PLZ</label>
+              <input type="text" name="p_plz[]" maxlength="10" autocomplete="off">
+            </div>
+            <div>
+              <label>Ort</label>
+              <input type="text" name="p_ort[]" maxlength="255" autocomplete="off">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   `;
   container.appendChild(block);
@@ -483,6 +564,28 @@ document.querySelectorAll('.checkbox-picker-search').forEach(function(input) {
     }
   });
 });
+
+(function() {
+  const webInput = document.getElementById('website');
+  const webLink = document.getElementById('website-link');
+  if (!webInput || !webLink) return;
+  
+  function updateLink() {
+    let val = webInput.value.trim();
+    if (val) {
+      if (!/^https?:\/\//i.test(val)) val = 'https://' + val;
+      webLink.href = val;
+      webLink.style.pointerEvents = 'auto';
+      webLink.style.opacity = '1';
+    } else {
+      webLink.removeAttribute('href');
+      webLink.style.pointerEvents = 'none';
+      webLink.style.opacity = '0.5';
+    }
+  }
+  webInput.addEventListener('input', updateLink);
+  updateLink();
+})();
 </script>
 </body>
 </html>

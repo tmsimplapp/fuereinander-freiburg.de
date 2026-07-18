@@ -102,10 +102,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                  VALUES (?, ?, ?, ?, ?, ?, ?)'
             );
             $stmt->execute([$datum, $uhrzeiten_json, $dauer_int, $aktiv, $bemerkung_db, $max_tln_int, $ausgebucht]);
+            $id = (int)$db->lastInsertId();
             $_SESSION['flash'] = ['type' => 'ok', 'msg' => 'Termin angelegt.'];
         }
 
-        header('Location: termine.php');
+        if (isset($_POST['save_action']) && $_POST['save_action'] === 'save_stay') {
+            header('Location: termin-bearbeiten.php?id=' . $id);
+        } else {
+            header('Location: termine.php');
+        }
         exit;
     }
 
@@ -221,9 +226,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </aside>
     </div>
 
-    <div class="crm-actions">
-      <button type="submit" class="btn btn-primary">Speichern</button>
-      <a href="termine.php" class="btn btn-secondary">Abbrechen</a>
+    <div class="crm-actions crm-actions-sticky">
+      <button type="submit" name="save_action" value="save_close" class="btn btn-primary">Speichern & schließen</button>
+      <button type="submit" name="save_action" value="save_stay" class="btn btn-soft-green" style="font-weight:500;">Zwischenspeichern</button>
+      <a href="termine.php" class="btn btn-secondary crm-actions-cancel">Abbrechen</a>
     </div>
   </form>
 

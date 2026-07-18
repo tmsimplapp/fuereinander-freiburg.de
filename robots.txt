@@ -1,7 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /counter.php
-Disallow: /counter.txt
 
 User-agent: GPTBot
 Allow: /

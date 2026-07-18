@@ -7,7 +7,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Bereits eingeloggt → direkt weiterleiten
 if (!empty($_SESSION['admin_logged_in'])) {
-    header('Location: termine.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['admin_logged_in']  = true;
                 $_SESSION['admin_id']         = (int) $row['id'];
 
-                header('Location: termine.php');
+                header('Location: index.php');
                 exit;
             } else {
                 // Fehlversuch speichern

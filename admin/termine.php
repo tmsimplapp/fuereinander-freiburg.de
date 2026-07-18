@@ -13,9 +13,6 @@ $stmt = $db->query(
 );
 $termine = $stmt->fetchAll();
 
-$stmtCounter = $db->query("SELECT wert FROM statistiken WHERE name = 'seitenaufrufe'");
-$seitenaufrufe = (int) $stmtCounter->fetchColumn();
-
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
@@ -53,9 +50,9 @@ function termin_zeile(array $t, bool $is_past, string $csrf, array $wt, array $m
           <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
           <input type="hidden" name="id" value="<?= (int)$t['id'] ?>">
           <input type="hidden" name="field" value="ausgebucht">
-          <button type="submit" class="toggle-switch <?= $t['ausgebucht'] ? 'active' : '' ?>" title="Klicken zum Umschalten">
-            <span class="toggle-track" style="<?= $t['ausgebucht'] ? 'background-color:#dc2626' : '' ?>"><span class="toggle-knob"></span></span>
-            <span class="toggle-label" style="<?= $t['ausgebucht'] ? 'color:#dc2626' : '' ?>"><?= $t['ausgebucht'] ? 'Ja' : 'Nein' ?></span>
+          <button type="submit" class="toggle-switch warn <?= $t['ausgebucht'] ? 'active' : '' ?>" title="Klicken zum Umschalten">
+            <span class="toggle-track"><span class="toggle-knob"></span></span>
+            <span class="toggle-label"><?= $t['ausgebucht'] ? 'Ja' : 'Nein' ?></span>
           </button>
         </form>
       </td>
@@ -72,15 +69,18 @@ function termin_zeile(array $t, bool $is_past, string $csrf, array $wt, array $m
       </td>
       <td data-label="Aktionen">
         <div class="actions">
-          <a href="termin-bearbeiten.php?id=<?= (int)$t['id'] ?>" class="btn btn-edit">Bearbeiten</a>
-          <a href="termin-bearbeiten.php?id=<?= (int)$t['id'] ?>&copy=1" class="btn btn-secondary" title="Kopieren">Kopieren</a>
-
-          <form method="post" action="termin-loeschen.php" class="loeschen-form">
+          <a href="termin-bearbeiten.php?id=<?= (int)$t['id'] ?>" class="icon-btn" title="Bearbeiten">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          </a>
+          <a href="termin-bearbeiten.php?id=<?= (int)$t['id'] ?>&copy=1" class="icon-btn" title="Kopieren">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </a>
+          <form method="post" action="termin-loeschen.php" class="loeschen-form" style="margin:0">
             <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
             <input type="hidden" name="id" value="<?= (int)$t['id'] ?>">
-            <button type="button" class="btn btn-danger"
+            <button type="button" class="icon-btn danger" title="Löschen"
                     onclick="loeschenBestaetigen(this.closest('form'), <?= e(json_encode(datum_lesbar($t['termin_datum'], $wt, $mo))) ?>)">
-              Löschen
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
             </button>
           </form>
         </div>
@@ -111,10 +111,6 @@ function termin_zeile(array $t, bool $is_past, string $csrf, array $wt, array $m
     <h1>Terminverwaltung</h1>
   </div>
   <div class="page-head-actions">
-    <div class="infobox" style="margin-bottom:0">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-      Seitenaufrufe: <strong><?= number_format($seitenaufrufe, 0, ',', '.') ?></strong>
-    </div>
     <a href="termin-bearbeiten.php" class="btn btn-primary add-link" style="margin-bottom:0">+ Neuer Termin</a>
   </div>
 </div>

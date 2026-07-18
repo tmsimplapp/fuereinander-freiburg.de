@@ -22,11 +22,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($action === 'add') {
         $name = trim($_POST['name'] ?? '');
+        $beschreibung = trim($_POST['beschreibung'] ?? '');
+        $farbe = trim($_POST['farbe'] ?? '');
+        if (!preg_match('/^#[0-9a-fA-F]{6}$/', $farbe)) {
+            $farbe = null;
+        }
         if ($name === '' || mb_strlen($name) > 80) {
             $_SESSION['flash'] = ['type' => 'err', 'msg' => 'Name muss 1–80 Zeichen lang sein.'];
         } else {
             try {
-                $db->prepare('INSERT INTO community_tags (name) VALUES (?)')->execute([$name]);
+                $db->prepare('INSERT INTO community_tags (name, beschreibung, farbe) VALUES (?, ?, ?)')->execute([$name, $beschreibung === '' ? null : $beschreibung, $farbe]);
                 $_SESSION['flash'] = ['type' => 'ok', 'msg' => 'Tag angelegt.'];
             } catch (PDOException $e) {
                 $_SESSION['flash'] = ['type' => 'err', 'msg' => 'Tag existiert bereits.'];
@@ -35,12 +40,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($action === 'rename') {
         $id   = (int)($_POST['id'] ?? 0);
         $name = trim($_POST['name'] ?? '');
+        $beschreibung = trim($_POST['beschreibung'] ?? '');
+        $farbe = trim($_POST['farbe'] ?? '');
+        if (!preg_match('/^#[0-9a-fA-F]{6}$/', $farbe)) {
+            $farbe = null;
+        }
         if ($id < 1 || $name === '' || mb_strlen($name) > 80) {
             $_SESSION['flash'] = ['type' => 'err', 'msg' => 'Ungültige Eingabe.'];
         } else {
             try {
-                $db->prepare('UPDATE community_tags SET name = ? WHERE id = ?')->execute([$name, $id]);
-                $_SESSION['flash'] = ['type' => 'ok', 'msg' => 'Tag umbenannt.'];
+                $db->prepare('UPDATE community_tags SET name = ?, beschreibung = ?, farbe = ? WHERE id = ?')->execute([$name, $beschreibung === '' ? null : $beschreibung, $farbe, $id]);
+                $_SESSION['flash'] = ['type' => 'ok', 'msg' => 'Tag aktualisiert.'];
             } catch (PDOException $e) {
                 $_SESSION['flash'] = ['type' => 'err', 'msg' => 'Tag existiert bereits.'];
             }
@@ -57,7 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-$tags = $db->query('SELECT id, name FROM community_tags ORDER BY name ASC')->fetchAll();
+$tags = $db->query('SELECT id, name, beschreibung, farbe FROM community_tags ORDER BY name ASC')->fetchAll();
+$default_farbe = '#e5e7eb';
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -88,48 +99,92 @@ $tags = $db->query('SELECT id, name FROM community_tags ORDER BY name ASC')->fet
 <?php endif; ?>
 
 <section class="crm-panel is-narrow" style="margin-bottom:1.5rem">
-  <div class="crm-panel-head">
+  <div class="crm-panel-head" style="cursor:pointer;" onclick="const f=document.getElementById('addTagForm'); const i=document.getElementById('addTagIcon'); if(f.style.display==='none'){f.style.display='flex';i.style.transform='rotate(180deg)';}else{f.style.display='none';i.style.transform='rotate(0deg)';}">
     <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></span>
-    <div><h2>Neuen Tag anlegen</h2></div>
+    <div style="flex:1;"><h2>Neuen Tag anlegen</h2></div>
+    <span id="addTagIcon" style="transition:transform 0.2s; transform:rotate(0deg); color:#6b7280;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
   </div>
-  <form method="post" class="inline-form">
+  <form id="addTagForm" method="post" style="display:none;flex-direction:column;gap:0.75rem;max-width:560px;margin-top:1rem;">
     <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
     <input type="hidden" name="action" value="add">
-    <input type="text" name="name" required maxlength="80" placeholder="z. B. ohne theologischen Hintergrund…">
-    <button type="submit" class="btn btn-primary">Hinzufügen</button>
+    <div style="display:flex;flex-direction:column;gap:0.75rem;">
+      <div>
+        <label style="font-size:0.85rem;font-weight:500;color:#374151;margin-bottom:0.25rem;display:block">Tag-Name</label>
+        <input type="text" name="name" required maxlength="80" placeholder="z. B. ohne theologischen Hintergrund…">
+      </div>
+      <div>
+        <label style="font-size:0.85rem;font-weight:500;color:#374151;margin-bottom:0.25rem;display:block">Farbe</label>
+        <input type="color" name="farbe" value="<?= e($default_farbe) ?>" style="min-height:44px;width:70px;padding:.25rem;cursor:pointer">
+      </div>
+      <div>
+        <label style="font-size:0.85rem;font-weight:500;color:#374151;margin-bottom:0.25rem;display:block">Beschreibung (optional)</label>
+        <textarea name="beschreibung" rows="3" placeholder="Kurzbeschreibung der Bedeutung…"></textarea>
+      </div>
+    </div>
+    <div>
+      <button type="submit" class="btn btn-primary">Hinzufügen</button>
+    </div>
   </form>
 </section>
 
 <?php if (empty($tags)): ?>
   <p style="color:#666;font-size:.9rem">Noch keine Tags vorhanden.</p>
 <?php else: ?>
-<table class="termine-table" style="max-width:560px">
-  <thead><tr><th>Name</th><th>Aktionen</th></tr></thead>
-  <tbody>
+<div class="tag-grid">
   <?php foreach ($tags as $t): ?>
-    <tr>
-      <td data-label="Name">
-        <form method="post" class="inline-form">
-          <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
-          <input type="hidden" name="action" value="rename">
-          <input type="hidden" name="id" value="<?= (int)$t['id'] ?>">
-          <input type="text" name="name" value="<?= e($t['name']) ?>" maxlength="80" required>
-          <button type="submit" class="btn btn-edit">Speichern</button>
-        </form>
-      </td>
-      <td data-label="Aktionen">
-        <form method="post" class="loeschen-form">
-          <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
-          <input type="hidden" name="action" value="delete">
-          <input type="hidden" name="id" value="<?= (int)$t['id'] ?>">
-          <button type="button" class="btn btn-danger"
-                  onclick="loeschenBestaetigen(this.closest('form'), <?= e(json_encode($t['name'])) ?>)">Löschen</button>
-        </form>
-      </td>
-    </tr>
+    <div class="tag-card">
+      <!-- Ansicht -->
+      <div class="tag-card-view" id="tag_view_<?= (int)$t['id'] ?>">
+        <div class="tag-card-head">
+          <span class="tag-card-dot" style="background:<?= e($t['farbe'] ?: $default_farbe) ?>"></span>
+          <span class="tag-card-name"><?= e($t['name']) ?></span>
+          <div class="tag-card-actions" id="tag_actions_<?= (int)$t['id'] ?>">
+            <button type="button" class="icon-btn" title="Bearbeiten" aria-label="Tag bearbeiten" onclick="toggleTagEdit(<?= (int)$t['id'] ?>, true)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            </button>
+            <form method="post" class="tag-card-delete-form">
+              <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
+              <input type="hidden" name="action" value="delete">
+              <input type="hidden" name="id" value="<?= (int)$t['id'] ?>">
+              <button type="button" class="icon-btn danger" title="Löschen" aria-label="Tag löschen"
+                      onclick="loeschenBestaetigen(this.closest('form'), <?= e(json_encode($t['name'])) ?>)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg>
+              </button>
+            </form>
+          </div>
+        </div>
+        <?php if (!empty($t['beschreibung'])): ?>
+          <p class="tag-card-desc"><?= e($t['beschreibung']) ?></p>
+        <?php endif; ?>
+      </div>
+
+      <!-- Bearbeiten-Modus -->
+      <form method="post" class="tag-card-edit" id="tag_edit_<?= (int)$t['id'] ?>">
+        <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
+        <input type="hidden" name="action" value="rename">
+        <input type="hidden" name="id" value="<?= (int)$t['id'] ?>">
+        <div class="tag-card-edit-row">
+          <div>
+            <label>Farbe</label>
+            <input type="color" name="farbe" value="<?= e($t['farbe'] ?: $default_farbe) ?>" style="min-height:44px;width:70px;padding:.25rem;cursor:pointer">
+          </div>
+          <div style="flex:1">
+            <label>Tag-Name</label>
+            <input type="text" name="name" value="<?= e($t['name']) ?>" maxlength="80" required>
+          </div>
+        </div>
+        <div>
+          <label>Beschreibung</label>
+          <textarea name="beschreibung" rows="3" placeholder="Kurzbeschreibung (optional)"><?= e($t['beschreibung'] ?? '') ?></textarea>
+        </div>
+        <div class="tag-card-edit-actions">
+          <button type="submit" class="btn btn-primary">Speichern</button>
+          <button type="button" class="btn btn-secondary" onclick="toggleTagEdit(<?= (int)$t['id'] ?>, false)">Abbrechen</button>
+        </div>
+      </form>
+    </div>
   <?php endforeach; ?>
-  </tbody>
-</table>
+</div>
 <?php endif; ?>
 
 <div class="modal-overlay" id="loeschModal">
@@ -144,6 +199,11 @@ $tags = $db->query('SELECT id, name FROM community_tags ORDER BY name ASC')->fet
 </div>
 
 <script>
+function toggleTagEdit(id, showEdit) {
+  document.getElementById('tag_view_' + id).style.display = showEdit ? 'none' : 'block';
+  document.getElementById('tag_edit_' + id).style.display = showEdit ? 'flex' : 'none';
+}
+
 let pendingForm = null;
 function loeschenBestaetigen(form, name) {
   pendingForm = form;

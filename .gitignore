@@ -10,9 +10,6 @@ node_modules/
 .vscode/
 *.log
 
-# Dynamic application files
-counter.txt
-
 # Secrets
 telegram-config.php
 buchung-config.php
