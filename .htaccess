@@ -30,7 +30,7 @@ RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^(.+)$ $1.php [L,QSA]
 
 # 4. DirectoryIndex für Startseite
-DirectoryIndex index.html
+DirectoryIndex index.php
 
 # Sicherheit: Verhindere Zugriff auf .htaccess selbst
 <Files .htaccess>

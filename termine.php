@@ -106,6 +106,23 @@ function format_zeitraum(string $uhrzeiten_json, int $dauer_min): string {
     "isAccessibleForFree": true
   }
   </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Muss ich mich vor dem ersten Treffen anmelden?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja. Um den geschützten Rahmen der Gruppe zu wahren und die genauen Raumdetails zuzusenden, ist vor dem ersten Besuch eine kurze Anmeldung nötig. Spontanes Erscheinen ist nicht möglich. Die Treffen sind bewusst klein gehalten, damit sich jede*r vom ersten Moment an aufgehoben fühlt."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body class="antialiased flex flex-col min-h-screen">
@@ -128,6 +145,7 @@ function format_zeitraum(string $uhrzeiten_json, int $dauer_min): string {
           <span class="sr-only">Termine der Selbsthilfegruppe Freiburg: </span>Termine
         </h1>
         <div class="w-12 h-0.5 bg-mint mx-auto"></div>
+        <p class="font-body text-xs mt-4 text-text-muted">Zuletzt aktualisiert: Juli 2026</p>
       </div>
 
       <section class="mb-8" aria-labelledby="termine-heading">

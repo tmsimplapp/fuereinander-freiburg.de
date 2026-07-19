@@ -366,6 +366,7 @@ $active_page = 'index';
         <p class="font-body text-base leading-relaxed text-text-body">
           Die Gruppe ist ein Ort für Austausch und Unterstützung, ohne Verurteilung, ohne Druck, ohne theologische Diskussionen. Die Gruppe ist im Verzeichnis der <a href="https://www.selbsthilfegruppen-freiburg.de/aktuelles/selbsthilfegruppe-fuer-zweifelnde-und-ausgestiegene-zeugen-jehovas" target="_blank" rel="noopener noreferrer" class="underline transition-colors text-accent">Selbsthilfekontaktstelle Freiburg</a> gelistet.
         </p>
+        <p class="font-body text-xs mt-4 text-text-muted">Zuletzt aktualisiert: Juli 2026</p>
       </div>
     </div>
   </section>
