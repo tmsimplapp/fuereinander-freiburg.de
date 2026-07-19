@@ -873,54 +873,6 @@ $active_page = 'index';
         </form>
       </div>
 
-      <!-- Rückruf vereinbaren -->
-      <div id="rueckruf" hidden class="reveal reveal-delay-2 card-hover rounded-2xl p-6 md:p-8 mb-6 max-w-5xl mx-auto bg-cream border border-tan">
-
-        <div class="flex items-center gap-3 mb-6">
-          <div class="w-10 h-10 rounded-full flex items-center justify-center bg-mint">
-            <svg class="w-5 h-5" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-            </svg>
-          </div>
-          <h3 class="font-display text-xl font-semibold text-text-strong">Rückruf vereinbaren</h3>
-        </div>
-        <p class="font-body text-sm mb-6 text-text-body">Wähle einen freien Termin – wir rufen dich dann an.</p>
-
-        <!-- Schritt 1: Slot-Auswahl -->
-        <div id="rb-step1">
-          <div id="rb-slots-loading" class="font-body text-sm text-text-muted">Termine werden geladen …</div>
-          <div id="rb-slots-grid" class="hidden"></div>
-          <p id="rb-slots-empty" class="hidden font-body text-sm text-text-muted">Aktuell sind keine Termine verfügbar.</p>
-        </div>
-
-        <!-- Schritt 2: Kontaktdaten (klappt auf) -->
-        <div id="rb-step2" class="hidden mt-6 pt-6" style="border-top: 1px solid #E2C2A2;">
-          <p class="font-body text-sm font-semibold mb-4 text-text-strong">
-            Gewählter Termin: <span id="rb-selected-label" class="font-normal text-accent"></span>
-            <button id="rb-change" class="ml-3 font-body text-xs underline text-text-muted">ändern</button>
-          </p>
-          <div class="space-y-4">
-            <div>
-              <label for="rb-name" class="block font-body text-sm font-semibold mb-1 text-text-strong">Name / Pseudonym <span style="color:#e05252;">*</span></label>
-              <input type="text" id="rb-name" class="w-full px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan" placeholder="Wie dürfen wir dich nennen?">
-            </div>
-            <div>
-              <label for="rb-telefon" class="block font-body text-sm font-semibold mb-1 text-text-strong">Telefonnummer <span style="color:#e05252;">*</span></label>
-              <input type="tel" id="rb-telefon" class="w-full px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan" placeholder="Unter dieser Nummer rufen wir an">
-            </div>
-            <div>
-              <label for="rb-email" class="block font-body text-sm font-semibold mb-1 text-text-strong">E-Mail <span style="color:#e05252;">*</span></label>
-              <input type="email" id="rb-email" class="w-full px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan" placeholder="Für Bestätigung und Storno-Link">
-            </div>
-            <button id="rb-submit" class="btn-primary w-full font-body font-semibold text-base px-8 py-4 rounded-full transition-all" style="min-height:44px; display:inline-flex; align-items:center; justify-content:center;">
-              Termin verbindlich anfragen
-            </button>
-          </div>
-          <div id="rb-feedback" class="hidden mt-4 rounded-xl p-4 font-body text-sm" style="border:1px solid;"></div>
-        </div>
-
-      </div>
-
       <!-- Nächstes Treffen -->
       <div class="reveal reveal-delay-2 card-hover rounded-2xl p-6 text-center max-w-5xl mx-auto flex flex-col items-center bg-warmyellow border border-tan">
         <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-5 bg-mint">

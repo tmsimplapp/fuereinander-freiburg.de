@@ -21,7 +21,7 @@ if ($id < 1) {
 }
 
 $db   = admin_db();
-$stmt = $db->prepare('DELETE FROM slot_konfiguration WHERE id = ?');
+$stmt = $db->prepare('DELETE FROM gruppentermine WHERE id = ?');
 $stmt->execute([$id]);
 
 if ($stmt->rowCount() > 0) {

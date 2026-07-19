@@ -7,13 +7,13 @@ $stmt = $db->query("SELECT wert FROM statistiken WHERE name = 'seitenaufrufe'");
 $seitenaufrufe = (int) $stmt->fetchColumn();
 
 $stmt = $db->query(
-    "SELECT COUNT(*) FROM slot_konfiguration WHERE termin_datum >= CURRENT_DATE AND aktiv = 1"
+    "SELECT COUNT(*) FROM gruppentermine WHERE termin_datum >= CURRENT_DATE AND aktiv = 1"
 );
 $anzahl_kommende = (int) $stmt->fetchColumn();
 
 $stmt = $db->query(
     "SELECT termin_datum, uhrzeiten, slot_laenge_min
-     FROM slot_konfiguration
+     FROM gruppentermine
      WHERE termin_datum >= CURRENT_DATE AND aktiv = 1
      ORDER BY termin_datum ASC, uhrzeiten ASC
      LIMIT 1"

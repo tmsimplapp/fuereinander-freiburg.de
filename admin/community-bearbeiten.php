@@ -16,7 +16,7 @@ $alle_regionen = $db->query('SELECT id, name FROM community_regionen ORDER BY na
 $alle_tags     = $db->query('SELECT id, name, beschreibung FROM community_tags ORDER BY name ASC')->fetchAll();
 
 $kontakt = [
-    'name' => '', 'website' => '', 'telefon' => '', 'strasse' => '', 'plz' => '', 'ort' => '',
+    'name' => '', 'name_zusatz' => '', 'website' => '', 'telefon' => '', 'strasse' => '', 'plz' => '', 'ort' => '',
     'vermittlung' => 'direkt', 'bundesweit' => 0, 'notizen' => '', 'aktiv' => 1,
 ];
 $personen = [];
@@ -55,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $name            = trim($_POST['name'] ?? '');
+    $name_zusatz     = trim($_POST['name_zusatz'] ?? '');
     $website         = trim($_POST['website'] ?? '');
     if ($website !== '' && !preg_match('#^https?://#i', $website)) {
         $website = 'https://' . $website;
@@ -87,6 +88,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($name === '' || mb_strlen($name) > 160) {
         $errors[] = 'Name muss 1–160 Zeichen lang sein.';
     }
+    if (mb_strlen($name_zusatz) > 160) {
+        $errors[] = 'Namenszusatz darf max. 160 Zeichen lang sein.';
+    }
     if (!in_array($vermittlung, ['direkt', 'ueber_uns'], true)) {
         $errors[] = 'Ungültige Vermittlungsart.';
     }
@@ -110,6 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         $params = [
             $name,
+            $name_zusatz === '' ? null : $name_zusatz,
             $website === '' ? null : $website,
             $telefon === '' ? null : $telefon,
             $strasse === '' ? null : $strasse,
@@ -124,15 +129,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($is_edit) {
             $stmt = $db->prepare(
                 'UPDATE community_organisationen
-                 SET name=?, website=?, telefon=?, strasse=?, plz=?, ort=?, vermittlung=?, bundesweit=?, notizen=?, aktiv=?
+                 SET name=?, name_zusatz=?, website=?, telefon=?, strasse=?, plz=?, ort=?, vermittlung=?, bundesweit=?, notizen=?, aktiv=?
                  WHERE id=?'
             );
             $stmt->execute([...$params, $id]);
         } else {
             $stmt = $db->prepare(
                 'INSERT INTO community_organisationen
-                 (name, website, telefon, strasse, plz, ort, vermittlung, bundesweit, notizen, aktiv)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+                 (name, name_zusatz, website, telefon, strasse, plz, ort, vermittlung, bundesweit, notizen, aktiv)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
             );
             $stmt->execute($params);
             $id = (int)$db->lastInsertId();
@@ -183,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Eingaben fuer Wiederanzeige merken
     $kontakt = [
-        'name' => $name, 'website' => $website, 'telefon' => $telefon,
+        'name' => $name, 'name_zusatz' => $name_zusatz, 'website' => $website, 'telefon' => $telefon,
         'strasse' => $strasse, 'plz' => $plz, 'ort' => $ort,
         'vermittlung' => $vermittlung, 'bundesweit' => $bundesweit, 'notizen' => $notizen, 'aktiv' => $aktiv,
     ];
@@ -246,6 +251,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
           <label for="name">Name / Organisation</label>
           <input type="text" id="name" name="name" required maxlength="160" autocomplete="organization" value="<?= e($kontakt['name']) ?>" placeholder="z. B. Beratungsstelle Freiburg…">
+
+          <label for="name_zusatz">Zusatz (z. B. Abteilung/Team)</label>
+          <input type="text" id="name_zusatz" name="name_zusatz" maxlength="160" autocomplete="off" value="<?= e($kontakt['name_zusatz'] ?? '') ?>" placeholder="z. B. Fachbereich Sucht…">
 
           <div class="row2">
             <div>

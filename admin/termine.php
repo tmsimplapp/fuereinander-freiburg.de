@@ -8,7 +8,7 @@ unset($_SESSION['flash']);
 
 $stmt = $db->query(
     'SELECT id, termin_datum, uhrzeiten, slot_laenge_min, aktiv, ausgebucht
-     FROM slot_konfiguration
+     FROM gruppentermine
      ORDER BY (termin_datum < CURRENT_DATE), termin_datum ASC'
 );
 $termine = $stmt->fetchAll();

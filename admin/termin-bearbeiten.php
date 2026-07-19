@@ -22,7 +22,7 @@ function erste_uhrzeit(string $json): string {
 $termin = ['termin_datum' => '', 'uhrzeit' => '18:00', 'slot_laenge_min' => 120, 'aktiv' => 1, 'bemerkung' => '', 'max_teilnehmer' => 8, 'ausgebucht' => 0];
 
 if ($is_edit || $is_copy) {
-    $stmt = $db->prepare('SELECT * FROM slot_konfiguration WHERE id = ? LIMIT 1');
+    $stmt = $db->prepare('SELECT * FROM gruppentermine WHERE id = ? LIMIT 1');
     $stmt->execute([$id]);
     $row = $stmt->fetch();
     if (!$row) {
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($is_edit) {
             $stmt = $db->prepare(
-                'UPDATE slot_konfiguration
+                'UPDATE gruppentermine
                  SET termin_datum = ?, uhrzeiten = ?, slot_laenge_min = ?, aktiv = ?, bemerkung = ?, max_teilnehmer = ?, ausgebucht = ?
                  WHERE id = ?'
             );
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['flash'] = ['type' => 'ok', 'msg' => 'Termin aktualisiert.'];
         } else {
             $stmt = $db->prepare(
-                'INSERT INTO slot_konfiguration (termin_datum, uhrzeiten, slot_laenge_min, aktiv, bemerkung, max_teilnehmer, ausgebucht)
+                'INSERT INTO gruppentermine (termin_datum, uhrzeiten, slot_laenge_min, aktiv, bemerkung, max_teilnehmer, ausgebucht)
                  VALUES (?, ?, ?, ?, ?, ?, ?)'
             );
             $stmt->execute([$datum, $uhrzeiten_json, $dauer_int, $aktiv, $bemerkung_db, $max_tln_int, $ausgebucht]);

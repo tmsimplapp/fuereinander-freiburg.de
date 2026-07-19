@@ -21,7 +21,7 @@ if ($id < 1 || !in_array($field, ['aktiv', 'ausgebucht'], true)) {
 }
 
 $db   = admin_db();
-$stmt = $db->prepare("UPDATE slot_konfiguration SET $field = 1 - $field WHERE id = ?");
+$stmt = $db->prepare("UPDATE gruppentermine SET $field = 1 - $field WHERE id = ?");
 $stmt->execute([$id]);
 
 header('Location: termine.php');

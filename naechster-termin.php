@@ -10,7 +10,7 @@ $pdo = new PDO(
 
 $stmt = $pdo->query(
     "SELECT termin_datum, uhrzeiten, slot_laenge_min
-     FROM slot_konfiguration
+     FROM gruppentermine
      WHERE aktiv = 1 AND termin_datum >= CURDATE()
      ORDER BY termin_datum ASC
      LIMIT 1"

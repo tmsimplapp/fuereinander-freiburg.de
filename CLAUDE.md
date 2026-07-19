@@ -28,7 +28,7 @@ Kein separater Ordner unter `Dokumente\Selbsthilfegruppe` mehr – falls in ält
 | `angehoerige.html` | Infoseite für Angehörige |
 | `partner.html` | Partnerseite |
 | `rechtliches.html` | Rechtliche Hinweise |
-| `termine.php` | Terminübersicht, liest live aus DB-Tabelle `slot_konfiguration` |
+| `termine.php` | Terminübersicht, liest live aus DB-Tabelle `gruppentermine` |
 | `naechster-termin.php` | JSON-Endpoint, liefert nächsten Termin (für index.html-Fetch) |
 | `buchung.php`, `buchung-helpers.php`, `buchung-config.php` | Rückruf-Buchungssystem (Buchungslogik, Config, DB-Zugangsdaten) |
 | `cancel.php` | Terminstorno über Link |

@@ -10,7 +10,7 @@ $pdo = new PDO(
 
 $stmt = $pdo->query(
     "SELECT termin_datum, uhrzeiten, slot_laenge_min, bemerkung, max_teilnehmer, ausgebucht
-     FROM slot_konfiguration
+     FROM gruppentermine
      WHERE aktiv = 1 AND termin_datum >= CURDATE()
      ORDER BY termin_datum ASC"
 );
