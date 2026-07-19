@@ -61,11 +61,11 @@ Typische Herausforderungen nach dem Ausstieg umfassen:
 
 <pages>
   <page url="https://fuereinander-freiburg.de/">Startseite – Überblick, Gruppenregeln, FAQ, Kontakt</page>
-  <page url="https://fuereinander-freiburg.de/ausstieg-folgen.html">Psychische Folgen & Muster nach dem Ausstieg aus Hochkontrollgruppen</page>
-  <page url="https://fuereinander-freiburg.de/angehoerige.html">Hilfe für Angehörige (Partner, Eltern, Kinder) von Zeugen Jehovas</page>
-  <page url="https://fuereinander-freiburg.de/partner.html">Partnerorganisationen: Selbsthilfebüro Freiburg, Telefonseelsorge, ZJ-Hilfe</page>
+  <page url="https://fuereinander-freiburg.de/ausstieg-folgen.php">Psychische Folgen & Muster nach dem Ausstieg aus Hochkontrollgruppen</page>
+  <page url="https://fuereinander-freiburg.de/angehoerige.php">Hilfe für Angehörige (Partner, Eltern, Kinder) von Zeugen Jehovas</page>
+  <page url="https://fuereinander-freiburg.de/partner.php">Partnerorganisationen: Selbsthilfebüro Freiburg, Telefonseelsorge, ZJ-Hilfe</page>
   <page url="https://fuereinander-freiburg.de/termine.php">Aktuelle Termine der Gruppentreffen</page>
-  <page url="https://fuereinander-freiburg.de/rechtliches.html">Impressum & Datenschutz</page>
+  <page url="https://fuereinander-freiburg.de/rechtliches.php">Impressum & Datenschutz</page>
 </pages>
 
 <machine_readable_identifiers>

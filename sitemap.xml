@@ -7,13 +7,13 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://fuereinander-freiburg.de/ausstieg-folgen.html</loc>
+    <loc>https://fuereinander-freiburg.de/ausstieg-folgen.php</loc>
     <lastmod>2026-06-20</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://fuereinander-freiburg.de/angehoerige.html</loc>
+    <loc>https://fuereinander-freiburg.de/angehoerige.php</loc>
     <lastmod>2026-06-23</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
@@ -25,13 +25,13 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://fuereinander-freiburg.de/partner.html</loc>
+    <loc>https://fuereinander-freiburg.de/partner.php</loc>
     <lastmod>2026-06-20</lastmod>
     <priority>0.6</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://fuereinander-freiburg.de/rechtliches.html</loc>
+    <loc>https://fuereinander-freiburg.de/rechtliches.php</loc>
     <lastmod>2026-06-20</lastmod>
     <priority>0.3</priority>
     <changefreq>yearly</changefreq>
