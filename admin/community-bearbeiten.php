@@ -8,6 +8,9 @@ if (empty($_SESSION['csrf_token'])) {
 }
 $csrf = $_SESSION['csrf_token'];
 
+$flash = $_SESSION['flash'] ?? null;
+unset($_SESSION['flash']);
+
 $id      = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $is_edit = $id > 0;
 $errors  = [];
@@ -17,7 +20,7 @@ $alle_tags     = $db->query('SELECT id, name, beschreibung FROM community_tags O
 
 $kontakt = [
     'name' => '', 'name_zusatz' => '', 'website' => '', 'telefon' => '', 'strasse' => '', 'plz' => '', 'ort' => '',
-    'vermittlung' => 'direkt', 'bundesweit' => 0, 'notizen' => '', 'aktiv' => 1,
+    'vermittlung' => 'direkt', 'bundesweit' => 0, 'aktiv' => 1,
 ];
 $personen = [];
 $region_ids = [];
@@ -47,6 +50,30 @@ if ($is_edit) {
     $tag_ids = array_map('intval', array_column($stmt->fetchAll(), 'tag_id'));
 }
 
+$notizen_liste = [];
+if ($is_edit) {
+    $stmt = $db->prepare('SELECT id, text, erstellt_am FROM community_notizen WHERE organisation_id = ? ORDER BY erstellt_am DESC, id DESC');
+    $stmt->execute([$id]);
+    $notizen_liste = $stmt->fetchAll();
+}
+
+if ($is_edit && $_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['notiz_action'] ?? '') === 'add') {
+    if (!hash_equals($csrf, $_POST['csrf_token'] ?? '')) {
+        http_response_code(403);
+        die('Ungültige Anfrage.');
+    }
+    $neue_notiz = trim($_POST['neue_notiz'] ?? '');
+    if ($neue_notiz !== '') {
+        $stmt = $db->prepare('INSERT INTO community_notizen (organisation_id, text, erstellt_am) VALUES (?, ?, NOW())');
+        $stmt->execute([$id, $neue_notiz]);
+        $_SESSION['flash'] = ['type' => 'ok', 'msg' => 'Notiz gespeichert.'];
+    } else {
+        $_SESSION['flash'] = ['type' => 'err', 'msg' => 'Notiz war leer, wurde nicht gespeichert.'];
+    }
+    header('Location: community-bearbeiten.php?id=' . $id);
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!hash_equals($csrf, $_POST['csrf_token'] ?? '')) {
@@ -66,7 +93,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ort             = trim($_POST['ort'] ?? '');
     $vermittlung     = $_POST['vermittlung'] ?? 'direkt';
     $bundesweit      = isset($_POST['bundesweit']) ? 1 : 0;
-    $notizen         = trim($_POST['notizen'] ?? '');
     $aktiv           = isset($_POST['aktiv']) ? 1 : 0;
     
     $region_ids_posted = array_map('intval', $_POST['regionen'] ?? []);
@@ -122,22 +148,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $ort === '' ? null : $ort,
             $vermittlung,
             $bundesweit,
-            $notizen === '' ? null : $notizen,
             $aktiv,
         ];
 
         if ($is_edit) {
             $stmt = $db->prepare(
                 'UPDATE community_organisationen
-                 SET name=?, name_zusatz=?, website=?, telefon=?, strasse=?, plz=?, ort=?, vermittlung=?, bundesweit=?, notizen=?, aktiv=?
+                 SET name=?, name_zusatz=?, website=?, telefon=?, strasse=?, plz=?, ort=?, vermittlung=?, bundesweit=?, aktiv=?
                  WHERE id=?'
             );
             $stmt->execute([...$params, $id]);
         } else {
             $stmt = $db->prepare(
                 'INSERT INTO community_organisationen
-                 (name, name_zusatz, website, telefon, strasse, plz, ort, vermittlung, bundesweit, notizen, aktiv)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+                 (name, name_zusatz, website, telefon, strasse, plz, ort, vermittlung, bundesweit, aktiv)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
             );
             $stmt->execute($params);
             $id = (int)$db->lastInsertId();
@@ -190,7 +215,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $kontakt = [
         'name' => $name, 'name_zusatz' => $name_zusatz, 'website' => $website, 'telefon' => $telefon,
         'strasse' => $strasse, 'plz' => $plz, 'ort' => $ort,
-        'vermittlung' => $vermittlung, 'bundesweit' => $bundesweit, 'notizen' => $notizen, 'aktiv' => $aktiv,
+        'vermittlung' => $vermittlung, 'bundesweit' => $bundesweit, 'aktiv' => $aktiv,
     ];
     $personen = $parsed_personen;
     $region_ids = $region_ids_in;
@@ -219,6 +244,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <a href="community.php" class="btn btn-edit">← Übersicht</a>
   </div>
+
+  <?php if ($flash): ?>
+    <div class="alert alert-<?= e($flash['type']) ?>">
+      <?= e($flash['msg']) ?>
+    </div>
+  <?php endif; ?>
 
   <?php if (!empty($errors)): ?>
     <div class="errors" role="alert" tabindex="-1">
@@ -361,14 +392,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <div class="crm-panel-head" style="cursor:pointer;" onclick="const t=document.getElementById('notizen_container'); const i=document.getElementById('notizen_icon'); if(t.style.display==='none'){t.style.display='block';i.style.transform='rotate(180deg)';}else{t.style.display='none';i.style.transform='rotate(0deg)';}">
             <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
             <div style="flex:1;">
-              <h2>Interne Notizen<span id="notizen_alert" style="color:#ef4444; font-weight:bold; margin-left:0.3rem; display:<?= trim($kontakt['notizen'] ?? '') !== '' ? 'inline' : 'none' ?>;" title="Notizen vorhanden">(!)</span></h2>
+              <h2>Interne Notizen<span id="notizen_alert" style="color:#ef4444; font-weight:bold; margin-left:0.3rem; display:<?= !empty($notizen_liste) ? 'inline' : 'none' ?>;" title="Notizen vorhanden">(!)</span></h2>
               <span class="crm-panel-sub">Nur intern sichtbar</span>
             </div>
             <span id="notizen_icon" style="transition:transform 0.2s; transform:rotate(0deg); color:#6b7280;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
           </div>
           <div id="notizen_container" style="display:none; margin-top:1rem;">
-            <textarea id="notizen" name="notizen" rows="5" oninput="document.getElementById('notizen_alert').style.display = this.value.trim() !== '' ? 'inline' : 'none';"
-                      placeholder="z. B. Erfahrungen, Besonderheiten, Reaktionszeit…"><?= e($kontakt['notizen'] ?? '') ?></textarea>
+
+            <?php if (!$is_edit): ?>
+              <p class="crm-panel-sub">Notizen können erst nach dem ersten Speichern der Organisation hinzugefügt werden.</p>
+            <?php else: ?>
+
+              <?php if (empty($notizen_liste)): ?>
+                <p class="crm-panel-sub">Noch keine Notizen vorhanden.</p>
+              <?php else: ?>
+                <ul style="list-style:none; margin:0 0 1rem; padding:0; display:flex; flex-direction:column; gap:0.75rem;">
+                  <?php foreach ($notizen_liste as $n): ?>
+                    <li style="border:1px solid var(--border-light); border-radius:0.5rem; padding:0.75rem;">
+                      <div style="display:flex; justify-content:space-between; align-items:start; gap:0.5rem;">
+                        <span style="font-size:0.8rem; color:#6b7280;"><?= e(date('d.m.Y H:i', strtotime($n['erstellt_am']))) ?> Uhr</span>
+                        <button type="button" class="community-icon-btn danger" title="Notiz löschen"
+                                data-notiz-id="<?= (int)$n['id'] ?>"
+                                onclick="notizLoeschenBestaetigen(<?= (int)$n['id'] ?>)">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+                        </button>
+                      </div>
+                      <p style="margin:0.5rem 0 0; white-space:pre-wrap;"><?= e($n['text']) ?></p>
+                    </li>
+                  <?php endforeach; ?>
+                </ul>
+              <?php endif; ?>
+
+              <div style="display:flex; flex-direction:column; gap:0.5rem;">
+                <textarea id="neue_notiz_text" rows="3" placeholder="Neue Notiz hinzufügen…"></textarea>
+                <button type="button" class="btn btn-add-person" style="align-self:flex-start;" onclick="notizSpeichern()">Neue Notiz speichern</button>
+              </div>
+
+            <?php endif; ?>
           </div>
         </section>
 
@@ -471,6 +531,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </div>
 </div>
+
+<?php if ($is_edit): ?>
+<!-- Notiz hinzufügen (eigenständiges Formular, außerhalb des Hauptformulars) -->
+<form method="post" id="notizAddForm" style="display:none;">
+  <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
+  <input type="hidden" name="notiz_action" value="add">
+  <input type="hidden" name="neue_notiz" id="notizAddText">
+</form>
+
+<!-- Notiz löschen (eigenständiges Formular, außerhalb des Hauptformulars) -->
+<form method="post" action="community-notiz-loeschen.php" id="notizDeleteForm" style="display:none;">
+  <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
+  <input type="hidden" name="id" id="notizDeleteId">
+  <input type="hidden" name="organisation_id" value="<?= (int)$id ?>">
+</form>
+
+<!-- Notiz-Lösch-Modal -->
+<div class="modal-overlay" id="notizLoeschModal">
+  <div class="modal">
+    <h2>Notiz löschen</h2>
+    <p>Soll diese Notiz wirklich gelöscht werden?</p>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="notizModalSchliessen()">Abbrechen</button>
+      <button class="btn btn-danger" id="notizLoeschBestaetigen">Ja, löschen</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let pendingNotizId = null;
+
+function notizSpeichern() {
+  const text = document.getElementById('neue_notiz_text').value.trim();
+  if (text === '') return;
+  document.getElementById('notizAddText').value = text;
+  document.getElementById('notizAddForm').submit();
+}
+
+function notizLoeschenBestaetigen(notizId) {
+  pendingNotizId = notizId;
+  document.getElementById('notizLoeschModal').classList.add('active');
+}
+
+function notizModalSchliessen() {
+  pendingNotizId = null;
+  document.getElementById('notizLoeschModal').classList.remove('active');
+}
+
+document.getElementById('notizLoeschBestaetigen').addEventListener('click', function() {
+  if (pendingNotizId) {
+    document.getElementById('notizDeleteId').value = pendingNotizId;
+    document.getElementById('notizDeleteForm').submit();
+  }
+});
+
+document.getElementById('notizLoeschModal').addEventListener('click', function(e) {
+  if (e.target === this) notizModalSchliessen();
+});
+</script>
+<?php endif; ?>
+
 <?php if (!empty($errors)): ?>
 <script>
 (function() {

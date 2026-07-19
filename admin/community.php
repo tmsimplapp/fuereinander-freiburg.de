@@ -17,6 +17,7 @@ $tags     = $db->query('SELECT id, name FROM community_tags ORDER BY name ASC')-
 $f_region      = isset($_GET['region']) ? (int)$_GET['region'] : 0;
 $f_tag         = isset($_GET['tag']) ? (int)$_GET['tag'] : 0;
 $f_aktiv       = $_GET['aktiv'] ?? '';
+$f_vermittlung = $_GET['vermittlung'] ?? '';
 $f_suche       = trim($_GET['q'] ?? '');
 
 $where  = [];
@@ -34,13 +35,17 @@ if ($f_aktiv === '1' || $f_aktiv === '0') {
     $where[] = 'k.aktiv = ?';
     $params[] = (int)$f_aktiv;
 }
+if ($f_vermittlung === 'direkt' || $f_vermittlung === 'ueber_uns') {
+    $where[] = 'k.vermittlung = ?';
+    $params[] = $f_vermittlung;
+}
 if ($f_suche !== '') {
-    $where[] = '(k.name LIKE ? OR k.website LIKE ? OR k.telefon LIKE ? OR k.strasse LIKE ? OR k.plz LIKE ? OR k.ort LIKE ? OR k.notizen LIKE ? OR EXISTS (SELECT 1 FROM community_personen p WHERE p.organisation_id = k.id AND (p.name LIKE ? OR p.telefon LIKE ? OR p.handy LIKE ? OR p.email LIKE ?)))';
+    $where[] = '(k.name LIKE ? OR k.website LIKE ? OR k.telefon LIKE ? OR k.strasse LIKE ? OR k.plz LIKE ? OR k.ort LIKE ? OR EXISTS (SELECT 1 FROM community_notizen n WHERE n.organisation_id = k.id AND n.text LIKE ?) OR EXISTS (SELECT 1 FROM community_personen p WHERE p.organisation_id = k.id AND (p.name LIKE ? OR p.telefon LIKE ? OR p.handy LIKE ? OR p.email LIKE ?)))';
     $like = '%' . $f_suche . '%';
     array_push($params, $like, $like, $like, $like, $like, $like, $like, $like, $like, $like, $like);
 }
 
-$sql = 'SELECT k.* FROM community_organisationen k';
+$sql = 'SELECT k.*, EXISTS (SELECT 1 FROM community_notizen n WHERE n.organisation_id = k.id) AS hat_notizen FROM community_organisationen k';
 if ($where) {
     $sql .= ' WHERE ' . implode(' AND ', $where);
 }
@@ -134,8 +139,13 @@ if ($kontakt_ids) {
       <option value="1" <?= $f_aktiv === '1' ? 'selected' : '' ?>>Nur aktive</option>
       <option value="0" <?= $f_aktiv === '0' ? 'selected' : '' ?>>Nur inaktive</option>
     </select>
+    <select name="vermittlung" aria-label="Nach Vermittlung filtern" style="margin:0;width:auto;flex:0 1 auto">
+      <option value="">Alle Vermittlungsarten</option>
+      <option value="direkt" <?= $f_vermittlung === 'direkt' ? 'selected' : '' ?>>Direkt</option>
+      <option value="ueber_uns" <?= $f_vermittlung === 'ueber_uns' ? 'selected' : '' ?>>Über uns</option>
+    </select>
     <button type="submit" class="btn btn-secondary">Filtern</button>
-    <?php if ($f_region || $f_tag || $f_aktiv !== '' || $f_suche !== ''): ?>
+    <?php if ($f_region || $f_tag || $f_aktiv !== '' || $f_vermittlung !== '' || $f_suche !== ''): ?>
       <a href="community.php" class="btn btn-edit">Zurücksetzen</a>
     <?php endif; ?>
   </form>
@@ -185,7 +195,7 @@ if ($kontakt_ids) {
               <?php if ($idx > 0) echo '<hr style="border:none;border-top:1px solid var(--border-light);margin:.5rem 0;">'; ?>
               <div style="display:flex;flex-direction:column;gap:.1rem;">
                 <strong style="font-size:.85rem;font-weight:600;"><?= e($p['name']) ?></strong>
-                <?php if ($p['email']): ?><a href="mailto:<?= e($p['email']) ?>" style="color:var(--text-muted);text-decoration:none;font-size:.8rem;"><?= e($p['email']) ?></a><?php endif; ?>
+                <?php if ($p['email']): ?><a href="mailto:<?= e($p['email']) ?>" style="color:var(--text-muted);text-decoration:underline;font-size:.8rem;"><?= e($p['email']) ?></a><?php endif; ?>
               </div>
             <?php endforeach; ?>
           </div>
@@ -219,7 +229,7 @@ if ($kontakt_ids) {
           </button>
         </form>
         <div class="community-card-actions">
-          <?php if (trim($k['notizen'] ?? '') !== ''): ?>
+          <?php if (!empty($k['hat_notizen'])): ?>
             <span class="community-notiz-warn" title="Interne Notizen vorhanden">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             </span>
