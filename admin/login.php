@@ -81,20 +81,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $timeout = isset($_GET['timeout']);
 ?>
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<link rel="icon" href="../grafik/F%C3%BCreinander%20Freiburg.svg" type="image/svg+xml">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin – Anmelden</title>
-<meta name="robots" content="noindex,nofollow">
-<link rel="stylesheet" href="admin.css">
-<style>
-button[type=submit]{margin-top:1.5rem;width:100%;min-height:48px;font-size:1rem}
-</style>
-</head>
-<body class="login-wrap">
+<?php
+$page_title = 'Admin – Anmelden';
+$layout_type = 'login';
+$extra_head = '<style>button[type=submit]{margin-top:1.5rem;width:100%;min-height:48px;font-size:1rem}</style>';
+require __DIR__ . '/header.php';
+?>
 <div class="login-card">
   <div class="login-logo">
     <img src="../grafik/F%C3%BCreinander%20Freiburg.svg" alt="Füreinander Freiburg Logo">
@@ -122,8 +114,13 @@ button[type=submit]{margin-top:1.5rem;width:100%;min-height:48px;font-size:1rem}
     <button type="submit" class="btn btn-primary">Anmelden</button>
   </form>
 </div>
-<?php if ($error !== ''): ?>
+<?php 
+if ($error !== '') {
+    ob_start();
+?>
 <script>document.getElementById('username').focus();</script>
-<?php endif; ?>
-</body>
-</html>
+<?php
+    $extra_scripts = ob_get_clean();
+}
+require __DIR__ . '/footer.php';
+?>

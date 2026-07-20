@@ -124,21 +124,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $termin['ausgebucht']      = $ausgebucht;
 }
 ?>
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<link rel="icon" href="../grafik/F%C3%BCreinander%20Freiburg.svg" type="image/svg+xml">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin – Termin <?= $is_edit ? 'bearbeiten' : ($is_copy ? 'kopieren' : 'anlegen') ?></title>
-<meta name="robots" content="noindex,nofollow">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<link rel="stylesheet" href="admin.css">
-</head>
-<body>
-<div class="admin-layout">
-<?php $active_nav = 'termine'; require __DIR__ . '/nav.php'; ?>
-<div class="admin-main">
+<?php
+$page_title = 'Admin – Termin ' . ($is_edit ? 'bearbeiten' : ($is_copy ? 'kopieren' : 'anlegen'));
+$active_nav = 'termine';
+$extra_head = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">';
+require __DIR__ . '/header.php';
+?>
 
   <div class="crm-header">
     <div>
@@ -233,8 +224,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
   </form>
 
-</div>
-</div>
+<?php ob_start(); ?>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/de.js"></script>
 <script>
@@ -263,5 +253,7 @@ flatpickr('#termin_datum', {
 })();
 <?php endif; ?>
 </script>
-</body>
-</html>
+<?php 
+$extra_scripts = ob_get_clean();
+require __DIR__ . '/footer.php'; 
+?>

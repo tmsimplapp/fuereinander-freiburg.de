@@ -40,20 +40,11 @@ function zeitraum_lesbar(string $json, int $dauer): string {
     return $start . ' – ' . sprintf('%02d:%02d', intdiv($end_min,60), $end_min%60) . ' Uhr';
 }
 ?>
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<link rel="icon" href="../grafik/F%C3%BCreinander%20Freiburg.svg" type="image/svg+xml">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin – Dashboard</title>
-<meta name="robots" content="noindex,nofollow">
-<link rel="stylesheet" href="admin.css">
-</head>
-<body>
-<div class="admin-layout">
-<?php $active_nav = 'dashboard'; require __DIR__ . '/nav.php'; ?>
-<div class="admin-main">
+<?php
+$page_title = 'Admin – Dashboard';
+$active_nav = 'dashboard';
+require __DIR__ . '/header.php';
+?>
 
 <div class="page-head">
   <div>
@@ -115,7 +106,4 @@ function zeitraum_lesbar(string $json, int $dauer): string {
   </a>
 </div>
 
-</div>
-</div>
-</body>
-</html>
+<?php require __DIR__ . '/footer.php'; ?>

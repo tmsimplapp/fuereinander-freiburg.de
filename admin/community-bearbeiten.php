@@ -222,20 +222,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tag_ids    = $tag_ids_in;
 }
 ?>
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<link rel="icon" href="../grafik/F%C3%BCreinander%20Freiburg.svg" type="image/svg+xml">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin – Organisation <?= $is_edit ? 'bearbeiten' : 'anlegen' ?></title>
-<meta name="robots" content="noindex,nofollow">
-<link rel="stylesheet" href="admin.css">
-</head>
-<body>
-<div class="admin-layout">
-<?php $active_nav = 'community'; require __DIR__ . '/nav.php'; ?>
-<div class="admin-main">
+<?php
+$page_title = 'Admin – Organisation ' . ($is_edit ? 'bearbeiten' : 'anlegen');
+$active_nav = 'community';
+require __DIR__ . '/header.php';
+?>
 
   <div class="crm-header">
     <div>
@@ -270,14 +261,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="crm-col-main">
 
         <section class="crm-panel">
-          <div class="crm-panel-head" style="cursor:pointer;" onclick="const t=document.getElementById('stammdaten_container'); const i=document.getElementById('stammdaten_icon'); if(t.style.display==='none'){t.style.display='block';i.style.transform='rotate(180deg)';}else{t.style.display='none';i.style.transform='rotate(0deg)';}">
+          <button type="button" class="crm-panel-head crm-panel-head-toggle" aria-expanded="false" aria-controls="stammdaten_container" onclick="const t=document.getElementById('stammdaten_container'); const i=document.getElementById('stammdaten_icon'); const open=t.style.display==='block'; t.style.display=open?'none':'block'; i.style.transform=open?'rotate(0deg)':'rotate(180deg)'; this.setAttribute('aria-expanded', open?'false':'true');">
             <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg></span>
             <div style="flex:1;">
               <h2>Stammdaten</h2>
               <span class="crm-panel-sub">Name, Website und Anschrift</span>
             </div>
             <span id="stammdaten_icon" style="transition:transform 0.2s; transform:rotate(0deg); color:#6b7280;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
-          </div>
+          </button>
           <div id="stammdaten_container" style="display:none; margin-top:1rem;">
 
           <label for="name">Name / Organisation</label>
@@ -291,7 +282,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <label for="website">Website</label>
               <div style="display:flex;gap:.3rem;">
                 <input type="text" id="website" name="website" maxlength="255" autocomplete="url" inputmode="url" value="<?= e($kontakt['website'] ?? '') ?>" placeholder="z. B. domain.de" style="flex:1;">
-                <a href="#" id="website-link" class="btn btn-secondary" target="_blank" style="padding:0 .6rem;display:flex;align-items:center;" title="Website im neuen Tab öffnen">
+                <a href="#" id="website-link" class="btn btn-secondary" target="_blank" style="padding:0 .6rem;display:flex;align-items:center;min-width:44px;" title="Website im neuen Tab öffnen">
                   <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 </a>
               </div>
@@ -319,14 +310,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </section>
 
         <section class="crm-panel">
-          <div class="crm-panel-head" style="cursor:pointer;" onclick="const t=document.getElementById('ansprechpartner_container'); const i=document.getElementById('ansprechpartner_icon'); const c=document.getElementById('ansprechpartner_count'); if(t.style.display==='none'){t.style.display='block';i.style.transform='rotate(180deg)';c.style.display='none';}else{t.style.display='none';i.style.transform='rotate(0deg)'; const num = Array.from(document.querySelectorAll('#personen-container input[name=&quot;p_name[]&quot;]')).filter(inp => inp.value.trim() !== '').length; c.textContent = ' (' + num + ')'; c.style.display='inline';}">
+          <button type="button" class="crm-panel-head crm-panel-head-toggle" aria-expanded="true" aria-controls="ansprechpartner_container" onclick="const t=document.getElementById('ansprechpartner_container'); const i=document.getElementById('ansprechpartner_icon'); const c=document.getElementById('ansprechpartner_count'); const open=t.style.display!=='none'; if(!open){t.style.display='block';i.style.transform='rotate(180deg)';c.style.display='none';}else{t.style.display='none';i.style.transform='rotate(0deg)'; const num = Array.from(document.querySelectorAll('#personen-container input[name=&quot;p_name[]&quot;]')).filter(inp => inp.value.trim() !== '').length; c.textContent = ' (' + num + ')'; c.style.display='inline';} this.setAttribute('aria-expanded', open?'false':'true');">
             <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
             <div style="flex:1;">
               <h2>Ansprechpartner<span id="ansprechpartner_count" style="display:none; color:#6b7280; font-weight:normal;"></span></h2>
               <span class="crm-panel-sub">Personen mit Kontaktdaten</span>
             </div>
             <span id="ansprechpartner_icon" style="transition:transform 0.2s; transform:rotate(180deg); color:#6b7280;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
-          </div>
+          </button>
           <div id="ansprechpartner_container" style="display:block; margin-top:1rem;">
 
           <div id="personen-container">
@@ -389,14 +380,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </section>
 
         <section class="crm-panel">
-          <div class="crm-panel-head" style="cursor:pointer;" onclick="const t=document.getElementById('notizen_container'); const i=document.getElementById('notizen_icon'); if(t.style.display==='none'){t.style.display='block';i.style.transform='rotate(180deg)';}else{t.style.display='none';i.style.transform='rotate(0deg)';}">
+          <button type="button" class="crm-panel-head crm-panel-head-toggle" aria-expanded="false" aria-controls="notizen_container" onclick="const t=document.getElementById('notizen_container'); const i=document.getElementById('notizen_icon'); const open=t.style.display==='block'; t.style.display=open?'none':'block'; i.style.transform=open?'rotate(0deg)':'rotate(180deg)'; this.setAttribute('aria-expanded', open?'false':'true');">
             <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
             <div style="flex:1;">
               <h2>Interne Notizen<span id="notizen_alert" style="color:#ef4444; font-weight:bold; margin-left:0.3rem; display:<?= !empty($notizen_liste) ? 'inline' : 'none' ?>;" title="Notizen vorhanden">(!)</span></h2>
               <span class="crm-panel-sub">Nur intern sichtbar</span>
             </div>
             <span id="notizen_icon" style="transition:transform 0.2s; transform:rotate(0deg); color:#6b7280;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
-          </div>
+          </button>
           <div id="notizen_container" style="display:none; margin-top:1rem;">
 
             <?php if (!$is_edit): ?>
@@ -425,7 +416,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
               <div style="display:flex; flex-direction:column; gap:0.5rem;">
                 <textarea id="neue_notiz_text" rows="3" placeholder="Neue Notiz hinzufügen…"></textarea>
-                <button type="button" class="btn btn-add-person" style="align-self:flex-start;" onclick="notizSpeichern()">Neue Notiz speichern</button>
+                <button type="button" class="btn btn-primary btn-notiz-speichern" onclick="notizSpeichern()">Neue Notiz speichern</button>
               </div>
 
             <?php endif; ?>
@@ -504,8 +495,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" class="checkbox-picker-search" data-picker="tags-picker" placeholder="Tags durchsuchen…">
             <div class="checkbox-picker" id="tags-picker">
               <?php foreach ($alle_tags as $t): ?>
-                <label style="display:flex;flex-direction:column;align-items:flex-start;margin-bottom:0.6rem;">
-                  <div style="display:flex;align-items:center;">
+                <label style="flex-direction:column;align-items:flex-start;margin-bottom:0.6rem;">
+                  <div style="display:flex;align-items:center;gap:.35rem;">
                     <input type="checkbox" name="tags[]" value="<?= (int)$t['id'] ?>"
                            <?= in_array((int)$t['id'], $tag_ids, true) ? 'checked' : '' ?>>
                     <?= e($t['name']) ?>
@@ -529,8 +520,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
   </form>
 
-</div>
-</div>
+<?php ob_start(); ?>
 
 <?php if ($is_edit): ?>
 <!-- Notiz hinzufügen (eigenständiges Formular, außerhalb des Hauptformulars) -->
@@ -716,5 +706,7 @@ document.querySelectorAll('.checkbox-picker-search').forEach(function(input) {
   updateLink();
 })();
 </script>
-</body>
-</html>
+<?php 
+$extra_scripts = ob_get_clean();
+require __DIR__ . '/footer.php'; 
+?>

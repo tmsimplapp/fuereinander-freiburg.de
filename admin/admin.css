@@ -42,6 +42,7 @@ body {
   background: var(--cream);
   color: var(--text);
   min-height: 100dvh;
+  accent-color: var(--mint-dark);
 }
 
 /* ── Layout mit Sidebar ── */
@@ -407,9 +408,11 @@ a.btn, button.btn {
   display: inline-flex;
   align-items: center;
   gap: .5rem;
+  min-height: 44px;
   background: transparent;
   border: none;
   cursor: pointer;
+  touch-action: manipulation;
   font-family: inherit;
   font-size: .78rem;
   font-weight: 600;
@@ -456,8 +459,9 @@ a.btn, button.btn {
 
 /* ── Icon-Buttons (Tabellen/Kacheln-Aktionen) ── */
 .icon-btn {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
+  touch-action: manipulation;
   display: inline-grid;
   place-items: center;
   border-radius: 7px;
@@ -611,6 +615,8 @@ textarea { resize: vertical; }
 }
 @media (max-width: 640px) {
   .filter-bar { grid-template-columns: 1fr 1fr; }
+  .filter-bar-actions { flex-direction: column; }
+  .filter-bar-actions .btn { width: 100%; }
 }
 
 /* Panels sind auch außerhalb von .crm-grid nutzbar */
@@ -671,6 +677,18 @@ textarea { resize: vertical; }
   padding-bottom: .8rem;
   border-bottom: 1px solid var(--border-light);
 }
+.crm-panel-head.crm-panel-head-toggle {
+  width: 100%;
+  min-height: 44px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-light);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+  padding: 0 0 .8rem;
+}
 .crm-panel-head .crm-icon {
   display: inline-flex;
   align-items: center;
@@ -723,8 +741,9 @@ textarea { resize: vertical; }
   position: absolute;
   top: .55rem;
   right: .55rem;
-  width: 26px;
-  height: 26px;
+  width: 40px;
+  height: 40px;
+  touch-action: manipulation;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -850,10 +869,12 @@ textarea { resize: vertical; }
   z-index: 100;
   margin-top: 2rem;
 }
+.btn-notiz-speichern { align-self: flex-start; }
 @media (max-width: 600px) {
   .crm-actions { flex-direction: column; }
   .crm-actions .btn { width: 100%; }
   .crm-actions-cancel { margin-left: 0; }
+  .btn-notiz-speichern { align-self: stretch; width: 100%; }
 }
 
 /* Person-Adresse (community-bearbeiten): responsiv statt fixem 3-Spalten-Grid */
@@ -932,7 +953,7 @@ textarea { resize: vertical; }
 .termine-table tr:not(:last-child) td { border-bottom: 1px solid var(--border-light); }
 .termine-table .inactive td,
 .termine-table .past-event td { opacity: .45; }
-.actions { display: flex; gap: .4rem; flex-wrap: wrap; align-items: center; }
+.actions { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
 .add-link { margin-bottom: 1rem; display: inline-flex; }
 
 /* ── Vergangene Termine (Dropdown) ── */
@@ -998,7 +1019,7 @@ textarea { resize: vertical; }
   }
   .termine-table td:first-child::before { margin-top: 0; }
   .termine-table .actions { margin-top: .75rem; }
-  .termine-table .actions .icon-btn { width: 40px; height: 40px; }
+  .termine-table .actions .icon-btn { width: 44px; height: 44px; }
 
   /* Topbar auf Mobile kompakter */
   .topbar h1 { font-size: .85rem; }
@@ -1331,11 +1352,13 @@ textarea { resize: vertical; }
   display: flex;
   align-items: center;
   gap: .5rem;
+  min-height: 44px;
   font-size: .78rem;
   font-weight: 600;
   background: none;
   border: none;
   cursor: pointer;
+  touch-action: manipulation;
   color: var(--text);
   padding: 0;
 }
@@ -1368,7 +1391,7 @@ textarea { resize: vertical; }
 }
 .community-card-actions {
   display: flex;
-  gap: .4rem;
+  gap: .6rem;
   align-items: center;
 }
 .community-notiz-warn {
@@ -1382,8 +1405,9 @@ textarea { resize: vertical; }
 .community-notiz-warn svg { width: 18px; height: 18px; }
 
 .community-icon-btn {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
+  touch-action: manipulation;
   display: grid;
   place-items: center;
   border-radius: 7px;

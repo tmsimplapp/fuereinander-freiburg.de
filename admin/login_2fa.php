@@ -89,22 +89,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<link rel="icon" href="../grafik/F%C3%BCreinander%20Freiburg.svg" type="image/svg+xml">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin – 2-Faktor-Authentifizierung</title>
-<meta name="robots" content="noindex,nofollow">
-<link rel="stylesheet" href="admin.css">
-<style>
+<?php
+$page_title = 'Admin – 2-Faktor-Authentifizierung';
+$layout_type = 'login';
+$extra_head = '<style>
 button[type=submit]{margin-top:1.5rem;width:100%;min-height:48px;font-size:1rem}
 input[name=code]{letter-spacing:.25em;font-size:1.4rem;text-align:center}
 .backup-toggle{font-size:.8rem;color:#888;text-decoration:underline;cursor:pointer;background:none;border:none;padding:0;margin-top:.75rem;display:block}
-</style>
-</head>
-<body class="login-wrap">
+</style>';
+require __DIR__ . '/header.php';
+?>
 <div class="login-card">
   <div class="login-logo">
     <img src="../grafik/F%C3%BCreinander%20Freiburg.svg" alt="Füreinander Freiburg Logo">
@@ -134,6 +128,7 @@ input[name=code]{letter-spacing:.25em;font-size:1.4rem;text-align:center}
     <a href="login.php" style="color:#888">Zurück zur Anmeldung</a>
   </p>
 </div>
+<?php ob_start(); ?>
 <script>
 function toggleBackup() {
   const inp  = document.getElementById('code');
@@ -160,5 +155,7 @@ function toggleBackup() {
   inp.focus();
 }
 </script>
-</body>
-</html>
+<?php 
+$extra_scripts = ob_get_clean();
+require __DIR__ . '/footer.php';
+?>

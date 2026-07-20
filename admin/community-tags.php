@@ -70,20 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $tags = $db->query('SELECT id, name, beschreibung, farbe FROM community_tags ORDER BY name ASC')->fetchAll();
 $default_farbe = '#e5e7eb';
 ?>
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<link rel="icon" href="../grafik/F%C3%BCreinander%20Freiburg.svg" type="image/svg+xml">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin – Tags verwalten</title>
-<meta name="robots" content="noindex,nofollow">
-<link rel="stylesheet" href="admin.css">
-</head>
-<body>
-<div class="admin-layout">
-<?php $active_nav = 'community-tags'; require __DIR__ . '/nav.php'; ?>
-<div class="admin-main">
+<?php
+$page_title = 'Admin – Tags verwalten';
+$active_nav = 'community-tags';
+require __DIR__ . '/header.php';
+?>
 
 <div class="page-head">
   <div>
@@ -187,6 +178,7 @@ $default_farbe = '#e5e7eb';
 </div>
 <?php endif; ?>
 
+<?php ob_start(); ?>
 <div class="modal-overlay" id="loeschModal">
   <div class="modal">
     <h2>Tag löschen</h2>
@@ -225,7 +217,7 @@ document.addEventListener('keydown', function(e) {
 });
 </script>
 
-</div>
-</div>
-</body>
-</html>
+<?php 
+$extra_scripts = ob_get_clean();
+require __DIR__ . '/footer.php'; 
+?>
