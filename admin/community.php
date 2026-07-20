@@ -119,37 +119,37 @@ if ($kontakt_ids) {
   </div>
 <?php endif; ?>
 
-<div class="infobox-row" style="display:flex;align-items:stretch;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap">
-  <form method="get" style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;flex:1">
-    <input type="text" name="q" value="<?= e($f_suche) ?>" placeholder="Suche…" style="margin:0;min-width:160px;flex:1">
-    <select name="region" aria-label="Nach Region filtern" style="margin:0;width:auto;flex:0 1 auto">
-      <option value="0">Alle Regionen</option>
-      <?php foreach ($regionen as $r): ?>
-        <option value="<?= (int)$r['id'] ?>" <?= $f_region === (int)$r['id'] ? 'selected' : '' ?>><?= e($r['name']) ?></option>
-      <?php endforeach; ?>
-    </select>
-    <select name="tag" aria-label="Nach Tag filtern" style="margin:0;width:auto;flex:0 1 auto">
-      <option value="0">Alle Tags</option>
-      <?php foreach ($tags as $t): ?>
-        <option value="<?= (int)$t['id'] ?>" <?= $f_tag === (int)$t['id'] ? 'selected' : '' ?>><?= e($t['name']) ?></option>
-      <?php endforeach; ?>
-    </select>
-    <select name="aktiv" aria-label="Nach Status filtern" style="margin:0;width:auto;flex:0 1 auto">
-      <option value="">Alle Status</option>
-      <option value="1" <?= $f_aktiv === '1' ? 'selected' : '' ?>>Nur aktive</option>
-      <option value="0" <?= $f_aktiv === '0' ? 'selected' : '' ?>>Nur inaktive</option>
-    </select>
-    <select name="vermittlung" aria-label="Nach Vermittlung filtern" style="margin:0;width:auto;flex:0 1 auto">
-      <option value="">Alle Vermittlungsarten</option>
-      <option value="direkt" <?= $f_vermittlung === 'direkt' ? 'selected' : '' ?>>Direkt</option>
-      <option value="ueber_uns" <?= $f_vermittlung === 'ueber_uns' ? 'selected' : '' ?>>Über uns</option>
-    </select>
+<form method="get" class="filter-bar">
+  <input type="text" name="q" value="<?= e($f_suche) ?>" placeholder="Suche…" class="filter-bar-search">
+  <select name="region" aria-label="Nach Region filtern">
+    <option value="0">Alle Regionen</option>
+    <?php foreach ($regionen as $r): ?>
+      <option value="<?= (int)$r['id'] ?>" <?= $f_region === (int)$r['id'] ? 'selected' : '' ?>><?= e($r['name']) ?></option>
+    <?php endforeach; ?>
+  </select>
+  <select name="tag" aria-label="Nach Tag filtern">
+    <option value="0">Alle Tags</option>
+    <?php foreach ($tags as $t): ?>
+      <option value="<?= (int)$t['id'] ?>" <?= $f_tag === (int)$t['id'] ? 'selected' : '' ?>><?= e($t['name']) ?></option>
+    <?php endforeach; ?>
+  </select>
+  <select name="aktiv" aria-label="Nach Status filtern">
+    <option value="">Alle Status</option>
+    <option value="1" <?= $f_aktiv === '1' ? 'selected' : '' ?>>Nur aktive</option>
+    <option value="0" <?= $f_aktiv === '0' ? 'selected' : '' ?>>Nur inaktive</option>
+  </select>
+  <select name="vermittlung" aria-label="Nach Vermittlung filtern">
+    <option value="">Alle Vermittlungsarten</option>
+    <option value="direkt" <?= $f_vermittlung === 'direkt' ? 'selected' : '' ?>>Direkt</option>
+    <option value="ueber_uns" <?= $f_vermittlung === 'ueber_uns' ? 'selected' : '' ?>>Über uns</option>
+  </select>
+  <div class="filter-bar-actions">
     <button type="submit" class="btn btn-secondary">Filtern</button>
     <?php if ($f_region || $f_tag || $f_aktiv !== '' || $f_vermittlung !== '' || $f_suche !== ''): ?>
       <a href="community.php" class="btn btn-edit">Zurücksetzen</a>
     <?php endif; ?>
-  </form>
-</div>
+  </div>
+</form>
 
 <?php if (empty($kontakte)): ?>
   <p style="color:#666;font-size:.9rem">Keine Kontakte gefunden.</p>
