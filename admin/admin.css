@@ -1607,6 +1607,21 @@ a.dashboard-tile-link:hover {
   transform: translateY(-1px);
   border-color: var(--mint-dark);
 }
+.stats-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.stats-sparkline-wrap {
+  margin: .4rem 0 .2rem;
+  height: 34px;
+  width: 100%;
+}
+.stats-sparkline {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
 
 .dashboard-links {
   display: grid;

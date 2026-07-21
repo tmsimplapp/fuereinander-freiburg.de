@@ -6,6 +6,16 @@ $db = admin_db();
 $stmt = $db->query("SELECT wert FROM statistiken WHERE name = 'seitenaufrufe'");
 $seitenaufrufe = (int) $stmt->fetchColumn();
 
+// Historie für die letzten 14 Tage abfragen (fallbacksicher falls Tabelle noch leer)
+$historie = [];
+try {
+    $stmtHist = $db->query("SELECT datum, seitenaufrufe FROM statistiken_historie ORDER BY datum ASC LIMIT 14");
+    $historie = $stmtHist->fetchAll(PDO::FETCH_ASSOC);
+} catch (Exception $e) {
+    // Tabelle existiert noch nicht oder leer
+}
+
+
 $stmt = $db->query(
     "SELECT COUNT(*) FROM gruppentermine WHERE termin_datum >= CURRENT_DATE AND aktiv = 1"
 );
@@ -79,11 +89,44 @@ require __DIR__ . '/header.php';
     </div>
   </a>
 
-  <div class="dashboard-tile">
+  <div class="dashboard-tile dashboard-tile-stats">
     <div class="dashboard-tile-accent"></div>
     <div class="dashboard-tile-body">
       <span class="dashboard-tile-label">Seitenaufrufe</span>
-      <span class="dashboard-tile-value"><?= number_format($seitenaufrufe, 0, ',', '.') ?></span>
+      <div class="stats-header">
+        <span class="dashboard-tile-value"><?= number_format($seitenaufrufe, 0, ',', '.') ?></span>
+      </div>
+
+      <?php if (count($historie) >= 2): ?>
+        <?php
+          // Tages-Delta berechnen
+          $daily = [];
+          for ($i = 1; $i < count($historie); $i++) {
+              $diff = max(0, (int)$historie[$i]['seitenaufrufe'] - (int)$historie[$i-1]['seitenaufrufe']);
+              $daily[] = ['datum' => $historie[$i]['datum'], 'val' => $diff];
+          }
+          $maxVal = max(1, ...array_column($daily, 'val'));
+          $width = 240;
+          $height = 40;
+          $points = [];
+          $count = count($daily);
+          foreach ($daily as $idx => $d) {
+              $x = $count > 1 ? ($idx / ($count - 1)) * $width : 0;
+              $y = $height - (($d['val'] / $maxVal) * ($height - 6)) - 3;
+              $points[] = sprintf('%.1f,%.1f', $x, $y);
+          }
+          $pointsStr = implode(' ', $points);
+          $lastDaily = end($daily)['val'];
+        ?>
+        <div class="stats-sparkline-wrap">
+          <svg class="stats-sparkline" viewBox="0 0 240 40" preserveAspectRatio="none">
+            <polyline points="<?= $pointsStr ?>" fill="none" stroke="var(--mint-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="dashboard-tile-sub">+<?= $lastDaily ?> Aufrufe gestern</span>
+      <?php else: ?>
+        <span class="dashboard-tile-sub">Historie wird aufgebaut...</span>
+      <?php endif; ?>
     </div>
   </div>
 
