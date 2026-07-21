@@ -9,7 +9,7 @@ $seitenaufrufe = (int) $stmt->fetchColumn();
 // Historie für die letzten 14 Tage abfragen (fallbacksicher falls Tabelle noch leer)
 $historie = [];
 try {
-    $stmtHist = $db->query("SELECT datum, seitenaufrufe FROM statistiken_historie ORDER BY datum ASC LIMIT 14");
+    $stmtHist = $db->query("SELECT datum, seitenaufrufe FROM statistiken_seitenaufrufe ORDER BY datum ASC LIMIT 14");
     $historie = $stmtHist->fetchAll(PDO::FETCH_ASSOC);
 } catch (Exception $e) {
     // Tabelle existiert noch nicht oder leer

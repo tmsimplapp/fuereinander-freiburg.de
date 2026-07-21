@@ -1,92 +1,9 @@
 [
 {"type":"header","version":"5.2.3","comment":"Export to JSON plugin for phpMyAdmin"},
 {"type":"database","name":"d0476877"},
-{"type":"table","name":"admins","database":"d0476877","data":
-[
-{"id":"1","username":"z8uAc7EmGLf8","password_hash":"$2y$12$Mba9twWsqUgWxcYr4sj7P.mgJzlnCa3a\/4YXRbcwxmu7fVNNa4vC6","totp_secret":"DCU7K6TMG5AAKTJ2","totp_enabled":"1","totp_backup_codes":"[\"f0a1ec59a26f7a9a546e0b9c34be2dc2d2f4b36d44f850319eba6368321c7c30\",\"498e2414856075a6e71bdf2d5547a68a0ab23f415e3247e56b6e79d4d0fc11ec\",\"5c82df4b5cad62dc42dec21bd1f4724a6baf7d1377726997359557ac40e7f374\",\"6cfd76f60e4341cb7f2cfb332e879b19036091c3bd860510eda9262228bd7efe\",\"2aee93c74b465cf355d615ac5b83ed388b341798d9f7a91427a9a803694ff390\",\"956f411212390925da27ac7ae1d0cb6f1780fdc5b437d899d8bc640dbe042c95\",\"b7adf235b951ad83a62093c7e6251f1ddf91327bd61ef8aaebf3b5990ed2cea3\",\"4cc92d8c843a23eaa741504e19de6ed157f06b173180a7809ac8dc6ef33767e9\",\"9a0f194bbb555216996c13f7d0ac0c4335520a90ec80afd4544178565d69c22a\",\"715d5a6132325edee6b0149acad0e8d6e396834244bae24a8f607b500190b73c\"]","totp_last_used_slice":"59482561","created_at":"2026-06-26 20:40:50"}
-]
-}
-,{"type":"table","name":"admin_rate_limit","database":"d0476877","data":
+{"type":"table","name":"statistiken_seitenaufrufe","database":"d0476877","data":
 [
 
-]
-}
-,{"type":"table","name":"community_notizen","database":"d0476877","data":
-[
-{"id":"1","organisation_id":"6","text":"test","erstellt_am":"2026-07-19 18:14:52"}
-]
-}
-,{"type":"table","name":"community_organisationen","database":"d0476877","data":
-[
-{"id":"4","name":"Exodus-Informationen e.V.","name_zusatz":null,"telefon":"089 92 39 66 82","email":null,"website":"https:\/\/www.exodus-info.de","strasse":"Jurastrasse 36","plz":"81677","ort":"München","vermittlung":"ueber_uns","bundesweit":"0","notizen":null,"aktiv":"1","updated_at":"2026-07-19 11:38:58"},
-{"id":"5","name":"ZJ Hilfe","name_zusatz":null,"telefon":null,"email":null,"website":"https:\/\/zj-hilfe.de\/","strasse":"Mauthnerstraße 5","plz":"83224","ort":"Grassau","vermittlung":"direkt","bundesweit":"1","notizen":null,"aktiv":"1","updated_at":"2026-07-18 16:07:07"},
-{"id":"6","name":"Haus der Begegnung Fr. Ldw e.V","name_zusatz":"Quartiersbüro Landwasser","telefon":"0761\/15629955","email":null,"website":"https:\/\/www.hdb-freiburg.de","strasse":"Auwaldstr. 92","plz":"79110","ort":"Freiburg","vermittlung":"ueber_uns","bundesweit":"0","notizen":null,"aktiv":"1","updated_at":"2026-07-19 17:12:19"}
-]
-}
-,{"type":"table","name":"community_organisation_regionen","database":"d0476877","data":
-[
-{"organisation_id":"4","region_id":"2"},
-{"organisation_id":"5","region_id":"2"},
-{"organisation_id":"6","region_id":"1"}
-]
-}
-,{"type":"table","name":"community_organisation_tags","database":"d0476877","data":
-[
-{"organisation_id":"4","tag_id":"2"},
-{"organisation_id":"4","tag_id":"4"},
-{"organisation_id":"5","tag_id":"2"},
-{"organisation_id":"5","tag_id":"3"},
-{"organisation_id":"6","tag_id":"1"},
-{"organisation_id":"6","tag_id":"4"},
-{"organisation_id":"6","tag_id":"5"}
-]
-}
-,{"type":"table","name":"community_personen","database":"d0476877","data":
-[
-{"id":"11","organisation_id":"5","name":"Martin Peth","telefon":null,"handy":"0152\/34183997","email":"zjhilfe777@gmail.com","strasse":null,"plz":null,"ort":null},
-{"id":"13","organisation_id":"4","name":"Bertram Satzinger","telefon":"08572\/4919883","handy":"01520\/1052625","email":"bertsatzinger@gmx.info","strasse":"Finkenstr. 17","plz":"84367","ort":"Tann"}
-]
-}
-,{"type":"table","name":"community_regionen","database":"d0476877","data":
-[
-{"id":"1","name":"Baden-Württemberg","land":"Deutschland"},
-{"id":"2","name":"Bayern","land":"Deutschland"},
-{"id":"3","name":"Berlin","land":"Deutschland"},
-{"id":"4","name":"Brandenburg","land":"Deutschland"},
-{"id":"5","name":"Bremen","land":"Deutschland"},
-{"id":"6","name":"Hamburg","land":"Deutschland"},
-{"id":"7","name":"Hessen","land":"Deutschland"},
-{"id":"8","name":"Mecklenburg-Vorpommern","land":"Deutschland"},
-{"id":"9","name":"Niedersachsen","land":"Deutschland"},
-{"id":"10","name":"Nordrhein-Westfalen","land":"Deutschland"},
-{"id":"11","name":"Rheinland-Pfalz","land":"Deutschland"},
-{"id":"12","name":"Saarland","land":"Deutschland"},
-{"id":"13","name":"Sachsen","land":"Deutschland"},
-{"id":"14","name":"Sachsen-Anhalt","land":"Deutschland"},
-{"id":"15","name":"Schleswig-Holstein","land":"Deutschland"},
-{"id":"16","name":"Thüringen","land":"Deutschland"}
-]
-}
-,{"type":"table","name":"community_tags","database":"d0476877","data":
-[
-{"id":"1","name":"nicht theologisch","beschreibung":null,"farbe":"#F97316"},
-{"id":"2","name":"theologisch","beschreibung":null,"farbe":"#EC4899"},
-{"id":"3","name":"seelsorgerisch","beschreibung":null,"farbe":"#8B5CF6"},
-{"id":"4","name":"nicht seelsorgerisch","beschreibung":null,"farbe":"#3B82F6"},
-{"id":"5","name":"Unterstützer (öffentlich)","beschreibung":"Andere Organisationen oder Personen die uns unterstützen, wie Selbsthilfebüro oder Beratungsstellen","farbe":"#14B8A6"}
-]
-}
-,{"type":"table","name":"gruppentermine","database":"d0476877","data":
-[
-{"id":"1","termin_datum":"2026-06-27","uhrzeiten":"[\"14:00\"]","slot_laenge_min":"120","aktiv":"1","bemerkung":"Das Treffen entfällt aufgrund der extrem hohen Temperaturen","max_teilnehmer":"8","ausgebucht":"0"},
-{"id":"7","termin_datum":"2026-07-25","uhrzeiten":"[\"10:00\"]","slot_laenge_min":"120","aktiv":"1","bemerkung":null,"max_teilnehmer":"8","ausgebucht":"0"},
-{"id":"9","termin_datum":"2026-09-19","uhrzeiten":"[\"10:00\"]","slot_laenge_min":"120","aktiv":"1","bemerkung":null,"max_teilnehmer":"8","ausgebucht":"0"},
-{"id":"10","termin_datum":"2026-10-17","uhrzeiten":"[\"10:00\"]","slot_laenge_min":"120","aktiv":"1","bemerkung":null,"max_teilnehmer":"8","ausgebucht":"0"}
-]
-}
-,{"type":"table","name":"statistiken","database":"d0476877","data":
-[
-{"id":"1","name":"seitenaufrufe","wert":"243"}
 ]
 }
 ]

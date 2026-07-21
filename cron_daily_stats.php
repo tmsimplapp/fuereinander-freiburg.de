@@ -18,7 +18,7 @@ try {
     // Heutiges Datum & Aufrufe speichern (bei erneutem Aufruf am selben Tag aktualisieren)
     $today = date('Y-m-d');
     $stmtInsert = $db->prepare("
-        INSERT INTO statistiken_historie (datum, seitenaufrufe) 
+        INSERT INTO statistiken_seitenaufrufe (datum, seitenaufrufe) 
         VALUES (:datum, :seitenaufrufe)
         ON DUPLICATE KEY UPDATE seitenaufrufe = :seitenaufrufe
     ");
