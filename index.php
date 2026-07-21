@@ -6,8 +6,8 @@ $active_page = 'index';
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Selbsthilfegruppe Zeugen Jehovas Freiburg | Hilfe &amp; Ausstieg</title>
-  <meta name="description" content="Informative Selbsthilfegruppe in Freiburg für zweifelnde und ehemalige Zeugen Jehovas. Kostenloser, vertraulicher Austausch ohne theologische Diskussionen." />
+  <title>Zeugen Jehovas Freiburg: Selbsthilfegruppe für Aussteiger &amp; Zweifler</title>
+  <meta name="description" content="Hilfe und Austausch in der Selbsthilfegruppe für (ehemalige) Zeugen Jehovas in Freiburg. Sicherer Ort für Zweifel und Ausstieg, ohne theologische Diskussionen." />
   <meta name="keywords" content="Zeugen Jehovas Ausstieg, Selbsthilfegruppe Freiburg, Hilfe Zeugen Jehovas, Zweifel Religion, Sektenausstieg" />
   <meta name="author" content="Selbsthilfegruppe Füreinander Freiburg" />
   <meta name="robots" content="index, follow" />
