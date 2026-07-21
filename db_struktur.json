@@ -1,9 +1,0 @@
-[
-{"type":"header","version":"5.2.3","comment":"Export to JSON plugin for phpMyAdmin"},
-{"type":"database","name":"d0476877"},
-{"type":"table","name":"statistiken_seitenaufrufe","database":"d0476877","data":
-[
-
-]
-}
-]
