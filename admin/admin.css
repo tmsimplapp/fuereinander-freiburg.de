@@ -161,25 +161,25 @@ body {
 .sidebar-stats svg { flex-shrink: 0; }
 .sidebar-stats strong { color: var(--text); }
 
-.sidebar-logout { padding: .5rem .5rem 0; }
+.sidebar-logout { margin-top: auto; padding-top: .5rem; }
 .sidebar-logout .btn-logout {
   display: flex;
   align-items: center;
-  gap: .5rem;
+  gap: .55rem;
   width: 100%;
   background: transparent;
-  color: #888;
-  font-size: .8rem;
+  color: var(--text-muted);
+  font-size: .875rem;
   font-weight: 500;
   text-decoration: none;
-  padding: .5rem .6rem;
+  padding: .55rem .6rem;
   border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: background .15s, color .15s;
 }
 .sidebar-logout .btn-logout:hover { background: #fee2e2; color: #b91c1c; }
-.sidebar-logout .btn-logout svg { flex-shrink: 0; }
+.sidebar-logout .btn-logout svg { flex-shrink: 0; width: 18px; height: 18px; }
 
 @media (max-width: 768px) {
   .admin-layout { 
@@ -227,7 +227,7 @@ body {
   }
 
   .sidebar-stats { margin: .75rem 0 0; }
-  .sidebar-logout { margin-left: 0; padding: 0; }
+  .sidebar-logout { margin-top: 0; margin-left: 0; padding: 0; }
 }
 
 /* Overlay hinter geöffnetem Mobile-Menü */
@@ -600,24 +600,37 @@ textarea { resize: vertical; }
 
 /* ── Filterleiste (community.php) ── */
 .filter-bar {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: .6rem;
   margin-bottom: 1.5rem;
+  align-items: center;
 }
-.filter-bar-search { grid-column: 1 / -1; }
-.filter-bar select { width: 100%; }
+.filter-bar-search {
+  width: 100%;
+}
+.filter-bar select {
+  flex: 1 1 160px;
+  min-width: 140px;
+}
 .filter-bar-actions {
-  grid-column: 1 / -1;
   display: flex;
   gap: .6rem;
-  flex-wrap: wrap;
+  align-items: center;
 }
-@media (max-width: 640px) {
-  .filter-bar { grid-template-columns: 1fr 1fr; }
-  .filter-bar-actions { flex-direction: column; }
-  .filter-bar-actions .btn { width: 100%; }
+@media (max-width: 480px) {
+  .filter-bar select {
+    flex: 1 1 100%;
+  }
+  .filter-bar-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+  .filter-bar-actions .btn {
+    width: 100%;
+  }
 }
+
 
 /* Panels sind auch außerhalb von .crm-grid nutzbar */
 .crm-panel.is-narrow { max-width: 560px; }
@@ -646,11 +659,11 @@ textarea { resize: vertical; }
 
 .crm-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 320px;
+  grid-template-columns: minmax(0, 1fr) 340px;
   gap: 1.25rem;
   align-items: start;
 }
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .crm-grid { grid-template-columns: 1fr; }
 }
 
@@ -665,7 +678,8 @@ textarea { resize: vertical; }
 .crm-panel:last-child { margin-bottom: 0; }
 .crm-side { display: flex; flex-direction: column; gap: 1.25rem; }
 .crm-side .crm-panel { margin-bottom: 0; }
-@media (min-width: 901px) {
+.crm-side .btn { width: 100%; justify-content: center; }
+@media (min-width: 1025px) {
   .crm-side { position: sticky; top: 1rem; }
 }
 
@@ -855,7 +869,6 @@ textarea { resize: vertical; }
   margin-top: 1.25rem;
   flex-wrap: wrap;
 }
-.crm-actions-cancel { margin-left: auto; }
 .crm-actions-sticky {
   position: sticky;
   bottom: 0;
@@ -873,7 +886,6 @@ textarea { resize: vertical; }
 @media (max-width: 600px) {
   .crm-actions { flex-direction: column; }
   .crm-actions .btn { width: 100%; }
-  .crm-actions-cancel { margin-left: 0; }
   .btn-notiz-speichern { align-self: stretch; width: 100%; }
 }
 
@@ -1243,7 +1255,7 @@ textarea { resize: vertical; }
 /* Community Kacheln */
 .community-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1rem;
   margin-top: 1rem;
 }

@@ -213,7 +213,7 @@ require __DIR__ . '/header.php';
     </div>
   <?php endif; ?>
 
-  <form method="post" autocomplete="off">
+  <form method="post" autocomplete="off" id="profile-form">
     <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
 
     <label for="username">Benutzername</label>
@@ -235,12 +235,6 @@ require __DIR__ . '/header.php';
     <label for="new_password_confirm">Neues Passwort wiederholen</label>
     <input type="password" id="new_password_confirm" name="new_password_confirm"
            autocomplete="new-password" maxlength="1024">
-
-    <div class="crm-actions crm-actions-sticky">
-      <button type="submit" name="save_action" value="save_close" class="btn btn-primary">Speichern & schließen</button>
-      <button type="submit" name="save_action" value="save_stay" class="btn btn-soft-green" style="font-weight:500;">Zwischenspeichern</button>
-      <a href="termine.php" class="btn btn-secondary crm-actions-cancel">Abbrechen</a>
-    </div>
   </form>
 </section>
 </div>
@@ -363,6 +357,12 @@ require __DIR__ . '/header.php';
   <?php endif; ?>
 </section>
 </aside>
+</div>
+
+<div class="crm-actions crm-actions-sticky">
+  <button type="submit" form="profile-form" name="save_action" value="save_close" class="btn btn-primary">Speichern &amp; schließen</button>
+  <button type="submit" form="profile-form" name="save_action" value="save_stay" class="btn btn-soft-green" style="font-weight:500;">Zwischenspeichern</button>
+  <a href="termine.php" class="btn btn-secondary crm-actions-cancel">Abbrechen</a>
 </div>
 
 <?php require __DIR__ . '/footer.php'; ?>

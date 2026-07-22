@@ -315,10 +315,6 @@ $active_page = 'index';
     <!-- Text: oben-rechts -->
     <div class="hero-full-content">
 
-      <p class="hero-anim-1 font-body text-sm font-semibold tracking-widest uppercase mb-6 text-text-muted" style="letter-spacing: 0.2em">
-        Füreinander &amp; Miteinander
-      </p>
-
       <h1 class="hero-anim-2 font-caveat hero-full-title text-text-strong" style="font-size: 5.3rem; line-height: 0.9; margin-bottom: 0.5em;">
         <span class="sr-only">Selbsthilfegruppe Freiburg für Zeugen Jehovas: </span>
         Du bist<br>
