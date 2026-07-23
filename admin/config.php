@@ -12,7 +12,7 @@ session_set_cookie_params([
     'domain'   => '',
     'secure'   => true,
     'httponly' => true,
-    'samesite' => 'Lax',
+    'samesite' => 'Strict',
 ]);
 
 define('SESSION_TIMEOUT', 900); // 15 Minuten Inaktivitäts-Timeout

@@ -27,6 +27,9 @@ try {
         ':seitenaufrufe' => $count
     ]);
 
+    // Ältere Einträge als 365 Tage löschen
+    $db->exec("DELETE FROM statistiken_seitenaufrufe WHERE datum < DATE_SUB(CURDATE(), INTERVAL 365 DAY)");
+
     echo "OK: $today = $count\n";
 } catch (Exception $e) {
     http_response_code(500);

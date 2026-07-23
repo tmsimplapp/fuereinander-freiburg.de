@@ -3,9 +3,6 @@
 // Erwartet optional $active_nav (z. B. 'dashboard', 'termine', 'community', 'profil').
 $active_nav = $active_nav ?? '';
 $verwaltung_sub_active = in_array($active_nav, ['community-tags', 'community-regionen'], true);
-
-$stmt = admin_db()->query("SELECT wert FROM statistiken WHERE name = 'seitenaufrufe'");
-$seitenaufrufe = (int) $stmt->fetchColumn();
 ?>
 <div class="sidebar">
   <div class="sidebar-brand">
@@ -47,11 +44,13 @@ $seitenaufrufe = (int) $stmt->fetchColumn();
       Profil
     </a>
 
-    <div class="sidebar-stats">
-      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-      Seitenaufrufe: <strong><?= number_format($seitenaufrufe, 0, ',', '.') ?></strong>
-    </div>
     <form method="post" action="logout.php" class="sidebar-logout">
+      <div style="display: flex; align-items: center; gap: .55rem; padding: 0 .6rem; margin-bottom: .4rem; font-size: .875rem; color: var(--text-muted); font-weight: 500;">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        Auto-Logout: <span id="session-countdown" style="font-weight: 600; color: var(--text); margin-left: auto;">...</span>
+      </div>
       <button type="submit" class="btn-logout">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         Abmelden
@@ -59,3 +58,28 @@ $seitenaufrufe = (int) $stmt->fetchColumn();
     </form>
   </nav>
 </div>
+
+<?php
+$remaining_time = isset($_SESSION['admin_last_active']) ? (SESSION_TIMEOUT - (time() - $_SESSION['admin_last_active'])) : SESSION_TIMEOUT;
+?>
+<script>
+  let countdownSeconds = <?= max(0, $remaining_time) ?>;
+  function updateCountdown() {
+    const el = document.getElementById('session-countdown');
+    if (!el) return;
+    if (countdownSeconds <= 0) {
+      el.textContent = "00:00";
+      window.location.href = "login.php?timeout=1";
+      return;
+    }
+    const m = Math.floor(countdownSeconds / 60).toString().padStart(2, '0');
+    const s = (countdownSeconds % 60).toString().padStart(2, '0');
+    el.textContent = m + ":" + s;
+    if (countdownSeconds <= 60) {
+      el.style.color = '#e74c3c';
+    }
+    countdownSeconds--;
+  }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>

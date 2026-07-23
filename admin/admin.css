@@ -1634,6 +1634,31 @@ a.dashboard-tile-link:hover {
   height: 100%;
   overflow: visible;
 }
+.stats-pills {
+  display: flex;
+  gap: .4rem;
+  margin-top: .4rem;
+  flex-wrap: wrap;
+}
+.stats-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: .2rem .55rem;
+  border-radius: 999px;
+  font-size: .75rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.stats-pill-today {
+  background: rgba(13, 110, 110, 0.08);
+  color: var(--mint-dark, #0d6e6e);
+  border: 1px solid rgba(13, 110, 110, 0.18);
+}
+.stats-pill-yesterday {
+  background: #f1f3f5;
+  color: #6c757d;
+  border: 1px solid #e2e8f0;
+}
 
 .dashboard-links {
   display: grid;

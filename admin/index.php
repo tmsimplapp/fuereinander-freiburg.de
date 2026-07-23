@@ -92,7 +92,7 @@ require __DIR__ . '/header.php';
   <div class="dashboard-tile dashboard-tile-stats">
     <div class="dashboard-tile-accent"></div>
     <div class="dashboard-tile-body">
-      <span class="dashboard-tile-label">Seitenaufrufe</span>
+      <span class="dashboard-tile-label">Seitenaufrufe gesamt</span>
       <div class="stats-header">
         <span class="dashboard-tile-value"><?= number_format($seitenaufrufe, 0, ',', '.') ?></span>
       </div>
@@ -117,13 +117,18 @@ require __DIR__ . '/header.php';
           }
           $pointsStr = implode(' ', $points);
           $lastDaily = end($daily)['val'];
+          $lastRecorded = (int)end($historie)['seitenaufrufe'];
+          $heuteDaily = max(0, $seitenaufrufe - $lastRecorded);
         ?>
         <div class="stats-sparkline-wrap">
           <svg class="stats-sparkline" viewBox="0 0 240 40" preserveAspectRatio="none">
             <polyline points="<?= $pointsStr ?>" fill="none" stroke="var(--mint-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <span class="dashboard-tile-sub">+<?= $lastDaily ?> Aufrufe gestern</span>
+        <div class="stats-pills">
+          <span class="stats-pill stats-pill-today">+<?= $heuteDaily ?> heute</span>
+          <span class="stats-pill stats-pill-yesterday">+<?= $lastDaily ?> gestern</span>
+        </div>
       <?php else: ?>
         <span class="dashboard-tile-sub">Historie wird aufgebaut...</span>
       <?php endif; ?>
