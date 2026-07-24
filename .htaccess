@@ -2,6 +2,7 @@
 # Projekt: Füreinander Freiburg Landingpage
 
 # Aktiviere Rewrite-Engine
+Options -MultiViews
 RewriteEngine On
 RewriteBase /
 
@@ -25,8 +26,13 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^(.+)$ $1.html [L,QSA]
 
+# Custom Routing für Themen & Themen-Detail
+RewriteRule ^themen/?$ themen.php [L,QSA]
+RewriteRule ^themen/([^/]+)/?$ themen-detail.php?slug=$1 [L,QSA]
+
 # 2b. Entferne .php-Endungen aus der URL (301 Permanent Redirect)
 RewriteCond %{THE_REQUEST} ^GET\ (.*)\.php\ HTTP
+RewriteCond %{REQUEST_URI} !^/themen
 RewriteRule (.*)\.php$ /$1 [R=301,L]
 
 # 3b. Füge .php intern hinzu, wenn Datei existiert
