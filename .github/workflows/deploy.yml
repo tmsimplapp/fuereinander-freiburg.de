@@ -1,0 +1,37 @@
+name: 🚀 Deploy Website via FTP
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4
+
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        server-dir: /
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/.github*/**
+          **/node_modules/**
+          package.json
+          package-lock.json
+          tailwind-src.css
+          tailwind.config.js
+          telegram-config.php
+          buchung-config.php
+          CLAUDE.md
+          GEMINI.md
+          llms.txt
+          deploy.php
