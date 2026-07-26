@@ -85,19 +85,20 @@
     const WARM_YELLOW = '#ffda69';
 
     const pusteblume = new Image();
-    pusteblume.src = 'hero_grafik.png';
+    pusteblume.src = 'hero_grafik_neu.svg';
 
     function drawOGImage() {
       // Hintergrund
       ctx.fillStyle = CREAM;
       ctx.fillRect(0, 0, 1200, 630);
 
-      // Pusteblume rechts, dezent (wie im Hero)
+      // Neue SVG rechts, dezent (wie im Hero)
       if (pusteblume.complete && pusteblume.naturalWidth) {
-        const imgW = 620;
-        const imgH = imgW * (pusteblume.naturalHeight / pusteblume.naturalWidth);
-        ctx.globalAlpha = 0.9;
-        ctx.drawImage(pusteblume, 620, 315 - imgH / 2, imgW, imgH);
+        const imgH = 480;
+        const imgW = imgH * (pusteblume.naturalWidth / pusteblume.naturalHeight);
+        ctx.globalAlpha = 0.95;
+        // Rechts bündig mit 80px Abstand
+        ctx.drawImage(pusteblume, 1200 - imgW - 80, 315 - imgH / 2, imgW, imgH);
         ctx.globalAlpha = 1;
       }
 
@@ -131,6 +132,8 @@
       ctx.fillStyle = '#6f6047';
       ctx.font = '600 24px "Source Serif 4", Georgia, serif';
       ctx.fillText('fuereinander-freiburg.de', 80, 560);
+
+      window.renderingComplete = true;
     }
 
     function downloadImage() {

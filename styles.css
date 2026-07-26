@@ -1037,3 +1037,174 @@ main button:focus-visible {
   overflow-wrap: anywhere !important;
   word-break: break-word !important;
 }
+
+/* ═══════════════════════════════════════
+   BILDERGALERIE
+   ═══════════════════════════════════════ */
+
+.galerie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.galerie-item {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  border: 1px solid oklch(85% 0.04 70);
+  border-radius: 1rem;
+  overflow: hidden;
+  background: oklch(97% 0.03 95);
+  cursor: zoom-in;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.galerie-item:hover,
+.galerie-item:focus-visible {
+  transform: translateY(-2px);
+  border-color: oklch(87% 0.08 165);
+  box-shadow: 0 8px 20px oklch(30% 0.03 150 / 0.12);
+}
+
+.galerie-item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.galerie-item-titel {
+  display: block;
+  padding: 0.6rem 0.85rem;
+  text-align: left;
+  color: oklch(35% 0.02 90);
+}
+
+/* ── Lightbox ── */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  /* Über Mobile-FAB (1000) und Mobile-Menü (999), sonst überdecken sie das Vollbild */
+  z-index: 1100;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: oklch(18% 0.02 150 / 0.92);
+  backdrop-filter: blur(6px);
+  /* Verhindert Scroll-Durchgriff auf die Seite dahinter (iOS) */
+  overscroll-behavior: contain;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.lightbox-figur {
+  grid-column: 2;
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  min-width: 0;
+}
+
+.lightbox-figur img {
+  max-width: 100%;
+  max-height: 78vh;
+  width: auto;
+  height: auto;
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 40px oklch(10% 0 0 / 0.45);
+}
+
+.lightbox-caption {
+  display: grid;
+  gap: 0.2rem;
+  text-align: center;
+  color: oklch(96% 0.01 95);
+}
+
+.lightbox-zaehler {
+  color: oklch(80% 0.02 95);
+}
+
+.lightbox-nav,
+.lightbox-close {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid oklch(100% 0 0 / 0.25);
+  border-radius: 50%;
+  background: oklch(100% 0 0 / 0.12);
+  color: oklch(98% 0 0);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.lightbox-nav svg,
+.lightbox-close svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.lightbox-nav:hover,
+.lightbox-close:hover,
+.lightbox-nav:focus-visible,
+.lightbox-close:focus-visible {
+  background: oklch(100% 0 0 / 0.25);
+  transform: scale(1.06);
+}
+
+.lightbox-prev { grid-column: 1; }
+.lightbox-next { grid-column: 3; }
+
+.lightbox-close {
+  position: absolute;
+  top: clamp(0.75rem, 3vw, 1.5rem);
+  right: clamp(0.75rem, 3vw, 1.5rem);
+}
+
+/* Mobile: Pfeile unter das Bild, damit sie nicht am Rand kleben */
+@media (max-width: 40rem) {
+  .lightbox {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+    align-content: center;
+    padding: 1rem;
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  }
+  .lightbox-figur {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+  .lightbox-figur img { max-height: 62vh; }
+  .lightbox-prev { grid-column: 1; grid-row: 2; justify-self: end; }
+  .lightbox-next { grid-column: 2; grid-row: 2; justify-self: start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox,
+  .galerie-item,
+  .lightbox-nav,
+  .lightbox-close {
+    transition: none;
+  }
+}

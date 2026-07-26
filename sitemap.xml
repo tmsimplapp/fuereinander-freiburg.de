@@ -25,6 +25,12 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>https://fuereinander-freiburg.de/galerie.php</loc>
+    <lastmod>2026-07-26</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://fuereinander-freiburg.de/partner.php</loc>
     <lastmod>2026-06-20</lastmod>
     <priority>0.6</priority>

@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = 'Bitte gib einen Titel ein.';
     }
     if ($slug === '') {
-        $errors[] = 'Bitte gib einen URL-Slug ein.';
+        $errors[] = 'Bitte gib einen Titel oder eine Adresse für die Seite ein.';
     }
     if ($teaser === '') {
         $errors[] = 'Bitte gib einen Teaser-Text ein.';
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $chk_stmt = $db->prepare('SELECT id FROM artikel WHERE slug = ? AND id != ?');
         $chk_stmt->execute([$slug, $id]);
         if ($chk_stmt->fetch()) {
-            $errors[] = 'Dieser URL-Slug existiert bereits. Bitte passe ihn an.';
+            $errors[] = 'Diese Adresse wird bereits von einem anderen Artikel verwendet. Bitte passe sie an.';
         } else {
             // Spalten in DB ermitteln
             $col_stmt = $db->query("SHOW COLUMNS FROM artikel");
@@ -215,7 +215,8 @@ require __DIR__ . '/header.php';
         <label for="titel">Titel *</label>
         <input type="text" id="titel" name="titel" value="<?= e($titel) ?>" required placeholder="z. B. Ausstiegsfolgen überwinden">
 
-        <label for="slug">URL-Slug (wird bei leeren Feldern auto-generiert) *</label>
+        <label for="slug">Adresse der Seite</label>
+        <p class="hint" style="margin-bottom:.5rem">Unter dieser Adresse ist der Artikel später erreichbar. Leer lassen – die Adresse wird dann automatisch aus dem Titel gebildet.</p>
         <div style="display:flex; align-items:center; gap:.4rem; margin-bottom: 1.2rem;">
           <span style="font-size:.85rem; color:#888;">/themen/</span>
           <input type="text" id="slug" name="slug" value="<?= e($slug) ?>" placeholder="ausstiegsfolgen-ueberwinden" style="margin-bottom:0;">
@@ -225,7 +226,7 @@ require __DIR__ . '/header.php';
         <textarea id="teaser" name="teaser" rows="3" required placeholder="Kurze Vorschau für die Übersicht..." style="resize:vertical;"><?= e($teaser) ?></textarea>
 
         <label for="inhalt">Inhalt *</label>
-        <textarea id="inhalt" name="inhalt" required><?= e($inhalt) ?></textarea>
+        <textarea id="inhalt" name="inhalt"><?= e($inhalt) ?></textarea>
       </section>
 
       <!-- SEO Sektion -->
@@ -260,7 +261,7 @@ require __DIR__ . '/header.php';
             <strong>Veröffentlicht</strong>
             <small>Artikel im Frontend sichtbar machen</small>
             <div style="font-size:0.75rem; color:#d35400; margin-top:0.4rem; line-height:1.3; font-weight:normal;">
-              💡 Als eingeloggter Admin kannst du diesen Artikel auch als „Entwurf“ im Frontend aufrufen. Für normale Besucher ist er unsichtbar (404-Meldung).
+              Als eingeloggter Admin kannst du diesen Artikel auch als „Entwurf“ im Frontend aufrufen. Für normale Besucher ist er unsichtbar (404-Meldung).
             </div>
             <div style="margin-top: 0.8rem; display: flex; flex-direction: column; gap: 0.5rem;">
               <?php if ($id > 0): ?>
@@ -328,7 +329,7 @@ require __DIR__ . '/header.php';
 
   <div class="crm-actions crm-actions-sticky">
     <button type="submit" name="save_action" value="save_close" class="btn btn-primary">Speichern & schließen</button>
-    <button type="submit" name="save_action" value="save_stay" class="btn btn-soft-green" style="font-weight:500;">Zwischenspeichern</button>
+    <button type="submit" name="save_action" value="save_stay" class="btn btn-soft-green" style="font-weight:500;">Speichern</button>
     <a href="artikel.php" class="btn btn-secondary crm-actions-cancel">Abbrechen</a>
   </div>
 </form>
@@ -349,6 +350,29 @@ const easyMDE = new EasyMDE({
   placeholder: 'Schreibe hier deinen Artikel...',
   minHeight: '380px'
 });
+
+// Warnen, wenn die Seite mit ungespeicherten Änderungen verlassen wird.
+(function() {
+  const form = document.querySelector('form[method="post"]');
+  if (!form) return;
+
+  let schmutzig = false;
+  let wirdGespeichert = false;
+
+  form.addEventListener('input', function() { schmutzig = true; });
+  form.addEventListener('change', function() { schmutzig = true; });
+  easyMDE.codemirror.on('change', function() { schmutzig = true; });
+
+  // Beim Absenden ist das Verlassen gewollt.
+  form.addEventListener('submit', function() { wirdGespeichert = true; });
+
+  window.addEventListener('beforeunload', function(e) {
+    if (!schmutzig || wirdGespeichert) return;
+    e.preventDefault();
+    // Der Browser zeigt seinen eigenen Text; returnValue ist nur für ältere nötig.
+    e.returnValue = '';
+  });
+})();
 
 function downloadMarkdown() {
   const titel = document.getElementById('titel').value || 'artikel';

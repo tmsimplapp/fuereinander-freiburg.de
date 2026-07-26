@@ -403,9 +403,10 @@ require __DIR__ . '/header.php';
                       <div style="display:flex; justify-content:space-between; align-items:start; gap:0.5rem;">
                         <span style="font-size:0.8rem; color:#6b7280;"><?= e(date('d.m.Y H:i', strtotime($n['erstellt_am']))) ?> Uhr</span>
                         <button type="button" class="community-icon-btn danger" title="Notiz löschen"
+                                aria-label="Notiz vom <?= e(date('d.m.Y H:i', strtotime($n['erstellt_am']))) ?> Uhr löschen"
                                 data-notiz-id="<?= (int)$n['id'] ?>"
                                 onclick="notizLoeschenBestaetigen(<?= (int)$n['id'] ?>)">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
                         </button>
                       </div>
                       <p style="margin:0.5rem 0 0; white-space:pre-wrap;"><?= e($n['text']) ?></p>
@@ -435,16 +436,18 @@ require __DIR__ . '/header.php';
           </div>
 
           <label>Vermittlung</label>
+          <p class="hint" style="margin-bottom:.5rem">Wie darf dieser Kontakt an Ratsuchende weitergegeben werden?</p>
           <div class="crm-segmented">
             <label>
               <input type="radio" name="vermittlung" value="direkt" <?= $kontakt['vermittlung'] === 'direkt' ? 'checked' : '' ?>>
-              <span>Direkt weitergebbar</span>
+              <span>Direkt weitergeben</span>
             </label>
             <label>
               <input type="radio" name="vermittlung" value="ueber_uns" <?= $kontakt['vermittlung'] === 'ueber_uns' ? 'checked' : '' ?>>
               <span>Nur über uns</span>
             </label>
           </div>
+          <p class="hint">„Direkt weitergeben“: Wir dürfen Name und Kontaktdaten ungefragt herausgeben. „Nur über uns“: Wir stellen den Kontakt selbst her.</p>
 
           <div class="crm-toggle-card" style="margin-top:1rem">
             <div class="crm-toggle-text">
@@ -515,7 +518,7 @@ require __DIR__ . '/header.php';
 
     <div class="crm-actions crm-actions-sticky">
       <button type="submit" name="save_action" value="save_close" class="btn btn-primary">Speichern & schließen</button>
-      <button type="submit" name="save_action" value="save_stay" class="btn btn-soft-green" style="font-weight:500;">Zwischenspeichern</button>
+      <button type="submit" name="save_action" value="save_stay" class="btn btn-soft-green" style="font-weight:500;">Speichern</button>
       <a href="community.php" class="btn btn-secondary crm-actions-cancel">Abbrechen</a>
     </div>
   </form>
@@ -576,8 +579,9 @@ document.getElementById('notizLoeschBestaetigen').addEventListener('click', func
   }
 });
 
-document.getElementById('notizLoeschModal').addEventListener('click', function(e) {
-  if (e.target === this) notizModalSchliessen();
+// Klick auf Hintergrund, Escape und Fokus-Handling: siehe modal.js
+document.getElementById('notizLoeschModal').addEventListener('modal:geschlossen', function() {
+  pendingNotizId = null;
 });
 </script>
 <?php endif; ?>

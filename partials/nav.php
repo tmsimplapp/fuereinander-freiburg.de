@@ -33,6 +33,7 @@ function mobile_link_classes(string $page, string $active): string {
       <a href="angehoerige.php" class="<?= nav_link_classes('angehoerige', $active_page) ?>">Angehörige</a>
       <a href="partner.php" class="<?= nav_link_classes('partner', $active_page) ?>">Partner</a>
       <a href="termine.php" class="<?= nav_link_classes('termine', $active_page) ?>">Termine</a>
+      <a href="galerie.php" class="<?= nav_link_classes('galerie', $active_page) ?>">Galerie</a>
       <a href="index.php#kontakt" class="btn-primary glowing-border font-body text-sm font-semibold px-5 py-2.5 rounded-full active:scale-95">Kontakt</a>
     </div>
   </div>
@@ -58,6 +59,7 @@ function mobile_link_classes(string $page, string $active): string {
       <a href="angehoerige.php" <?= $active_page === 'angehoerige' ? 'aria-current="page"' : '' ?> class="<?= mobile_link_classes('angehoerige', $active_page) ?>" style="min-height: 44px; display: flex; align-items: center; justify-content: center<?= $active_page === 'angehoerige' ? '; color:#1a2820' : '' ?>">Angehörige</a>
       <a href="partner.php" <?= $active_page === 'partner' ? 'aria-current="page"' : '' ?> class="<?= mobile_link_classes('partner', $active_page) ?>" style="min-height: 44px; display: flex; align-items: center; justify-content: center<?= $active_page === 'partner' ? '; color:#1a2820' : '' ?>">Partner</a>
       <a href="termine.php" <?= $active_page === 'termine' ? 'aria-current="page"' : '' ?> class="<?= mobile_link_classes('termine', $active_page) ?>" style="min-height: 44px; display: flex; align-items: center; justify-content: center<?= $active_page === 'termine' ? '; color:#1a2820' : '' ?>">Termine</a>
+      <a href="galerie.php" <?= $active_page === 'galerie' ? 'aria-current="page"' : '' ?> class="<?= mobile_link_classes('galerie', $active_page) ?>" style="min-height: 44px; display: flex; align-items: center; justify-content: center<?= $active_page === 'galerie' ? '; color:#1a2820' : '' ?>">Galerie</a>
       <a href="rechtliches.php" <?= $active_page === 'rechtliches' ? 'aria-current="page"' : '' ?> class="<?= mobile_link_classes('rechtliches', $active_page) ?>" style="min-height: 44px; display: flex; align-items: center; justify-content: center<?= $active_page === 'rechtliches' ? '; color:#1a2820' : '' ?>">Rechtliches</a>
       <a href="index.php#kontaktformular" class="font-body text-base font-bold py-3 px-6 rounded-full transition-all text-center mt-2 shadow-sm bg-mint border border-mint-dark" style="min-height: 44px; display: flex; align-items: center; justify-content: center; color:#1a2820">Kontaktformular</a>
 

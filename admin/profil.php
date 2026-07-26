@@ -10,6 +10,9 @@ $csrf   = $_SESSION['csrf_token'];
 $errors = [];
 $success = false;
 
+$flash = $_SESSION['flash'] ?? null;
+unset($_SESSION['flash']);
+
 // Aktuellen Admin laden
 $stmt = $db->prepare('SELECT id, username, totp_enabled, totp_backup_codes FROM admins WHERE id = ? LIMIT 1');
 $stmt->execute([$_SESSION['admin_id']]);
@@ -159,7 +162,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             $admin['username'] = $neuer_username;
             if (isset($_POST['save_action']) && $_POST['save_action'] === 'save_close') {
-                header('Location: termine.php');
+                $_SESSION['flash'] = ['type' => 'ok', 'msg' => 'Profil gespeichert.'];
+                header('Location: index.php');
                 exit;
             }
             $success = true;
@@ -198,6 +202,10 @@ require __DIR__ . '/header.php';
     </div>
   </div>
 
+  <?php if ($flash): ?>
+    <div class="alert alert-<?= $flash['type'] === 'ok' ? 'ok' : 'err' ?>"><?= e($flash['msg']) ?></div>
+  <?php endif; ?>
+
   <?php if ($success): ?>
     <div class="alert alert-ok">Änderungen gespeichert.</div>
   <?php endif; ?>
@@ -222,10 +230,10 @@ require __DIR__ . '/header.php';
 
     <hr class="divider">
 
+    <p class="hint" style="margin-bottom:.6rem">Aus Sicherheitsgründen musst du dein aktuelles Passwort eingeben – auch dann, wenn du nur den Benutzernamen änderst.</p>
     <label for="current_password">Aktuelles Passwort <span style="color:#991b1b">*</span></label>
     <input type="password" id="current_password" name="current_password" required
            autocomplete="current-password" maxlength="1024">
-    <p class="hint">Zur Bestätigung aller Änderungen erforderlich.</p>
 
     <label for="new_password">Neues Passwort <span style="color:#aaa;font-weight:400">(leer lassen = nicht ändern)</span></label>
     <input type="password" id="new_password" name="new_password"
@@ -361,8 +369,8 @@ require __DIR__ . '/header.php';
 
 <div class="crm-actions crm-actions-sticky">
   <button type="submit" form="profile-form" name="save_action" value="save_close" class="btn btn-primary">Speichern &amp; schließen</button>
-  <button type="submit" form="profile-form" name="save_action" value="save_stay" class="btn btn-soft-green" style="font-weight:500;">Zwischenspeichern</button>
-  <a href="termine.php" class="btn btn-secondary crm-actions-cancel">Abbrechen</a>
+  <button type="submit" form="profile-form" name="save_action" value="save_stay" class="btn btn-soft-green" style="font-weight:500;">Speichern</button>
+  <a href="index.php" class="btn btn-secondary crm-actions-cancel">Abbrechen</a>
 </div>
 
 <?php require __DIR__ . '/footer.php'; ?>

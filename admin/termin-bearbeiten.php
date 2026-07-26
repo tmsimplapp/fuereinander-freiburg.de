@@ -213,13 +213,15 @@ require __DIR__ . '/header.php';
             </div>
             <input type="checkbox" id="ausgebucht" name="ausgebucht" value="1" <?= $termin['ausgebucht'] ? 'checked' : '' ?>>
           </div>
+
+          <p class="status-hinweis" id="status-hinweis" aria-live="polite"></p>
         </section>
       </aside>
     </div>
 
     <div class="crm-actions crm-actions-sticky">
       <button type="submit" name="save_action" value="save_close" class="btn btn-primary">Speichern & schließen</button>
-      <button type="submit" name="save_action" value="save_stay" class="btn btn-soft-green" style="font-weight:500;">Zwischenspeichern</button>
+      <button type="submit" name="save_action" value="save_stay" class="btn btn-soft-green" style="font-weight:500;">Speichern</button>
       <a href="termine.php" class="btn btn-secondary crm-actions-cancel">Abbrechen</a>
     </div>
   </form>
@@ -244,6 +246,27 @@ flatpickr('#termin_datum', {
     wrap.appendChild(select);
   }
 });
+// Klartext-Erklärung, was die Kombination aus "sichtbar" und "ausgebucht" bewirkt
+(function() {
+  const aktiv = document.getElementById('aktiv');
+  const ausgebucht = document.getElementById('ausgebucht');
+  const hinweis = document.getElementById('status-hinweis');
+  if (!aktiv || !ausgebucht || !hinweis) return;
+
+  function update() {
+    if (!aktiv.checked) {
+      hinweis.textContent = 'Dieser Termin steht nicht auf der Website. Niemand kann ihn sehen oder buchen.';
+    } else if (ausgebucht.checked) {
+      hinweis.textContent = 'Dieser Termin steht auf der Website und ist als ausgebucht markiert. Er wird angezeigt, kann aber nicht gebucht werden.';
+    } else {
+      hinweis.textContent = 'Dieser Termin steht auf der Website und kann gebucht werden.';
+    }
+  }
+  aktiv.addEventListener('change', update);
+  ausgebucht.addEventListener('change', update);
+  update();
+})();
+
 <?php if (!empty($errors)): ?>
 (function() {
   const err = document.querySelector('.errors');

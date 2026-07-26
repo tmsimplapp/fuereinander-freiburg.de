@@ -9,8 +9,9 @@ $seitenaufrufe = (int) $stmt->fetchColumn();
 // Historie für die letzten 14 Tage abfragen (fallbacksicher falls Tabelle noch leer)
 $historie = [];
 try {
-    $stmtHist = $db->query("SELECT datum, seitenaufrufe FROM statistiken_seitenaufrufe ORDER BY datum ASC LIMIT 14");
-    $historie = $stmtHist->fetchAll(PDO::FETCH_ASSOC);
+    // Neueste 14 Tage holen, danach wieder aufsteigend für die Sparkline sortieren
+    $stmtHist = $db->query("SELECT datum, seitenaufrufe FROM statistiken_seitenaufrufe ORDER BY datum DESC LIMIT 14");
+    $historie = array_reverse($stmtHist->fetchAll(PDO::FETCH_ASSOC));
 } catch (Exception $e) {
     // Tabelle existiert noch nicht oder leer
 }
@@ -119,12 +120,22 @@ require __DIR__ . '/header.php';
           $lastDaily = end($daily)['val'];
           $lastRecorded = (int)end($historie)['seitenaufrufe'];
           $heuteDaily = max(0, $seitenaufrufe - $lastRecorded);
+          $von = date('d.m.', strtotime($daily[0]['datum']));
+          $bis = date('d.m.', strtotime(end($daily)['datum']));
+          $tage = count($daily);
         ?>
+        <span class="stats-zeitraum">Besuche pro Tag – letzte <?= $tage ?> Tage</span>
         <div class="stats-sparkline-wrap">
-          <svg class="stats-sparkline" viewBox="0 0 240 40" preserveAspectRatio="none">
+          <svg class="stats-sparkline" viewBox="0 0 240 40" preserveAspectRatio="none"
+               role="img" aria-label="Verlauf der täglichen Besuche von <?= e($von) ?> bis <?= e($bis) ?>">
             <polyline points="<?= $pointsStr ?>" fill="none" stroke="var(--mint-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
+        <span class="stats-achse">
+          <span><?= e($von) ?></span>
+          <span>Höchstwert: <?= number_format($maxVal, 0, ',', '.') ?></span>
+          <span><?= e($bis) ?></span>
+        </span>
         <div class="stats-pills">
           <span class="stats-pill stats-pill-today">+<?= $heuteDaily ?> heute</span>
           <span class="stats-pill stats-pill-yesterday">+<?= $lastDaily ?> gestern</span>

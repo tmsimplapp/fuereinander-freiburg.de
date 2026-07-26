@@ -131,8 +131,8 @@ require __DIR__ . '/header.php';
   </select>
   <select name="vermittlung" aria-label="Nach Vermittlung filtern">
     <option value="">Alle Vermittlungsarten</option>
-    <option value="direkt" <?= $f_vermittlung === 'direkt' ? 'selected' : '' ?>>Direkt</option>
-    <option value="ueber_uns" <?= $f_vermittlung === 'ueber_uns' ? 'selected' : '' ?>>Über uns</option>
+    <option value="direkt" <?= $f_vermittlung === 'direkt' ? 'selected' : '' ?>>Kontakt direkt weitergeben</option>
+    <option value="ueber_uns" <?= $f_vermittlung === 'ueber_uns' ? 'selected' : '' ?>>Kontakt nur über uns</option>
   </select>
   <div class="filter-bar-actions">
     <button type="submit" class="btn btn-secondary">Filtern</button>
@@ -143,7 +143,12 @@ require __DIR__ . '/header.php';
 </form>
 
 <?php if (empty($kontakte)): ?>
-  <p style="color:#666;font-size:.9rem">Keine Kontakte gefunden.</p>
+  <?php $filter_aktiv = $f_region || $f_tag || $f_aktiv !== '' || $f_vermittlung !== '' || $f_suche !== ''; ?>
+  <?php if ($filter_aktiv): ?>
+    <p class="leer-hinweis">Keine Kontakte gefunden, die zu deiner Suche passen. Klicke oben auf „Zurücksetzen“, um wieder alle Kontakte zu sehen.</p>
+  <?php else: ?>
+    <p class="leer-hinweis">Noch keine Kontakte vorhanden. Klicke oben auf „+ Neuer Kontakt“, um den ersten Kontakt anzulegen.</p>
+  <?php endif; ?>
 <?php else: ?>
 <div class="community-grid">
   <?php foreach ($kontakte as $k): ?>
@@ -173,8 +178,11 @@ require __DIR__ . '/header.php';
               <?php endif; ?>
             </div>
           </div>
-          <span class="badge <?= $k['vermittlung'] === 'direkt' ? 'badge-on' : 'badge-off' ?>" style="white-space:nowrap;">
-            <?= $k['vermittlung'] === 'direkt' ? 'Direkt' : 'Über uns' ?>
+          <span class="badge <?= $k['vermittlung'] === 'direkt' ? 'badge-on' : 'badge-off' ?>" style="white-space:nowrap;"
+                title="<?= $k['vermittlung'] === 'direkt'
+                    ? 'Diesen Kontakt dürfen wir Ratsuchenden direkt weitergeben.'
+                    : 'Diesen Kontakt nicht direkt weitergeben – die Vermittlung läuft über uns.' ?>">
+            <?= $k['vermittlung'] === 'direkt' ? 'Direkt weitergeben' : 'Nur über uns' ?>
           </span>
         </div>
 
@@ -221,19 +229,19 @@ require __DIR__ . '/header.php';
         </form>
         <div class="community-card-actions">
           <?php if (!empty($k['hat_notizen'])): ?>
-            <span class="community-notiz-warn" title="Interne Notizen vorhanden">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span class="community-notiz-warn" title="Interne Notizen vorhanden" role="img" aria-label="Interne Notizen vorhanden">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             </span>
           <?php endif; ?>
-          <a href="community-bearbeiten.php?id=<?= (int)$k['id'] ?>" class="community-icon-btn" title="Bearbeiten">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          <a href="community-bearbeiten.php?id=<?= (int)$k['id'] ?>" class="community-icon-btn" title="Bearbeiten" aria-label="<?= e($k['name']) ?> bearbeiten">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
           </a>
           <form method="post" action="community-loeschen.php" class="loeschen-form" style="margin:0;">
             <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
             <input type="hidden" name="id" value="<?= (int)$k['id'] ?>">
-            <button type="button" class="community-icon-btn danger" title="Löschen"
+            <button type="button" class="community-icon-btn danger" title="Löschen" aria-label="<?= e($k['name']) ?> löschen"
                     onclick="loeschenBestaetigen(this.closest('form'), <?= e(json_encode($k['name'])) ?>)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
             </button>
           </form>
         </div>
@@ -275,8 +283,9 @@ document.getElementById('loeschBestaetigen').addEventListener('click', function(
   if (pendingForm) pendingForm.submit();
 });
 
-document.getElementById('loeschModal').addEventListener('click', function(e) {
-  if (e.target === this) modalSchliessen();
+// Klick auf Hintergrund, Escape und Fokus-Handling: siehe modal.js
+document.getElementById('loeschModal').addEventListener('modal:geschlossen', function() {
+  pendingForm = null;
 });
 </script>
 <?php 

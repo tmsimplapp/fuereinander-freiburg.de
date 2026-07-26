@@ -30,6 +30,9 @@ RewriteRule ^(.+)$ $1.html [L,QSA]
 RewriteRule ^themen/?$ themen.php [L,QSA]
 RewriteRule ^themen/([^/]+)/?$ themen-detail.php?slug=$1 [L,QSA]
 
+# Custom Routing für Galerie (umgeht die Verzeichniskollision auf dem Server)
+RewriteRule ^galerie/?$ galerie.php [L,QSA]
+
 # 2b. Entferne .php-Endungen aus der URL (301 Permanent Redirect)
 RewriteCond %{THE_REQUEST} ^GET\ (.*)\.php\ HTTP
 RewriteCond %{REQUEST_URI} !^/themen

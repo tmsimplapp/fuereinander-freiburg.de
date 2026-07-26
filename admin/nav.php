@@ -30,6 +30,10 @@ $verwaltung_sub_active = in_array($active_nav, ['community-tags', 'community-reg
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
       Themen
     </a>
+    <a href="galerie.php" class="sidebar-link <?= $active_nav === 'galerie' ? 'active' : '' ?>" <?= $active_nav === 'galerie' ? 'aria-current="page"' : '' ?>>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      Galerie
+    </a>
 
     <details class="sidebar-submenu" <?= $verwaltung_sub_active ? 'open' : '' ?>>
       <summary>
@@ -49,12 +53,14 @@ $verwaltung_sub_active = in_array($active_nav, ['community-tags', 'community-reg
     </a>
 
     <form method="post" action="logout.php" class="sidebar-logout">
-      <div style="display: flex; align-items: center; gap: .55rem; padding: 0 .6rem; margin-bottom: .4rem; font-size: .875rem; color: var(--text-muted); font-weight: 500;">
+      <div style="display: flex; align-items: center; gap: .55rem; padding: 0 .6rem; font-size: .875rem; color: var(--text-muted); font-weight: 500;"
+           title="Aus Sicherheitsgründen wirst du bei längerer Untätigkeit abgemeldet. Sobald du etwas anklickst oder speicherst, startet die Zeit neu.">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
         </svg>
-        Auto-Logout: <span id="session-countdown" style="font-weight: 600; color: var(--text); margin-left: auto;">...</span>
+        Automatische Abmeldung in <span id="session-countdown" style="font-weight: 600; color: var(--text); margin-left: auto;">...</span>
       </div>
+      <p class="sidebar-logout-hint">Wird bei jeder Aktion neu gestartet.</p>
       <button type="submit" class="btn-logout">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         Abmelden

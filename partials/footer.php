@@ -29,6 +29,10 @@ function footer_link_classes(string $page, string $active): string {
         </li>
         <li><span class="font-body text-xs text-text-footer">·</span></li>
         <li>
+          <a href="galerie.php" class="<?= footer_link_classes('galerie', $active_page) ?>" style="min-height: 32px; display: inline-flex; align-items: center">Galerie</a>
+        </li>
+        <li><span class="font-body text-xs text-text-footer">·</span></li>
+        <li>
           <a href="partner.php" class="<?= footer_link_classes('partner', $active_page) ?>" style="min-height: 32px; display: inline-flex; align-items: center">Partner</a>
         </li>
       </ul>

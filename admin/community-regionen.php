@@ -196,11 +196,9 @@ function modalSchliessen() {
 document.getElementById('loeschBestaetigen').addEventListener('click', function() {
   if (pendingForm) pendingForm.submit();
 });
-document.getElementById('loeschModal').addEventListener('click', function(e) {
-  if (e.target === this) modalSchliessen();
-});
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') modalSchliessen();
+// Klick auf Hintergrund, Escape und Fokus-Handling: siehe modal.js
+document.getElementById('loeschModal').addEventListener('modal:geschlossen', function() {
+  pendingForm = null;
 });
 </script>
 

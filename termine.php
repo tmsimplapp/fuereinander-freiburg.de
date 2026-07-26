@@ -203,6 +203,10 @@ function format_zeitraum(string $uhrzeiten_json, int $dauer_min): string {
         </p>
         <p class="font-body text-sm max-w-xl mx-auto mb-6 text-text-muted">Unsere Treffen sind klein, damit du dich vom ersten Moment an aufgehoben fühlst.</p>
         <a href="index.php#kontakt" class="btn-primary glowing-border font-body text-sm font-semibold px-6 py-3 rounded-full inline-block active:scale-95">Jetzt anmelden</a>
+        <p class="font-body text-sm mt-6 text-text-body">
+          Du möchtest vorher einen Eindruck bekommen?
+          <a href="galerie.php" class="nav-link font-semibold text-text-strong underline">Zur Bildergalerie</a>
+        </p>
       </section>
 
     </div>
