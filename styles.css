@@ -196,6 +196,16 @@ body {
   box-shadow: 0 12px 32px rgba(226, 194, 162, 0.25);
 }
 
+/* Regel-Liste: Hairline-Trenner statt Kartenraster */
+.rule-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.rule-list > li + li {
+  border-top: 1px solid var(--tan);
+}
+
 /* Regel-Karten */
 .rule-card {
   opacity: 0;
@@ -205,14 +215,6 @@ body {
 .rule-card.visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* Dekorativer Hintergrundkreis im Hero */
-.hero-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
 }
 
 /* ─── Hero "Links-unten verankert" ─── */
@@ -254,7 +256,7 @@ body {
 }
 
 .hero-full-title {
-  font-size: clamp(2.8rem, 7vw, 5rem);
+  font-size: clamp(2.4rem, 5.6vw, 4.2rem);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.02em;
@@ -264,10 +266,10 @@ body {
 }
 
 .hero-full-sub {
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  line-height: 1.7;
-  margin-bottom: 2.5rem;
-  max-width: 420px;
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  max-width: 480px;
   margin-left: auto;
 }
 
@@ -284,19 +286,6 @@ body {
     gap: 1.5rem;
     align-items: center;
   }
-}
-
-.hero-scroll-indicator {
-  position: absolute;
-  bottom: 2.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  opacity: 0.5;
-  z-index: 2;
 }
 
 /* Tablet + Mobil: Bild hinter Text, alles zentriert */
@@ -341,10 +330,6 @@ body {
   .hero-full-content {
     justify-content: flex-start;
     padding: 2rem 1.5rem 4rem;
-  }
-
-  .hero-scroll-indicator {
-    display: none;
   }
 }
 
@@ -1031,11 +1016,10 @@ main button:focus-visible {
   border-color: rgba(226, 194, 162, 0.6);
 }
 
-/* Erzwungene Zeilenumbrüche für Themenartikel (verhindert horizontalen Overflow) */
+/* Zeilenumbrüche für Themenartikel (verhindert horizontalen Overflow bei langen URLs) */
 .prose,
 .prose * {
-  overflow-wrap: anywhere !important;
-  word-break: break-word !important;
+  overflow-wrap: break-word;
 }
 
 /* ═══════════════════════════════════════

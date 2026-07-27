@@ -439,7 +439,7 @@ $active_page = 'ausstieg-folgen';
           <div class="flex flex-row sm:flex-col items-center sm:text-center rounded-xl p-3 sm:p-4 bg-white/60 border border-tan/20 shadow-sm hover:shadow-md transition-all duration-300 hover:translate-y-[-2px] gap-4 sm:gap-0">
             <div class="w-20 sm:w-full aspect-[3/4] sm:mb-4 rounded-lg bg-cream border border-tan/30 hidden sm:flex flex-col justify-between p-2 sm:p-3 relative overflow-hidden shadow-inner select-none flex-shrink-0">
               <div class="absolute left-0 top-0 bottom-0 w-1.5 sm:w-2.5 bg-tan/25 border-r border-tan/10"></div>
-              <span class="text-[8px] sm:text-[9px] uppercase tracking-widest text-[#6f6047] font-body block self-end font-semibold">Klassiker</span>
+              <span class="text-[11px] uppercase tracking-widest text-[#6f6047] font-body block self-end font-semibold">Klassiker</span>
               <p class="font-display text-[10px] sm:text-xs font-bold leading-tight text-[#3d3225] px-1 sm:px-2 my-auto">Die zerstörende Kraft...</p>
               <span class="text-[8px] sm:text-[10px] text-[#5c4e3a] font-body block truncate">Johnson / VanVonderen</span>
             </div>
@@ -452,7 +452,7 @@ $active_page = 'ausstieg-folgen';
           <div class="flex flex-row sm:flex-col items-center sm:text-center rounded-xl p-3 sm:p-4 bg-white/60 border border-tan/20 shadow-sm hover:shadow-md transition-all duration-300 hover:translate-y-[-2px] gap-4 sm:gap-0">
             <div class="w-20 sm:w-full aspect-[3/4] sm:mb-4 rounded-lg bg-cream border border-tan/30 hidden sm:flex flex-col justify-between p-2 sm:p-3 relative overflow-hidden shadow-inner select-none flex-shrink-0">
               <div class="absolute left-0 top-0 bottom-0 w-1.5 sm:w-2.5 bg-tan/25 border-r border-tan/10"></div>
-              <span class="text-[8px] sm:text-[9px] uppercase tracking-widest text-[#6f6047] font-body block self-end font-semibold">Praxis</span>
+              <span class="text-[11px] uppercase tracking-widest text-[#6f6047] font-body block self-end font-semibold">Praxis</span>
               <p class="font-display text-[10px] sm:text-xs font-bold leading-tight text-[#3d3225] px-1 sm:px-2 my-auto">Geistlicher Missbrauch</p>
               <span class="text-[8px] sm:text-[10px] text-[#5c4e3a] font-body block truncate">Inge Tempelmann</span>
             </div>
@@ -465,7 +465,7 @@ $active_page = 'ausstieg-folgen';
           <div class="flex flex-row sm:flex-col items-center sm:text-center rounded-xl p-3 sm:p-4 bg-white/60 border border-tan/20 shadow-sm hover:shadow-md transition-all duration-300 hover:translate-y-[-2px] gap-4 sm:gap-0">
             <div class="w-20 sm:w-full aspect-[3/4] sm:mb-4 rounded-lg bg-cream border border-tan/30 hidden sm:flex flex-col justify-between p-2 sm:p-3 relative overflow-hidden shadow-inner select-none flex-shrink-0">
               <div class="absolute left-0 top-0 bottom-0 w-1.5 sm:w-2.5 bg-tan/25 border-r border-tan/10"></div>
-              <span class="text-[8px] sm:text-[9px] uppercase tracking-widest text-[#6f6047] font-body block self-end font-semibold">Kontext</span>
+              <span class="text-[11px] uppercase tracking-widest text-[#6f6047] font-body block self-end font-semibold">Kontext</span>
               <p class="font-display text-[10px] sm:text-xs font-bold leading-tight text-[#3d3225] px-1 sm:px-2 my-auto">Spiritueller Missbrauch</p>
               <span class="text-[8px] sm:text-[10px] text-[#5c4e3a] font-body block truncate">Doris Wagner</span>
             </div>
@@ -478,7 +478,7 @@ $active_page = 'ausstieg-folgen';
           <div class="flex flex-row sm:flex-col items-center sm:text-center rounded-xl p-3 sm:p-4 bg-white/60 border border-tan/20 shadow-sm hover:shadow-md transition-all duration-300 hover:translate-y-[-2px] gap-4 sm:gap-0">
             <div class="w-20 sm:w-full aspect-[3/4] sm:mb-4 rounded-lg bg-cream border border-tan/30 hidden sm:flex flex-col justify-between p-2 sm:p-3 relative overflow-hidden shadow-inner select-none flex-shrink-0">
               <div class="absolute left-0 top-0 bottom-0 w-1.5 sm:w-2.5 bg-tan/25 border-r border-tan/10"></div>
-              <span class="text-[8px] sm:text-[9px] uppercase tracking-widest text-[#6f6047] font-body block self-end font-semibold">Analyse</span>
+              <span class="text-[11px] uppercase tracking-widest text-[#6f6047] font-body block self-end font-semibold">Analyse</span>
               <p class="font-display text-[10px] sm:text-xs font-bold leading-tight text-[#3d3225] px-1 sm:px-2 my-auto">Selbstverlust &amp; Entfremdung</p>
               <span class="text-[8px] sm:text-[10px] text-[#5c4e3a] font-body block truncate">Barbara Haslbeck</span>
             </div>

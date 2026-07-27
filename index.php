@@ -315,7 +315,7 @@ $active_page = 'index';
     <!-- Text: oben-rechts -->
     <div class="hero-full-content">
 
-      <h1 class="hero-anim-2 font-caveat hero-full-title text-text-strong" style="font-size: 5.3rem; line-height: 0.9; margin-bottom: 0.5em;">
+      <h1 class="hero-anim-2 font-caveat hero-full-title text-text-strong" style="line-height: 0.9; margin-bottom: 0.5em;">
         <span class="sr-only">Selbsthilfegruppe Freiburg für Zeugen Jehovas: </span>
         Du bist<br>
         <em class="font-caveat font-normal text-accent" style="font-size: 1.1em; display: inline-block; margin-top: 0.1em;">nicht allein.</em>
@@ -388,7 +388,7 @@ $active_page = 'index';
       <div class="grid md:grid-cols-2 gap-6">
 
         <!-- Karte 1 -->
-        <article class="reveal reveal-delay-1 card-hover glowing-border rounded-2xl p-8 bg-warmyellow border border-tan">
+        <article class="reveal reveal-delay-1 card-hover glowing-border rounded-2xl p-8 bg-mint-soft border border-mint">
           <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6 bg-mint">
             <svg class="w-5 h-5" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c-4.97 0-9 3.58-9 8 0 2.4 1.1 4.57 2.87 6.1L5 21l4.12-1.54A9.7 9.7 0 0012 20c4.97 0 9-3.58 9-8s-4.03-8-9-8z"/>
@@ -405,7 +405,7 @@ $active_page = 'index';
 
         <!-- Karte 2 -->
         <article class="reveal reveal-delay-2 card-hover glowing-border rounded-2xl p-8 bg-mint-soft border border-mint">
-          <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6 bg-warmyellow">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6 bg-mint">
             <svg class="w-5 h-5" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6 5.87v-1a4 4 0 00-4-4H8a4 4 0 00-4 4v1m8 0a4 4 0 014-4h1a4 4 0 014 4v1M12 7a4 4 0 110 8 4 4 0 010-8z"/>
             </svg>
@@ -418,7 +418,7 @@ $active_page = 'index';
         </article>
 
         <!-- Karte 3 -->
-        <article class="reveal reveal-delay-3 card-hover glowing-border rounded-2xl p-8 bg-warmyellow border border-tan">
+        <article class="reveal reveal-delay-3 card-hover glowing-border rounded-2xl p-8 bg-mint-soft border border-mint">
           <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6 bg-mint">
             <svg class="w-5 h-5" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 3l7 7 7-7M5 13l7 7 7-7"/>
@@ -432,7 +432,7 @@ $active_page = 'index';
 
         <!-- Karte 4 -->
         <article class="reveal reveal-delay-4 card-hover glowing-border rounded-2xl p-8 bg-mint-soft border border-mint">
-          <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6 bg-warmyellow">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6 bg-mint">
             <svg class="w-5 h-5" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
@@ -454,17 +454,15 @@ $active_page = 'index';
     <div class="max-w-5xl mx-auto px-6">
 
       <div class="reveal text-center mb-16">
-        <p class="font-body text-sm font-semibold tracking-widest uppercase mb-4 text-text-muted">Wie wir miteinander umgehen</p>
         <h2 class="font-display text-3xl md:text-4xl font-bold text-text-strong">
           Unsere Grundsätze
         </h2>
       </div>
 
-      <div class="grid sm:grid-cols-2 gap-5">
+      <ol class="rule-list max-w-3xl mx-auto">
 
         <!-- Regel 1 -->
-        <div class="rule-card rounded-2xl p-7 flex gap-5 items-start bg-cream border border-tan"
-             data-delay="0">
+        <li class="rule-card flex gap-5 items-start py-7" data-delay="0">
           <div class="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center mt-0.5 bg-mint">
             <span class="font-display font-bold text-sm text-text-strong" aria-hidden="true">1</span>
           </div>
@@ -474,11 +472,10 @@ $active_page = 'index';
               Wir diskutieren keine Glaubensfragen und beziehen keine Stellung zu theologischen Inhalten.
             </p>
           </div>
-        </div>
+        </li>
 
         <!-- Regel 2 -->
-        <div class="rule-card rounded-2xl p-7 flex gap-5 items-start bg-cream border border-tan"
-             data-delay="150">
+        <li class="rule-card flex gap-5 items-start py-7" data-delay="150">
           <div class="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center mt-0.5 bg-mint">
             <span class="font-display font-bold text-sm text-text-strong" aria-hidden="true">2</span>
           </div>
@@ -488,11 +485,10 @@ $active_page = 'index';
               Im Vordergrund stehen eigene Erlebnisse, persönliche Folgen und innere Konflikte, neutral und ohne Wertung.
             </p>
           </div>
-        </div>
+        </li>
 
         <!-- Regel 3 -->
-        <div class="rule-card rounded-2xl p-7 flex gap-5 items-start bg-cream border border-tan"
-             data-delay="300">
+        <li class="rule-card flex gap-5 items-start py-7" data-delay="300">
           <div class="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center mt-0.5 bg-mint">
             <span class="font-display font-bold text-sm text-text-strong" aria-hidden="true">3</span>
           </div>
@@ -502,11 +498,10 @@ $active_page = 'index';
               Wir begegnen einander mit Offenheit und Wertschätzung, ohne Verurteilung, ohne Druck.
             </p>
           </div>
-        </div>
+        </li>
 
         <!-- Regel 4 -->
-        <div class="rule-card rounded-2xl p-7 flex gap-5 items-start bg-cream border border-tan"
-             data-delay="450">
+        <li class="rule-card flex gap-5 items-start py-7" data-delay="450">
           <div class="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center mt-0.5 bg-mint">
             <span class="font-display font-bold text-sm text-text-strong" aria-hidden="true">4</span>
           </div>
@@ -516,9 +511,9 @@ $active_page = 'index';
               Unsere Gruppe ist eine Ergänzung, kein Ersatz für professionelle psychologische oder therapeutische Begleitung.
             </p>
           </div>
-        </div>
+        </li>
 
-      </div>
+      </ol>
     </div>
   </section>
 
@@ -668,7 +663,6 @@ $active_page = 'index';
     <div class="max-w-5xl mx-auto px-6">
 
       <div class="reveal text-center mb-16">
-        <p class="font-body text-sm font-semibold tracking-widest uppercase mb-4 text-text-muted">Wir freuen uns auf dich</p>
         <h2 class="font-display text-3xl md:text-4xl font-bold text-text-strong">
           Kontakt aufnehmen
         </h2>
@@ -678,7 +672,7 @@ $active_page = 'index';
       <div class="reveal reveal-delay-1 grid md:grid-cols-2 gap-5 mb-6 max-w-5xl mx-auto">
 
         <!-- Links: E-Mail & Telefon -->
-        <div class="card-hover rounded-2xl p-8 flex flex-col gap-6 bg-mint-soft border border-mint">
+        <div class="card-hover rounded-2xl p-8 flex flex-col gap-6 bg-lightyellow border border-tan">
 
           <div>
             <div class="flex items-center gap-3 mb-4">
@@ -705,7 +699,7 @@ $active_page = 'index';
             </button>
           </div>
 
-          <div class="h-px bg-mint"></div>
+          <div class="h-px bg-tan"></div>
 
           <div>
             <div class="flex items-center gap-3 mb-4">
@@ -802,7 +796,7 @@ $active_page = 'index';
       </div>
 
       <!-- Kontaktformular -->
-      <div id="kontaktformular" class="reveal reveal-delay-2 card-hover rounded-2xl p-6 md:p-8 mb-6 max-w-5xl mx-auto bg-cream border border-tan">
+      <div id="kontaktformular" class="reveal reveal-delay-2 card-hover rounded-2xl p-6 md:p-8 mb-6 max-w-5xl mx-auto bg-lightyellow border border-tan">
 
         <div class="flex items-center gap-3 mb-6">
           <div class="w-10 h-10 rounded-full flex items-center justify-center bg-mint">
@@ -820,24 +814,25 @@ $active_page = 'index';
             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
           </div>
 
-          <!-- Name -->
-          <div>
-            <label for="name" class="block font-body text-sm font-semibold mb-2 text-text-strong">Name / Pseudonym <span style="color:#e05252;">*</span></label>
-            <input type="text" id="name" name="name" required autocomplete="name" placeholder="z. B. Maria oder einfach „Anonym"" class="px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan" style="width:50%">
-          </div>
+          <!-- Name & Kontaktwunsch -->
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label for="name" class="block font-body text-sm font-semibold mb-2 text-text-strong">Name / Pseudonym <span style="color:#e05252;">*</span></label>
+              <input type="text" id="name" name="name" required autocomplete="name" placeholder="z. B. Maria oder einfach „Anonym"" class="w-full px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan">
+            </div>
 
-          <!-- Kontaktwunsch -->
-          <div>
-            <label for="contact-method" class="block font-body text-sm font-semibold mb-2 text-text-strong">Wie dürfen wir dir antworten? <span style="color:#e05252;">*</span></label>
-            <select id="contact-method" name="contact_method" required class="px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan" style="width:50%">
-              <option value="" disabled selected>Bitte wählen...</option>
-              <option value="email">E-Mail</option>
-              <option value="whatsapp">WhatsApp</option>
-              <option value="telegram">Telegram</option>
-              <option value="signal">Signal</option>
-              <option value="sms">SMS</option>
-              <option value="anruf">Anruf</option>
-            </select>
+            <div>
+              <label for="contact-method" class="block font-body text-sm font-semibold mb-2 text-text-strong">Wie dürfen wir dir antworten? <span style="color:#e05252;">*</span></label>
+              <select id="contact-method" name="contact_method" required class="w-full px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan">
+                <option value="" disabled selected>Bitte wählen...</option>
+                <option value="email">E-Mail</option>
+                <option value="whatsapp">WhatsApp</option>
+                <option value="telegram">Telegram</option>
+                <option value="signal">Signal</option>
+                <option value="sms">SMS</option>
+                <option value="anruf">Anruf</option>
+              </select>
+            </div>
           </div>
 
           <!-- Dynamisches Kontaktfeld -->
@@ -871,7 +866,7 @@ $active_page = 'index';
       </div>
 
       <!-- Nächstes Treffen -->
-      <div class="reveal reveal-delay-2 card-hover rounded-2xl p-6 text-center max-w-5xl mx-auto flex flex-col items-center bg-warmyellow border border-tan">
+      <div class="reveal reveal-delay-2 card-hover rounded-2xl p-6 text-center max-w-5xl mx-auto flex flex-col items-center bg-lightyellow border border-tan">
         <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-5 bg-mint">
           <svg class="w-5 h-5" fill="none" stroke="#3d3225" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
