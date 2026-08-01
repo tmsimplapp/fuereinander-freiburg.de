@@ -113,17 +113,21 @@ require __DIR__ . '/header.php';
     <div class="alert alert-err"><?= e($error) ?></div>
   <?php endif; ?>
 
-  <form method="post" action="login.php" novalidate>
+  <form method="post" action="login.php" id="login-form" name="login">
     <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
 
     <label for="username">Benutzername</label>
     <input type="text" id="username" name="username" required
            autocomplete="username" maxlength="64"
+           autocorrect="off" autocapitalize="none" spellcheck="false"
+           aria-label="Benutzername"
            value="<?= isset($_POST['username']) ? e($_POST['username']) : '' ?>">
 
     <label for="password">Passwort</label>
     <input type="password" id="password" name="password" required
-           autocomplete="current-password" maxlength="1024">
+           autocomplete="current-password" maxlength="1024"
+           autocorrect="off" autocapitalize="none" spellcheck="false"
+           aria-label="Passwort">
 
     <button type="submit" class="btn btn-primary">Anmelden</button>
   </form>

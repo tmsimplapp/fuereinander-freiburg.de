@@ -122,13 +122,15 @@ require __DIR__ . '/header.php';
     <div class="alert alert-err"><?= e($error) ?></div>
   <?php endif; ?>
 
-  <form method="post" action="login_2fa.php" id="totp-form">
+  <form method="post" action="login_2fa.php" id="totp-form" name="login_2fa">
     <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
     <input type="text" name="username" value="<?= e($pre_username) ?>" autocomplete="username" style="display:none" readonly aria-hidden="true" tabindex="-1">
     <label for="code">Code</label>
     <input type="text" id="code" name="code" data-mode="totp"
            inputmode="numeric" pattern="[0-9]{6}"
-           maxlength="6" required autofocus autocomplete="one-time-code">
+           maxlength="6" required autofocus autocomplete="one-time-code"
+           autocorrect="off" autocapitalize="none" spellcheck="false"
+           aria-label="2FA-Code">
     <p class="hint" id="code-hint">6-stelliger TOTP-Code</p>
 
     <button type="submit" class="btn btn-primary">Bestätigen</button>
