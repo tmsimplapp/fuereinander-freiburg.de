@@ -122,7 +122,7 @@ require __DIR__ . '/header.php';
     <div class="alert alert-err"><?= e($error) ?></div>
   <?php endif; ?>
 
-  <form method="post" id="totp-form">
+  <form method="post" action="login_2fa.php" id="totp-form">
     <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
     <input type="text" name="username" value="<?= e($pre_username) ?>" autocomplete="username" style="display:none" readonly aria-hidden="true" tabindex="-1">
     <label for="code">Code</label>
@@ -132,6 +132,7 @@ require __DIR__ . '/header.php';
     <p class="hint" id="code-hint">6-stelliger TOTP-Code</p>
 
     <button type="submit" class="btn btn-primary">Bestätigen</button>
+    <button type="button" class="btn btn-secondary" id="paste-btn" onclick="pasteFromClipboard()" style="margin-top:.5rem;width:100%;min-height:44px;display:none">Aus Zwischenablage einfügen</button>
   </form>
 
   <button class="backup-toggle" onclick="toggleBackup()">Backup-Code verwenden</button>
@@ -142,6 +143,25 @@ require __DIR__ . '/header.php';
 </div>
 <?php ob_start(); ?>
 <script>
+if (navigator.clipboard && navigator.clipboard.readText) {
+  document.getElementById('paste-btn').style.display = 'block';
+}
+
+function pasteFromClipboard() {
+  if (navigator.clipboard && navigator.clipboard.readText) {
+    navigator.clipboard.readText().then(text => {
+      const cleaned = text.replace(/\s+/g, '').trim();
+      if (cleaned) {
+        const inp = document.getElementById('code');
+        inp.value = cleaned;
+        inp.focus();
+      }
+    }).catch(err => {
+      console.error('Clipboard error:', err);
+    });
+  }
+}
+
 function toggleBackup() {
   const inp  = document.getElementById('code');
   const hint = document.getElementById('code-hint');
