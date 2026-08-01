@@ -14,6 +14,7 @@
     initScrollEffects();
     initRevealAnimations();
     initContactForm();
+    initCopyButtons();
   }
 
   // ═══════════════════════════════════════
@@ -277,7 +278,7 @@
       e.preventDefault();
 
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Wird gesendet...';
+      submitBtn.textContent = 'Wird gesendet…';
       formFeedback.classList.add('hidden');
 
       try {
@@ -310,6 +311,33 @@
         submitBtn.disabled = false;
         submitBtn.textContent = 'Nachricht senden';
       }
+    });
+  }
+
+  // ═══════════════════════════════════════
+  // COPY-TO-CLIPBOARD FEEDBACK
+  // ═══════════════════════════════════════
+
+  function initCopyButtons() {
+    document.querySelectorAll('[data-copy-value]').forEach(btn => {
+      if (btn.dataset.copyInitialized === 'true') return;
+      btn.dataset.copyInitialized = 'true';
+
+      const label = btn.querySelector('[data-copy-label]');
+      const defaultText = label ? label.textContent : '';
+
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(btn.dataset.copyValue);
+          if (label) label.textContent = 'Kopiert!';
+          btn.setAttribute('aria-live', 'polite');
+          setTimeout(() => {
+            if (label) label.textContent = defaultText;
+          }, 2000);
+        } catch (error) {
+          // Zwischenablage nicht verfügbar – kein Feedback nötig
+        }
+      });
     });
   }
 

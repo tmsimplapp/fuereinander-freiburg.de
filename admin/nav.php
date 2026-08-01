@@ -73,23 +73,30 @@ $verwaltung_sub_active = in_array($active_nav, ['community-tags', 'community-reg
 $remaining_time = isset($_SESSION['admin_last_active']) ? (SESSION_TIMEOUT - (time() - $_SESSION['admin_last_active'])) : SESSION_TIMEOUT;
 ?>
 <script>
-  let countdownSeconds = <?= max(0, $remaining_time) ?>;
-  function updateCountdown() {
-    const el = document.getElementById('session-countdown');
-    if (!el) return;
-    if (countdownSeconds <= 0) {
-      el.textContent = "00:00";
-      window.location.href = "login.php?timeout=1";
-      return;
+  (function() {
+    const targetTime = Date.now() + (<?= max(0, (int)$remaining_time) ?> * 1000);
+    function updateCountdown() {
+      const el = document.getElementById('session-countdown');
+      if (!el) return;
+      const secondsLeft = Math.max(0, Math.round((targetTime - Date.now()) / 1000));
+      if (secondsLeft <= 0) {
+        el.textContent = "00:00";
+        window.location.href = "login.php?timeout=1";
+        return;
+      }
+      const m = Math.floor(secondsLeft / 60).toString().padStart(2, '0');
+      const s = (secondsLeft % 60).toString().padStart(2, '0');
+      el.textContent = m + ":" + s;
+      if (secondsLeft <= 60) {
+        el.style.color = '#e74c3c';
+      }
     }
-    const m = Math.floor(countdownSeconds / 60).toString().padStart(2, '0');
-    const s = (countdownSeconds % 60).toString().padStart(2, '0');
-    el.textContent = m + ":" + s;
-    if (countdownSeconds <= 60) {
-      el.style.color = '#e74c3c';
-    }
-    countdownSeconds--;
-  }
-  setInterval(updateCountdown, 1000);
-  updateCountdown();
+    setInterval(updateCountdown, 1000);
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden) {
+        updateCountdown();
+      }
+    });
+    updateCountdown();
+  })();
 </script>

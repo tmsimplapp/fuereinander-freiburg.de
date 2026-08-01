@@ -19,8 +19,8 @@ $alle_regionen = $db->query('SELECT id, name FROM community_regionen ORDER BY na
 $alle_tags     = $db->query('SELECT id, name, beschreibung FROM community_tags ORDER BY name ASC')->fetchAll();
 
 $kontakt = [
-    'name' => '', 'name_zusatz' => '', 'website' => '', 'telefon' => '', 'strasse' => '', 'plz' => '', 'ort' => '',
-    'vermittlung' => 'direkt', 'bundesweit' => 0, 'aktiv' => 1,
+    'name' => '', 'name_zusatz' => '', 'website' => '', 'telefon' => '', 'email' => '', 'strasse' => '', 'plz' => '', 'ort' => '',
+    'ist_location' => 0, 'besucherinfo' => '', 'vermittlung' => 'direkt', 'bundesweit' => 0, 'aktiv' => 1,
 ];
 $personen = [];
 $region_ids = [];
@@ -88,9 +88,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $website = 'https://' . $website;
     }
     $telefon         = trim($_POST['telefon'] ?? '');
+    $email           = trim($_POST['email'] ?? '');
     $strasse         = trim($_POST['strasse'] ?? '');
     $plz             = trim($_POST['plz'] ?? '');
     $ort             = trim($_POST['ort'] ?? '');
+    $ist_location    = isset($_POST['ist_location']) ? 1 : 0;
+    $besucherinfo    = trim($_POST['besucherinfo'] ?? '');
     $vermittlung     = $_POST['vermittlung'] ?? 'direkt';
     $bundesweit      = isset($_POST['bundesweit']) ? 1 : 0;
     $aktiv           = isset($_POST['aktiv']) ? 1 : 0;
@@ -98,7 +101,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $region_ids_posted = array_map('intval', $_POST['regionen'] ?? []);
     $tag_ids_posted    = array_map('intval', $_POST['tags'] ?? []);
 
-    $p_names   = $_POST['p_name'] ?? [];
+    $p_vornames= $_POST['p_vorname'] ?? [];
+    $p_nachnames= $_POST['p_nachname'] ?? [];
     $p_tels    = $_POST['p_telefon'] ?? [];
     $p_handys  = $_POST['p_handy'] ?? [];
     $p_emails  = $_POST['p_email'] ?? [];
@@ -117,16 +121,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (mb_strlen($name_zusatz) > 160) {
         $errors[] = 'Namenszusatz darf max. 160 Zeichen lang sein.';
     }
+    if (mb_strlen($email) > 200) {
+        $errors[] = 'E-Mail-Adresse darf max. 200 Zeichen lang sein.';
+    }
     if (!in_array($vermittlung, ['direkt', 'ueber_uns'], true)) {
         $errors[] = 'Ungültige Vermittlungsart.';
     }
 
     $parsed_personen = [];
-    foreach ($p_names as $index => $p_name) {
-        $pn = trim($p_name);
-        if ($pn !== '') {
+    foreach ($p_nachnames as $index => $p_nachname) {
+        $vn = trim($p_vornames[$index] ?? '');
+        $nn = trim($p_nachname);
+        if ($vn !== '' || $nn !== '') {
             $parsed_personen[] = [
-                'name'    => $pn,
+                'vorname' => $vn,
+                'nachname'=> $nn,
                 'telefon' => trim($p_tels[$index] ?? ''),
                 'handy'   => trim($p_handys[$index] ?? ''),
                 'email'   => trim($p_emails[$index] ?? ''),
@@ -136,6 +145,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ];
         }
     }
+    foreach ($parsed_personen as $p) {
+        if (mb_strlen($p['vorname']) > 100 || mb_strlen($p['nachname']) > 100) {
+            $errors[] = 'Vor- und Nachname des Ansprechpartners dürfen jeweils max. 100 Zeichen lang sein.';
+            break;
+        }
+    }
 
     if (empty($errors)) {
         $params = [
@@ -143,9 +158,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name_zusatz === '' ? null : $name_zusatz,
             $website === '' ? null : $website,
             $telefon === '' ? null : $telefon,
+            $email === '' ? null : $email,
             $strasse === '' ? null : $strasse,
             $plz === '' ? null : $plz,
             $ort === '' ? null : $ort,
+            $ist_location,
+            $besucherinfo === '' ? null : $besucherinfo,
             $vermittlung,
             $bundesweit,
             $aktiv,
@@ -154,15 +172,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($is_edit) {
             $stmt = $db->prepare(
                 'UPDATE community_organisationen
-                 SET name=?, name_zusatz=?, website=?, telefon=?, strasse=?, plz=?, ort=?, vermittlung=?, bundesweit=?, aktiv=?
+                 SET name=?, name_zusatz=?, website=?, telefon=?, email=?, strasse=?, plz=?, ort=?, ist_location=?, besucherinfo=?, vermittlung=?, bundesweit=?, aktiv=?
                  WHERE id=?'
             );
             $stmt->execute([...$params, $id]);
         } else {
             $stmt = $db->prepare(
                 'INSERT INTO community_organisationen
-                 (name, name_zusatz, website, telefon, strasse, plz, ort, vermittlung, bundesweit, aktiv)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+                 (name, name_zusatz, website, telefon, email, strasse, plz, ort, ist_location, besucherinfo, vermittlung, bundesweit, aktiv)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
             );
             $stmt->execute($params);
             $id = (int)$db->lastInsertId();
@@ -171,11 +189,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Personen neu verknuepfen
         $db->prepare('DELETE FROM community_personen WHERE organisation_id = ?')->execute([$id]);
         if ($parsed_personen) {
-            $stmt = $db->prepare('INSERT INTO community_personen (organisation_id, name, telefon, handy, email, strasse, plz, ort) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+            $stmt = $db->prepare('INSERT INTO community_personen (organisation_id, vorname, nachname, telefon, handy, email, strasse, plz, ort) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
             foreach ($parsed_personen as $p) {
                 $stmt->execute([
                     $id,
-                    $p['name'],
+                    $p['vorname'] === '' ? null : $p['vorname'],
+                    $p['nachname'] === '' ? null : $p['nachname'],
                     $p['telefon'] === '' ? null : $p['telefon'],
                     $p['handy'] === '' ? null : $p['handy'],
                     $p['email'] === '' ? null : $p['email'],
@@ -213,8 +232,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Eingaben fuer Wiederanzeige merken
     $kontakt = [
-        'name' => $name, 'name_zusatz' => $name_zusatz, 'website' => $website, 'telefon' => $telefon,
-        'strasse' => $strasse, 'plz' => $plz, 'ort' => $ort,
+        'name' => $name, 'name_zusatz' => $name_zusatz, 'website' => $website, 'telefon' => $telefon, 'email' => $email,
+        'strasse' => $strasse, 'plz' => $plz, 'ort' => $ort, 'ist_location' => $ist_location, 'besucherinfo' => $besucherinfo,
         'vermittlung' => $vermittlung, 'bundesweit' => $bundesweit, 'aktiv' => $aktiv,
     ];
     $personen = $parsed_personen;
@@ -293,6 +312,9 @@ require __DIR__ . '/header.php';
             </div>
           </div>
 
+          <label for="email">E-Mail (Hauptkontakt)</label>
+          <input type="email" id="email" name="email" maxlength="200" autocomplete="email" inputmode="email" value="<?= e($kontakt['email'] ?? '') ?>" placeholder="z. B. info@domain.de…">
+
           <label for="strasse">Straße & Hausnummer</label>
           <input type="text" id="strasse" name="strasse" maxlength="120" autocomplete="street-address" value="<?= e($kontakt['strasse'] ?? '') ?>" placeholder="z. B. Musterstr. 1…">
 
@@ -306,11 +328,22 @@ require __DIR__ . '/header.php';
               <input type="text" id="ort" name="ort" maxlength="120" autocomplete="address-level2" value="<?= e($kontakt['ort'] ?? '') ?>" placeholder="z. B. Freiburg…">
             </div>
           </div>
+
+          <div style="margin-top: 1.25rem;">
+            <label style="display:inline-flex; align-items:center; gap:.4rem; font-weight:normal; font-size:.9rem; cursor:pointer; color:#4b5563;">
+              <input type="checkbox" id="ist_location" name="ist_location" onchange="document.getElementById('besucherinfo_box').style.display = this.checked ? 'block' : 'none'" <?= !empty($kontakt['ist_location']) ? 'checked' : '' ?>>
+              Ist physischer Standort (Location)
+            </label>
+            <div id="besucherinfo_box" style="display: <?= !empty($kontakt['ist_location']) ? 'block' : 'none' ?>; margin-top: .5rem; padding-top: .5rem; border-top: 1px dashed #e5e7eb;">
+              <label for="besucherinfo">Besucher-Informationen (z. B. Parken, Barrierefreiheit, Zugang)</label>
+              <textarea id="besucherinfo" name="besucherinfo" rows="3" placeholder="z. B. Eingang im Hinterhof, Parkplätze an der Straße…"><?= e($kontakt['besucherinfo'] ?? '') ?></textarea>
+            </div>
+          </div>
           </div>
         </section>
 
         <section class="crm-panel">
-          <button type="button" class="crm-panel-head crm-panel-head-toggle" aria-expanded="true" aria-controls="ansprechpartner_container" onclick="const t=document.getElementById('ansprechpartner_container'); const i=document.getElementById('ansprechpartner_icon'); const c=document.getElementById('ansprechpartner_count'); const open=t.style.display!=='none'; if(!open){t.style.display='block';i.style.transform='rotate(180deg)';c.style.display='none';}else{t.style.display='none';i.style.transform='rotate(0deg)'; const num = Array.from(document.querySelectorAll('#personen-container input[name=&quot;p_name[]&quot;]')).filter(inp => inp.value.trim() !== '').length; c.textContent = ' (' + num + ')'; c.style.display='inline';} this.setAttribute('aria-expanded', open?'false':'true');">
+          <button type="button" class="crm-panel-head crm-panel-head-toggle" aria-expanded="true" aria-controls="ansprechpartner_container" onclick="const t=document.getElementById('ansprechpartner_container'); const i=document.getElementById('ansprechpartner_icon'); const c=document.getElementById('ansprechpartner_count'); const open=t.style.display!=='none'; if(!open){t.style.display='block';i.style.transform='rotate(180deg)';c.style.display='none';}else{t.style.display='none';i.style.transform='rotate(0deg)'; const num = Array.from(document.querySelectorAll('#personen-container input[name=&quot;p_nachname[]&quot;]')).filter(inp => inp.value.trim() !== '').length; c.textContent = ' (' + num + ')'; c.style.display='inline';} this.setAttribute('aria-expanded', open?'false':'true');">
             <span class="crm-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
             <div style="flex:1;">
               <h2>Ansprechpartner<span id="ansprechpartner_count" style="display:none; color:#6b7280; font-weight:normal;"></span></h2>
@@ -330,23 +363,30 @@ require __DIR__ . '/header.php';
                 <div class="person-fields">
                   <div class="row2">
                     <div>
-                      <label>Name</label>
-                      <input type="text" name="p_name[]" maxlength="120" autocomplete="off" value="<?= e($p['name'] ?? '') ?>" placeholder="z. B. Max Mustermann…">
+                      <label>Vorname</label>
+                      <input type="text" name="p_vorname[]" maxlength="100" autocomplete="off" value="<?= e($p['vorname'] ?? '') ?>" placeholder="z. B. Max…">
                     </div>
                     <div>
-                      <label>E-Mail</label>
-                      <input type="email" name="p_email[]" maxlength="200" autocomplete="off" inputmode="email" spellcheck="false" value="<?= e($p['email'] ?? '') ?>">
+                      <label>Nachname</label>
+                      <input type="text" name="p_nachname[]" maxlength="100" autocomplete="off" value="<?= e($p['nachname'] ?? '') ?>" placeholder="z. B. Mustermann…">
                     </div>
                   </div>
                   <div class="row2">
                     <div>
+                      <label>E-Mail</label>
+                      <input type="email" name="p_email[]" maxlength="200" autocomplete="off" inputmode="email" spellcheck="false" value="<?= e($p['email'] ?? '') ?>">
+                    </div>
+                    <div>
                       <label>Telefon</label>
                       <input type="tel" name="p_telefon[]" maxlength="40" autocomplete="off" inputmode="tel" value="<?= e($p['telefon'] ?? '') ?>">
                     </div>
+                  </div>
+                  <div class="row2">
                     <div>
                       <label>Handynummer</label>
                       <input type="tel" name="p_handy[]" maxlength="40" autocomplete="off" inputmode="tel" value="<?= e($p['handy'] ?? '') ?>">
                     </div>
+                    <div></div>
                   </div>
                   <?php $has_addr = !empty($p['strasse']) || !empty($p['plz']) || !empty($p['ort']); ?>
                   <div style="margin-top: .75rem;">
@@ -617,23 +657,30 @@ function addPerson() {
     <div class="person-fields">
       <div class="row2">
         <div>
-          <label>Name</label>
-          <input type="text" name="p_name[]" maxlength="120" autocomplete="off" placeholder="z. B. Max Mustermann…">
+          <label>Vorname</label>
+          <input type="text" name="p_vorname[]" maxlength="100" autocomplete="off" placeholder="z. B. Max…">
         </div>
         <div>
-          <label>E-Mail</label>
-          <input type="email" name="p_email[]" maxlength="200" autocomplete="off" inputmode="email" spellcheck="false">
+          <label>Nachname</label>
+          <input type="text" name="p_nachname[]" maxlength="100" autocomplete="off" placeholder="z. B. Mustermann…">
         </div>
       </div>
       <div class="row2">
         <div>
+          <label>E-Mail</label>
+          <input type="email" name="p_email[]" maxlength="200" autocomplete="off" inputmode="email" spellcheck="false">
+        </div>
+        <div>
           <label>Telefon</label>
           <input type="tel" name="p_telefon[]" maxlength="40" autocomplete="off" inputmode="tel">
         </div>
+      </div>
+      <div class="row2">
         <div>
           <label>Handynummer</label>
           <input type="tel" name="p_handy[]" maxlength="40" autocomplete="off" inputmode="tel">
         </div>
+        <div></div>
       </div>
       <div style="margin-top: .75rem;">
         <label style="display:inline-flex; align-items:center; gap:.4rem; font-weight:normal; font-size:.9rem; cursor:pointer; color:#4b5563;">

@@ -1,6 +1,7 @@
 ## Code-Änderungen (WICHTIG)
 
 - **Niemals ohne Rücksprache Code ändern.** Hole immer erst die explizite Freigabe von Tobias ein, bevor du Skripte anpasst, erstellst oder löschst.
+- **Datenbank-Anpassungen**: SQL-Befehle zur Anpassung der Datenbank (z. B. `ALTER TABLE`) immer direkt im Chat als kopierbaren Codeblock ausgeben.
 
 ## Token-Effizienz
 

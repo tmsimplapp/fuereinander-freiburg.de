@@ -153,6 +153,7 @@ Definiert in `tailwind.config.js`:
 - **Sprache**: Alle Inhalte ausschließlich auf Deutsch
 - **Kein Framework-Overhead**: Kein React, kein SPA-Build
 - **Sicherheit**: `buchung-config.php`, `telegram-config.php` und `admin/`-Login nicht öffentlich dokumentieren, keine Secrets in Commits
+- **Datenbank-Anpassungen**: SQL-Befehle zur Anpassung der Datenbank (z. B. `ALTER TABLE`) immer direkt im Chat als kopierbaren Codeblock ausgeben.
 
 ## Inhaltliche Grenzen (Website)
 

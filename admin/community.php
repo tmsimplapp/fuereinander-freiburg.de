@@ -40,9 +40,9 @@ if ($f_vermittlung === 'direkt' || $f_vermittlung === 'ueber_uns') {
     $params[] = $f_vermittlung;
 }
 if ($f_suche !== '') {
-    $where[] = '(k.name LIKE ? OR k.website LIKE ? OR k.telefon LIKE ? OR k.strasse LIKE ? OR k.plz LIKE ? OR k.ort LIKE ? OR EXISTS (SELECT 1 FROM community_notizen n WHERE n.organisation_id = k.id AND n.text LIKE ?) OR EXISTS (SELECT 1 FROM community_personen p WHERE p.organisation_id = k.id AND (p.name LIKE ? OR p.telefon LIKE ? OR p.handy LIKE ? OR p.email LIKE ?)))';
+    $where[] = '(k.name LIKE ? OR k.website LIKE ? OR k.telefon LIKE ? OR k.email LIKE ? OR k.strasse LIKE ? OR k.plz LIKE ? OR k.ort LIKE ? OR EXISTS (SELECT 1 FROM community_notizen n WHERE n.organisation_id = k.id AND n.text LIKE ?) OR EXISTS (SELECT 1 FROM community_personen p WHERE p.organisation_id = k.id AND (p.vorname LIKE ? OR p.nachname LIKE ? OR p.telefon LIKE ? OR p.handy LIKE ? OR p.email LIKE ?)))';
     $like = '%' . $f_suche . '%';
-    array_push($params, $like, $like, $like, $like, $like, $like, $like, $like, $like, $like, $like);
+    array_push($params, $like, $like, $like, $like, $like, $like, $like, $like, $like, $like, $like, $like, $like);
 }
 
 $sql = 'SELECT k.*, EXISTS (SELECT 1 FROM community_notizen n WHERE n.organisation_id = k.id) AS hat_notizen FROM community_organisationen k';
@@ -83,7 +83,7 @@ if ($kontakt_ids) {
         $tags_je_kontakt[$row['kontakt_id']][] = ['name' => $row['name'], 'farbe' => $row['farbe']];
     }
 
-    $stmt = $db->prepare("SELECT * FROM community_personen WHERE organisation_id IN ($in) ORDER BY name ASC");
+    $stmt = $db->prepare("SELECT * FROM community_personen WHERE organisation_id IN ($in) ORDER BY nachname ASC, vorname ASC");
     $stmt->execute($kontakt_ids);
     foreach ($stmt->fetchAll() as $p) {
         $personen_je_org[$p['organisation_id']][] = $p;
@@ -152,38 +152,48 @@ require __DIR__ . '/header.php';
 <?php else: ?>
 <div class="community-grid">
   <?php foreach ($kontakte as $k): ?>
-    <div class="community-card <?= $k['aktiv'] ? '' : 'inactive' ?>">
+    <div class="community-card <?= $k['aktiv'] ? '' : 'inactive' ?>" title="Klicken zum Bearbeiten">
       <div class="community-card-accent"></div>
       <div class="community-card-body">
         <div class="community-card-header">
-          <div>
-            <h3 class="community-card-title"><?= e($k['name']) ?></h3>
-            <?php
-              $anzeige_telefon = $k['telefon'];
-              if (!$anzeige_telefon && !empty($personen_je_org[$k['id']])) {
-                  $erste_person = $personen_je_org[$k['id']][0];
-                  $anzeige_telefon = $erste_person['telefon'] ?: $erste_person['handy'];
-              }
-            ?>
-            <div class="community-card-meta">
-              <?php if ($k['website']): ?><a href="<?= e($k['website']) ?>" target="_blank" style="color:inherit">Website</a><?php endif; ?>
-              <?php if ($k['website'] && $anzeige_telefon): ?> &bull; <?php endif; ?>
-              <?php if ($anzeige_telefon): ?><?= e($anzeige_telefon) ?><?php endif; ?>
-              <?php $plz_ort = trim(($k['plz'] ?? '') . ' ' . ($k['ort'] ?? '')); ?>
-              <?php if ($k['strasse'] || $plz_ort !== ''): ?>
-                <br>
-                <?php if ($k['strasse']): ?><?= e($k['strasse']) ?><?php endif; ?>
-                <?php if ($k['strasse'] && $plz_ort !== ''): ?> &middot; <?php endif; ?>
-                <?= e($plz_ort) ?>
-              <?php endif; ?>
-            </div>
-          </div>
+          <h3 class="community-card-title" style="flex: 1;">
+            <?= e($k['name']) ?>
+          </h3>
           <span class="badge <?= $k['vermittlung'] === 'direkt' ? 'badge-on' : 'badge-off' ?>" style="white-space:nowrap;"
                 title="<?= $k['vermittlung'] === 'direkt'
                     ? 'Diesen Kontakt dürfen wir Ratsuchenden direkt weitergeben.'
                     : 'Diesen Kontakt nicht direkt weitergeben – die Vermittlung läuft über uns.' ?>">
             <?= $k['vermittlung'] === 'direkt' ? 'Direkt weitergeben' : 'Nur über uns' ?>
           </span>
+        </div>
+
+        <?php
+          $anzeige_telefon = $k['telefon'];
+          if (!$anzeige_telefon && !empty($personen_je_org[$k['id']])) {
+              $erste_person = $personen_je_org[$k['id']][0];
+              $anzeige_telefon = $erste_person['telefon'] ?: $erste_person['handy'];
+          }
+        ?>
+        <div class="community-card-meta" style="margin-top: -0.4rem;">
+          <?php if ($k['website']): ?><a href="<?= e($k['website']) ?>" target="_blank" style="color:inherit">Website</a><?php endif; ?>
+          <?php if ($k['website'] && ($k['email'] || $anzeige_telefon)): ?> &bull; <?php endif; ?>
+          <?php if ($k['email']): ?><a href="mailto:<?= e($k['email']) ?>" style="color:inherit;text-decoration:underline;"><?= e($k['email']) ?></a><?php endif; ?>
+          <?php if ($k['email'] && $anzeige_telefon): ?> &bull; <?php endif; ?>
+          <?php if ($anzeige_telefon): ?><?= e($anzeige_telefon) ?><?php endif; ?>
+          <?php $plz_ort = trim(($k['plz'] ?? '') . ' ' . ($k['ort'] ?? '')); ?>
+          <?php if ($k['strasse'] || $plz_ort !== ''): ?>
+            <br>
+            <span style="display: inline-flex; align-items: center; gap: 0.25rem; vertical-align: middle;">
+              <?php if (!empty($k['ist_location'])): ?>
+                <svg class="location-pulse" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;" title="Physischer Standort"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <?php endif; ?>
+              <span>
+                <?php if ($k['strasse']): ?><?= e($k['strasse']) ?><?php endif; ?>
+                <?php if ($k['strasse'] && $plz_ort !== ''): ?> &middot; <?php endif; ?>
+                <?= e($plz_ort) ?>
+              </span>
+            </span>
+          <?php endif; ?>
         </div>
 
         <?php if (!empty($personen_je_org[$k['id']])): ?>
@@ -193,7 +203,7 @@ require __DIR__ . '/header.php';
             <?php foreach ($personen_je_org[$k['id']] as $idx => $p): ?>
               <?php if ($idx > 0) echo '<hr style="border:none;border-top:1px solid var(--border-light);margin:.5rem 0;">'; ?>
               <div style="display:flex;flex-direction:column;gap:.1rem;">
-                <strong style="font-size:.85rem;font-weight:600;"><?= e($p['name']) ?></strong>
+                <strong style="font-size:.85rem;font-weight:600;"><?= e(trim(($p['vorname'] ?? '') . ' ' . ($p['nachname'] ?? ''))) ?></strong>
                 <?php if ($p['email']): ?><a href="mailto:<?= e($p['email']) ?>" style="color:var(--text-muted);text-decoration:underline;font-size:.8rem;"><?= e($p['email']) ?></a><?php endif; ?>
               </div>
             <?php endforeach; ?>
@@ -233,7 +243,7 @@ require __DIR__ . '/header.php';
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             </span>
           <?php endif; ?>
-          <a href="community-bearbeiten.php?id=<?= (int)$k['id'] ?>" class="community-icon-btn" title="Bearbeiten" aria-label="<?= e($k['name']) ?> bearbeiten">
+          <a href="community-bearbeiten.php?id=<?= (int)$k['id'] ?>" class="community-icon-btn community-edit-btn" title="Bearbeiten" aria-label="<?= e($k['name']) ?> bearbeiten">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
           </a>
           <form method="post" action="community-loeschen.php" class="loeschen-form" style="margin:0;">
@@ -281,6 +291,19 @@ function modalSchliessen() {
 
 document.getElementById('loeschBestaetigen').addEventListener('click', function() {
   if (pendingForm) pendingForm.submit();
+});
+
+// Gesamte Karte anklickbar machen (unter Ausschluss von Footer/Links/Buttons)
+document.querySelectorAll('.community-card').forEach(function(card) {
+  card.addEventListener('click', function(e) {
+    if (e.target.closest('a, button, input, label, .community-card-footer')) {
+      return;
+    }
+    const editBtn = card.querySelector('.community-edit-btn');
+    if (editBtn) {
+      window.location.href = editBtn.href;
+    }
+  });
 });
 
 // Klick auf Hintergrund, Escape und Fokus-Handling: siehe modal.js

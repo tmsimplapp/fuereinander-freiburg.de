@@ -113,7 +113,7 @@ require __DIR__ . '/header.php';
     <div class="alert alert-err"><?= e($error) ?></div>
   <?php endif; ?>
 
-  <form method="post" autocomplete="off" novalidate>
+  <form method="post" novalidate>
     <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
 
     <label for="username">Benutzername</label>

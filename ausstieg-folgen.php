@@ -181,7 +181,7 @@ $active_page = 'ausstieg-folgen';
           <span class="sr-only">Selbsthilfegruppe Freiburg: </span>Ausstieg aus Hochkontroll&shy;gruppen
         </h1>
         <div class="w-12 h-0.5 bg-mint mx-auto"></div>
-        <p class="font-body text-xs mt-4 text-text-muted">Zuletzt aktualisiert: Juni 2026</p>
+        <p class="font-body text-xs mt-4 text-text-muted">Zuletzt aktualisiert: Juli 2026</p>
       </div>
 
       <!-- Einleitungstext -->

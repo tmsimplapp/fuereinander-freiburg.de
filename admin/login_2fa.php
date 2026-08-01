@@ -17,37 +17,38 @@ if (empty($_SESSION['totp_pending']) || empty($_SESSION['pre_2fa_id'])) {
 }
 
 $error = '';
+$db    = admin_db();
+
+$stmt = $db->prepare('SELECT username, totp_secret, totp_backup_codes, totp_last_used_slice FROM admins WHERE id = ? LIMIT 1');
+$stmt->execute([$_SESSION['pre_2fa_id']]);
+$admin = $stmt->fetch();
+$pre_username = $admin['username'] ?? '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!hash_equals($csrf, $_POST['csrf_token'] ?? '')) {
         $error = 'Ungültiges Sicherheits-Token. Bitte Seite neu laden.';
     } else {
         $code = trim($_POST['code'] ?? '');
-        $db   = admin_db();
 
         // Rate-Limit für 2FA (eigener Identifier)
         $ip_hash = hash('sha256', ($_SERVER['REMOTE_ADDR'] ?? '') . ':2fa');
-        $stmt = $db->prepare(
+        $stmt_rl = $db->prepare(
             'SELECT COUNT(*) FROM admin_rate_limit
              WHERE ip_hash = ? AND erstellt_am > DATE_SUB(NOW(), INTERVAL ' . BRUTE_WINDOW_SECONDS . ' SECOND)'
         );
-        $stmt->execute([$ip_hash]);
-        if ((int)$stmt->fetchColumn() >= BRUTE_MAX_ATTEMPTS) {
+        $stmt_rl->execute([$ip_hash]);
+        if ((int)$stmt_rl->fetchColumn() >= BRUTE_MAX_ATTEMPTS) {
             session_unset();
             session_destroy();
             header('Location: login.php?timeout=1');
             exit;
         }
 
-        $stmt = $db->prepare('SELECT totp_secret, totp_backup_codes, totp_last_used_slice FROM admins WHERE id = ? LIMIT 1');
-        $stmt->execute([$_SESSION['pre_2fa_id']]);
-        $admin = $stmt->fetch();
-
         $verified = false;
 
         if ($admin && strlen($code) === 6 && ctype_digit($code)) {
-            // TOTP prüfen
-            $slice = totp_verify($admin['totp_secret'], $code);
+            // TOTP prüfen (+/- 1 Period = 30s Toleranz für Server/Device Uhrzeitabweichung)
+            $slice = totp_verify($admin['totp_secret'], $code, 1);
             if ($slice !== false) {
                 // Replay-Schutz: atomares UPDATE verhindert Race Condition bei parallelen Requests
                 $stmt = $db->prepare(
@@ -121,8 +122,9 @@ require __DIR__ . '/header.php';
     <div class="alert alert-err"><?= e($error) ?></div>
   <?php endif; ?>
 
-  <form method="post" autocomplete="off" id="totp-form">
+  <form method="post" id="totp-form">
     <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
+    <input type="text" name="username" value="<?= e($pre_username) ?>" autocomplete="username" style="display:none" readonly aria-hidden="true" tabindex="-1">
     <label for="code">Code</label>
     <input type="text" id="code" name="code" data-mode="totp"
            inputmode="numeric" pattern="[0-9]{6}"

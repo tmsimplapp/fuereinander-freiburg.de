@@ -196,7 +196,7 @@ $active_page = 'angehoerige';
         <p class="font-body text-base md:text-lg leading-relaxed max-w-2xl mx-auto text-text-body">
           Viele, die hierher kommen, sind nicht selbst Mitglied. Sie haben jemanden, der es ist.
         </p>
-        <p class="font-body text-xs mt-4 text-text-muted">Zuletzt aktualisiert: Juni 2026</p>
+        <p class="font-body text-xs mt-4 text-text-muted">Zuletzt aktualisiert: Juli 2026</p>
       </div>
 
       <!-- Einführungsblock -->

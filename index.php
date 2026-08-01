@@ -689,13 +689,13 @@ $active_page = 'index';
               kontakt@fuereinander-freiburg.de
             </a>
 
-            <button onclick="navigator.clipboard.writeText('kontakt@fuereinander-freiburg.de')"
+            <button type="button" data-copy-value="kontakt@fuereinander-freiburg.de"
                     class="font-body text-xs px-4 py-2 rounded-full transition-all flex items-center gap-2 text-text-strong bg-warmyellow border border-tan" style="min-height:36px"
                     aria-label="E-Mail-Adresse kopieren">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
               </svg>
-              <span>Kopieren</span>
+              <span data-copy-label>Kopieren</span>
             </button>
           </div>
 
@@ -716,13 +716,13 @@ $active_page = 'index';
               01556 / 7465016
             </a>
 
-            <button onclick="navigator.clipboard.writeText('+4915567465016')"
+            <button type="button" data-copy-value="+4915567465016"
                     class="font-body text-xs px-4 py-2 rounded-full transition-all flex items-center gap-2 text-text-strong bg-warmyellow border border-tan" style="min-height:36px"
                     aria-label="Telefonnummer kopieren">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
               </svg>
-              <span>Kopieren</span>
+              <span data-copy-label>Kopieren</span>
             </button>
           </div>
 
@@ -818,7 +818,7 @@ $active_page = 'index';
           <div class="grid sm:grid-cols-2 gap-5">
             <div>
               <label for="name" class="block font-body text-sm font-semibold mb-2 text-text-strong">Name / Pseudonym <span style="color:#e05252;">*</span></label>
-              <input type="text" id="name" name="name" required autocomplete="name" placeholder="z. B. Maria oder einfach „Anonym"" class="w-full px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan">
+              <input type="text" id="name" name="name" required autocomplete="name" placeholder="z. B. Maria oder einfach „Anonym“" class="w-full px-4 py-3 rounded-xl font-body text-base text-text-strong bg-white border border-tan" spellcheck="false">
             </div>
 
             <div>
@@ -861,7 +861,7 @@ $active_page = 'index';
               Unverbindlich anfragen
             </button>
           </div>
-          <div id="form-feedback" class="hidden rounded-xl p-4 font-body text-sm" style="border: 1px solid;"></div>
+          <div id="form-feedback" class="hidden rounded-xl p-4 font-body text-sm" style="border: 1px solid;" aria-live="polite"></div>
         </form>
       </div>
 

@@ -135,11 +135,21 @@ $active_page = 'rechtliches';
           </p>
           <p class="font-body text-base leading-relaxed mb-4 text-text-body">
             <strong>Hinweis zur Weiterleitung an Telegram:</strong><br>
-            Bei Nutzung des Kontaktformulars werden deine eingegebenen Formulardaten (Name, Kontaktweg, Nachricht) zur schnellen Benachrichtigung der Gruppenleitung verschlüsselt an unseren internen Telegram-Benachrichtigungs-Bot weitergeleitet. Hierbei werden die Daten an die Server von Telegram (Telegram FZ-LLC, Dubai) übertragen.
+            Bei Nutzung des Kontaktformulars werden deine eingegebenen Formulardaten (Name, Kontaktweg, Nachricht) zur schnellen Benachrichtigung der Gruppenleitung verschlüsselt an unseren internen Telegram-Benachrichtigungs-Bot weitergeleitet. Auch eingehende E-Mails an unser Kontaktpostfach werden automatisiert erkannt und als Benachrichtigung an denselben Bot weitergeleitet. Hierbei werden die Daten an die Server von Telegram (Telegram FZ-LLC, Dubai) übertragen.
           </p>
           <p class="font-body text-base leading-relaxed text-text-body">
             <strong>Hinweis zur Nutzung von Messenger-Diensten:</strong><br>
             Wir bieten die Kontaktaufnahme über WhatsApp, Telegram und Signal an. Bitte beachte, dass bei der Nutzung dieser externen Dienste Metadaten (z. B. Wer hat wann mit wem kommuniziert?) an die jeweiligen Anbieter (teilweise in Drittländer wie die USA) übertragen und dort verarbeitet werden, worauf wir keinen Einfluss haben. Für höchste Vertraulichkeit empfehlen wir die Kontaktaufnahme per E-Mail, SMS, Signal oder den klassischen Telefonanruf.
+          </p>
+        </div>
+      </section>
+
+      <!-- Google Fonts -->
+      <section class="mb-8" aria-labelledby="fonts-heading">
+        <h2 id="fonts-heading" class="font-display text-3xl md:text-4xl font-semibold mb-6 text-text-strong">Google Fonts</h2>
+        <div class="rounded-2xl p-6 sm:p-8 card-hover bg-mint-soft border border-mint">
+          <p class="font-body text-base leading-relaxed text-text-body">
+            Diese Website bindet die Schriftarten „Lato" und „Caveat Brush" von Google Fonts extern über die Server von Google ein. Beim Aufruf einer Seite wird dazu eine Verbindung zu Servern von Google LLC (USA) hergestellt, wobei deine IP-Adresse an Google übertragen wird. Diese Verarbeitung erfolgt auf Grundlage unseres berechtigten Interesses an einer technisch stabilen und konsistenten Darstellung der Website (Art. 6 Abs. 1 lit. f DSGVO). Weitere Informationen findest du in der <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="underline text-accent">Datenschutzerklärung von Google</a>.
           </p>
         </div>
       </section>
@@ -149,7 +159,7 @@ $active_page = 'rechtliches';
         <h2 id="cookies-heading" class="font-display text-3xl md:text-4xl font-semibold mb-6 text-text-strong">Cookies</h2>
         <div class="rounded-2xl p-6 sm:p-8 card-hover bg-warmyellow border border-tan">
           <p class="font-body text-base leading-relaxed text-text-body">
-            Diese Website ist vollständig statisch und verwendet <strong>keine Cookies</strong>. Es werden keine Tracking-Dienste, Analyse-Tools oder Werbe-Tracker eingesetzt. Ein Cookie-Banner ist daher nicht erforderlich.
+            Diese Website verwendet <strong>keine Cookies</strong>. Es werden keine Tracking-Dienste, Analyse-Tools oder Werbe-Tracker eingesetzt. Ein Cookie-Banner ist daher nicht erforderlich. Hinweise zur Einbindung von Google Fonts findest du im Abschnitt oben.
           </p>
         </div>
       </section>
@@ -158,8 +168,11 @@ $active_page = 'rechtliches';
       <section class="mb-8" aria-labelledby="counter-heading">
         <h2 id="counter-heading" class="font-display text-3xl md:text-4xl font-semibold mb-6 text-text-strong">Besucherzähler</h2>
         <div class="rounded-2xl p-6 sm:p-8 card-hover bg-mint-soft border border-mint">
-          <p class="font-body text-base leading-relaxed text-text-body">
+          <p class="font-body text-base leading-relaxed mb-4 text-text-body">
             Diese Website verwendet einen selbst betriebenen Besucherzähler. Es werden keine personenbezogenen Daten verarbeitet – weder IP-Adressen noch Cookies. Die Sitzungserkennung erfolgt ausschließlich über den flüchtigen <code class="font-body text-sm px-1.5 py-0.5 rounded text-text-strong bg-warmyellow">sessionStorage</code> des Browsers, der beim Schließen des Tabs automatisch gelöscht wird. Eine Einwilligung nach Art. 6 DSGVO ist nicht erforderlich, da kein Personenbezug entsteht.
+          </p>
+          <p class="font-body text-base leading-relaxed text-text-body">
+            Die tagesaktuelle Gesamtzahl der Seitenaufrufe wird zusätzlich anonym und ohne Personenbezug in unserer Datenbank gespeichert, um die Nutzung der Website statistisch nachvollziehen zu können. Diese Einträge werden automatisiert nach 365 Tagen gelöscht.
           </p>
         </div>
       </section>
