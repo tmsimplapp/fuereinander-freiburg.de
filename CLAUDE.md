@@ -163,6 +163,13 @@ Die Gruppe hat folgende Regeln, die auf der Website widergespiegelt werden:
 - Neutraler, persönlicher Austausch
 - Die Gruppe ist kein Ersatz für psychologische Therapie
 
+## Design-Prozess
+
+- Bei Design-Entscheidungen: AskUserQuestion nutzen, um Vorstellungen des Nutzers gezielt abzufragen
+- Keine generischen AI-Aesthetics – bold, distinctive Design-Entscheidungen
+- Performance-optimiert (Core Web Vitals) bei jeder UI-Änderung mitdenken
+- 21st.dev nur als Component-Inspiration, falls vom Nutzer vorgegeben
+
 ## Bevorzugte Skills
 
 Die folgenden Skills sind bevorzugt zu verwenden, sofern sie für die angeforderte Aufgabe nötig sind. Hole vor der Skillnutzung die Freigabe dafür bei mir ein:
