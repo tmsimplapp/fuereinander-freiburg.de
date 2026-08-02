@@ -41,7 +41,7 @@ function footer_link_classes(string $page, string $active): string {
       &copy; <span id="year"></span> Füreinander Freiburg · Selbsthilfegruppe für zweifelnde und ausgestiegene Zeugen Jehovas
     </p>
     <p class="font-body text-xs mt-1" style="color:#7a6550;">
-      <time datetime="2026-07-27">Zuletzt aktualisiert: Juli 2026</time>
+      <time datetime="2026-08-02">Zuletzt aktualisiert: August 2026</time>
     </p>
   </div>
 </footer>

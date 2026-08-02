@@ -15,7 +15,7 @@ Füreinander Freiburg ist eine Selbsthilfegruppe für Menschen, die an der Gemei
 
 Die Gruppe ist ein Ort für Austausch und Unterstützung, ohne Verurteilung, ohne Druck, ohne theologische Diskussionen. Die Gruppe ist im Verzeichnis der [Selbsthilfekontaktstelle Freiburg](https://www.selbsthilfegruppen-freiburg.de/aktuelles/selbsthilfegruppe-fuer-zweifelnde-und-ausgestiegene-zeugen-jehovas) gelistet.
 
-Zuletzt aktualisiert: Juli 2026
+Zuletzt aktualisiert: August 2026
 
 Über uns
 

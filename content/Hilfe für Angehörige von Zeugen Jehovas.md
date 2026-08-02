@@ -12,7 +12,7 @@ tags:
 
 Viele, die hierher kommen, sind nicht selbst Mitglied. Sie haben jemanden, der es ist.
 
-Zuletzt aktualisiert: Juli 2026
+Zuletzt aktualisiert: August 2026
 
 ## Auch du bist betroffen
 

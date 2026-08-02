@@ -145,7 +145,7 @@ function format_zeitraum(string $uhrzeiten_json, int $dauer_min): string {
           <span class="sr-only">Termine der Selbsthilfegruppe Freiburg: </span>Termine
         </h1>
         <div class="w-12 h-0.5 bg-mint mx-auto"></div>
-        <p class="font-body text-xs mt-4 text-text-muted">Zuletzt aktualisiert: Juli 2026</p>
+        <p class="font-body text-xs mt-4 text-text-muted">Zuletzt aktualisiert: August 2026</p>
       </div>
 
       <section class="mb-8" aria-labelledby="termine-heading">
