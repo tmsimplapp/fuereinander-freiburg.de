@@ -124,7 +124,7 @@ require __DIR__ . '/header.php';
 
   <form method="post" action="login_2fa.php" id="totp-form" name="login_2fa">
     <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
-    <input type="text" name="username" value="<?= e($pre_username) ?>" autocomplete="username" style="display:none" readonly aria-hidden="true" tabindex="-1">
+    <input type="text" name="totp_username" value="<?= e($pre_username) ?>" autocomplete="off" style="display:none" readonly aria-hidden="true" tabindex="-1">
     <label for="code">Code</label>
     <input type="text" id="code" name="code" data-mode="totp"
            inputmode="numeric" pattern="[0-9]{6}"
