@@ -80,6 +80,13 @@ Telefon/WhatsApp/Telegram `+49 155 67465016`, E-Mail `kontakt@fuereinander-freib
 - **Warm**: `warmyellow` `#ffda69`, `lightyellow` `#fff4d6`, `cream` `#FEFAE0`, `tan` `#E2C2A2`, `tan-dark` `#d4b391`, `tan-pale` `#fffaf0`
 - **Dunkel**: `dark` `#1a2820`
 
+## Design-Prozess
+
+- Bei Design-Entscheidungen: Nutzer gezielt zu seinen Vorstellungen befragen
+- Keine generischen AI-Aesthetics – bold, distinctive Design-Entscheidungen
+- Performance-optimiert (Core Web Vitals) bei jeder UI-Änderung mitdenken
+- 21st.dev nur als Component-Inspiration, falls vom Nutzer vorgegeben
+
 ## Projektregeln
 
 - **SEO**: Meta-Tags, Schema.org (`SupportGroup`), semantisches HTML, Core Web Vitals optimieren
