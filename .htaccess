@@ -70,3 +70,13 @@ Deny from all
   ExpiresByType application/javascript "access plus 1 month"
   ExpiresByType text/javascript "access plus 1 month"
 </IfModule>
+
+# 7. Cache-Control auf Login-Seiten ohne "no-store" setzen
+# (Android Autofill/Passwortmanager erkennen Login-Felder bei "no-store" oft nicht;
+# "no-cache, must-revalidate" verhindert weiterhin jegliches Caching)
+<IfModule mod_headers.c>
+  <FilesMatch "^(login|login_2fa)\.php$">
+    Header set Cache-Control "no-cache, must-revalidate"
+    Header unset Pragma
+  </FilesMatch>
+</IfModule>
