@@ -118,14 +118,14 @@ require __DIR__ . '/header.php';
 
     <label for="username">Benutzername</label>
     <input type="text" id="username" name="username" required
-           autocomplete="username" maxlength="64"
+           autocomplete="username" inputmode="text" maxlength="64"
            autocorrect="off" autocapitalize="none" spellcheck="false"
            aria-label="Benutzername"
            value="<?= isset($_POST['username']) ? e($_POST['username']) : '' ?>">
 
     <label for="password">Passwort</label>
     <input type="password" id="password" name="password" required
-           autocomplete="current-password" maxlength="1024"
+           autocomplete="current-password" inputmode="text" maxlength="1024"
            autocorrect="off" autocapitalize="none" spellcheck="false"
            aria-label="Passwort">
 
